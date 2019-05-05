@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+pandas = "*"
+beautifulsoup4 = "*"
+lxml = "*"
+numpy = "*"
+deepmatcher = {git = "https://github.com/belerico/deepmatcher.git"}
+
+[requires]
+python_version = "3.7"
