@@ -1,9 +1,11 @@
 import html
 import numpy
 import re
+import time
 from pandas import pandas
 from bs4 import BeautifulSoup
-import time
+from itertools import combinations, chain
+
 
 def strip(df: pandas.DataFrame, fillna=True, fillna_value=''):
 	""" 
@@ -187,6 +189,7 @@ if __name__ == '__main__':
 		lambda row: fillCols(row, 'brand', 'brandSeller'),
 		axis=1
 	)
+	# Integration with ceneje attributes data
 	integrated_attr = pandas.merge(
 		left=integrated,
 		right=cenejeAttributes.drop_duplicates(['idProduct', 'idAtt'], keep='first')[['idProduct', 'nameAtt', 'attValue']],
@@ -198,13 +201,56 @@ if __name__ == '__main__':
 	# ofamostrano = pandas.concat([pd_spm_spd_attr, pandas.get_dummies(pd_spm_spd_attr[['nameAtt']])], 1).groupby(['idProduct', 'nameProduct', 'brand', 'idSellerProduct', 'brandSeller', 'descriptionSeller', 'attValue']).sum().reset_index()
 	# print(len(integrated), len(integrated_attr))
 	matching = integrated[integrated.duplicated(subset='idProduct', keep=False)]
-	matching.to_csv('ceneje_data/matching.csv', sep='\t')
+	# matching.to_csv('ceneje_data/matching.csv', sep='\t')
+	# idProductGrouped = matching.groupby(['idProduct'])
+	# idProductGroupedSizes = idProductGrouped.size()
 	# Get the exact same products 
 	# I think that if there are some, maybe there could be an error in the mapping dataset
-	sameSeller = matching.groupby(['idProduct']).filter(lambda group: (group.idSeller.nunique() == 1 & group.idSellerProduct.nunique() == 1))
-	print(sameSeller)
-	matching = matching.drop(sameSeller.idProduct.index.tolist(), axis=0)
+	# sameSeller = idProductGrouped.filter(lambda group: (group.idSeller.nunique() == 1 & group.idSellerProduct.nunique() == 1))
+	# print(sameSeller)
+	# matching = matching.drop(sameSeller.idProduct.index.tolist(), axis=0)
+	matching = cleanHtml(matching, fillna_value='not available')
 	# integrated.to_csv('ceneje_data/IntegratedProducts.csv', sep='\t')
+	# matching.to_csv('ceneje_data/Matching.csv', sep='\t')
+	keys = ['brandSeller', 'nameSeller', 'descriptionSeller', 'nameProduct', 'brand']
+	left = ['left_' + key for key in keys]
+	right = ['right_' + key for key in keys]
+	# data = pandas.DataFrame(columns=['label'] + left + right)
+	# matching = matching.sort_values(by='idProduct').reset_index()
+	# matching.index = numpy.arange(0, len(matching))
+	# print(matching[38:43])
+	# last_row = -1
+	# index_in_group = 0
+	# init = time.time()
+	# for i_row, _ in matching.iterrows():
+	# 	if i_row == len(matching) - 1:
+	# 		pass
+	# 	else:
+	# 		how_many_in_group = idProductGroupedSizes[matching.loc[i_row, 'idProduct']] - index_in_group
+	# 		for j in range(1, how_many_in_group):
+	# 			# data.loc[last_row + j, 'label'] = 'match'
+	# 			data.loc[last_row + j, left] = matching.loc[i_row, keys].values
+	# 			data.loc[last_row + j, right] = matching.loc[i_row + j, keys].values
+	# 		last_row = last_row + how_many_in_group - 1
+	# 		# print(data)
+	# 		if matching.loc[i_row, 'idProduct'] == matching.loc[i_row + 1, 'idProduct']:
+	# 			index_in_group += 1
+	# 		else:
+	# 			index_in_group = 0
+	# print(time.time() - init)
+	init = time.time()
+	data = matching.groupby('idProduct')[keys]\
+			.apply(lambda x : combinations(x.values, 2))\
+			.apply(pandas.Series)\
+			.stack()\
+			.apply(lambda x: list(chain.from_iterable(x)))\
+			.apply(pandas.Series)\
+			.set_axis(labels=left + right, axis=1, inplace=False)\
+			.reset_index(level=0, drop=True)
+	print(time.time() - init)
+	print(data.head(50))
+	# data[['label']] = 'match'
+	# print(data.head(40))
 	# integrated_attr.to_csv('ceneje_data/AttributesIntegratedProducts.csv', sep='\t')
 	# ofamostrano.to_csv('ceneje_data/AttributesAsColsIntegratedProducts.csv', sep='\t')
 	# sellerProdData.get
