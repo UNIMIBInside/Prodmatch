@@ -4,7 +4,7 @@ import re
 import time
 from pandas import pandas
 from bs4 import BeautifulSoup
-from itertools import combinations, chain
+from itertools import combinations, chain, product
 
 
 def strip(df: pandas.DataFrame, fillna=True, fillna_value=''):
@@ -141,78 +141,35 @@ def fillCols(row, col1, col2):
 		row[col2] = row[col1]
 	return row
 
-# def mapping(sellerProdMapping: pandas.DataFrame):
-# 	prodDict = {}
-# 	uniqProd = {}
-# 	for i, row in sellerProdMapping.iterrows():
-# 		prodDict[str(row['idSellerProduct'])+":"+str(row['idSeller'])] = row['idProduct']
-# 		if (row['idProduct'] in uniqProd):
-# 			uniqProd[row['idProduct']].append(str(row['idSellerProduct'])+":"+str(row['idSeller']))
-# 		else:
-# 			uniqProd[row['idProduct']] = []
-# 			uniqProd[row['idProduct']].append(str(row['idSellerProduct'])+":"+str(row['idSeller']))
-# 	print(uniqProd)
+def pairUp(row, df, keys, perc):
+	x = []
+	x.append(row[keys].values)
+	non_match = df.loc[ df.idProduct != row['idProduct']]
+	how_many = int(len(non_match) * perc)
+	if how_many == 0 or how_many > len(non_match):
+		raise Exception('Can\'t sample items. Requested ' + str(how_many) + ', sampleable: ' + str(len(non_match)))
+	# print(len(non_match), how_many)
+	return product(x, non_match.sample(how_many)[keys].values)
 
-if __name__ == '__main__':
-	sellerProdData = pandas.read_csv('ceneje_data/SellerProductsData_LedTv_20190426.csv', 
-					sep='\t',
-					encoding='utf-8')
-	sellerProdMapping = pandas.read_csv('ceneje_data/SellerProductsMapping_LedTv_20190426.csv', 
-					sep='\t',
-					encoding='utf-8')
-	prodData = pandas.read_csv('ceneje_data/Products_LedTv_20190426.csv', 
-					sep='\t',
-					encoding='utf-8')
-	cenejeAttributes = pandas.read_csv('ceneje_data/CenejeAttributes_LedTv_20190426.csv', 
-					sep='\t',
-					encoding='utf-8')
-	# mapping(sellerProdMapping)
-	# cenejeProdData = cleanHtml(cenejeProdData)
-	# Join prodData and sellerProdMapping
-	integrated = pandas.merge(
-		left=sellerProdData[['idSellerProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']],
-		right=sellerProdMapping,
-		how='inner', 
-		on='idSellerProduct'
-	)
-	# print(integrated)
-	# Join pd_spm and sellerProdData
-	integrated = pandas.merge(
-		left=integrated,
-		right=prodData[['idProduct', 'nameProduct', 'brand']], 
-		how='inner',
-		on='idProduct'
-	)
-	# Fill empty brand and brandSeller from one another
-	# since there're mapping
-	integrated[['brand', 'brandSeller']] = integrated[['brand', 'brandSeller']].apply(
-		lambda row: fillCols(row, 'brand', 'brandSeller'),
-		axis=1
-	)
-	# Integration with ceneje attributes data
-	integrated_attr = pandas.merge(
-		left=integrated,
-		right=cenejeAttributes.drop_duplicates(['idProduct', 'idAtt'], keep='first')[['idProduct', 'nameAtt', 'attValue']],
-		how='left',
-		on='idProduct'
-	)
-	# integrated = cleanHtml(integrated)
-	# print(sellerProdData.descriptionSeller)
-	# ofamostrano = pandas.concat([pd_spm_spd_attr, pandas.get_dummies(pd_spm_spd_attr[['nameAtt']])], 1).groupby(['idProduct', 'nameProduct', 'brand', 'idSellerProduct', 'brandSeller', 'descriptionSeller', 'attValue']).sum().reset_index()
-	# print(len(integrated), len(integrated_attr))
-	matching = integrated[integrated.duplicated(subset='idProduct', keep=False)]
-	# matching.to_csv('ceneje_data/matching.csv', sep='\t')
-	# idProductGrouped = matching.groupby(['idProduct'])
-	# idProductGroupedSizes = idProductGrouped.size()
-	# Get the exact same products 
-	# I think that if there are some, maybe there could be an error in the mapping dataset
-	# sameSeller = idProductGrouped.filter(lambda group: (group.idSeller.nunique() == 1 & group.idSellerProduct.nunique() == 1))
-	# print(sameSeller)
-	# matching = matching.drop(sameSeller.idProduct.index.tolist(), axis=0)
-	matching = cleanHtml(matching, fillna_value='not available')
-	# integrated.to_csv('ceneje_data/IntegratedProducts.csv', sep='\t')
-	# matching.to_csv('ceneje_data/Matching.csv', sep='\t')
-	keys = ['brandSeller', 'nameSeller', 'descriptionSeller', 'nameProduct', 'brand']
+def prepareDeepmatcherData(df: pandas.DataFrame, group_cols, keys: list, perc=.75): 
+	"""
+	Deepmatcher needs data in a particular way, such as:
+	|Label|Left product attributes|Right product attributes|
+	where Label is 'Match' or 'Not match' and the same attributes for both products
+
+	Parameters
+	----------
+	df: dataset from which data will be create\n
+	group_cols: column(s) to group by on
+	keys: list with attributes name
+	perc: how many non-matching tuples will be created for each product in percentage (0;1)
+
+	Returns
+	-------
+	DataFrame in the form accepted by Deepmatcher
+	"""
+	if perc <= 0 or perc >= 1:
+		raise Exception('Percentage must be between 1 and 99')
 	left = ['left_' + key for key in keys]
 	right = ['right_' + key for key in keys]
 	# data = pandas.DataFrame(columns=['label'] + left + right)
@@ -237,18 +194,83 @@ if __name__ == '__main__':
 	# 			index_in_group += 1
 	# 		else:
 	# 			index_in_group = 0
-	# print(time.time() - init)
-	init = time.time()
-	data = matching.groupby('idProduct')[keys]\
-			.apply(lambda x : combinations(x.values, 2))\
+	non_match = df[[group_cols] + keys]\
+		.apply(lambda row: pandas.Series(pairUp(row, df, keys, perc)), axis=1)\
+		.stack()\
+		.apply(lambda x: list(chain.from_iterable(x)))\
+		.apply(pandas.Series)\
+		.set_axis(labels=left + right, axis=1, inplace=False)\
+		.reset_index(level=0, drop=True)
+	non_match['label'] = 'non_match'
+	grouped = df.groupby(group_cols)[keys]
+	match = grouped.apply(lambda x : combinations(x.values, 2))\
 			.apply(pandas.Series)\
 			.stack()\
 			.apply(lambda x: list(chain.from_iterable(x)))\
 			.apply(pandas.Series)\
 			.set_axis(labels=left + right, axis=1, inplace=False)\
 			.reset_index(level=0, drop=True)
+	match['label'] = 'match'
+	return pandas.concat([match, non_match])
+
+
+if __name__ == '__main__':
+	# Set seed for reproducible results
+	numpy.random.seed(42)
+	sellerProdData = pandas.read_csv('ceneje_data/SellerProductsData_LedTv_20190426.csv', 
+					sep='\t',
+					encoding='utf-8')
+	sellerProdMapping = pandas.read_csv('ceneje_data/SellerProductsMapping_LedTv_20190426.csv', 
+					sep='\t',
+					encoding='utf-8')
+	prodData = pandas.read_csv('ceneje_data/Products_LedTv_20190426.csv', 
+					sep='\t',
+					encoding='utf-8')
+	cenejeAttributes = pandas.read_csv('ceneje_data/CenejeAttributes_LedTv_20190426.csv', 
+					sep='\t',
+					encoding='utf-8')
+	# cenejeProdData = cleanHtml(cenejeProdData)
+	# Join sellerProdData and sellerProdMapping
+	integrated = pandas.merge(
+		left=sellerProdData[['idSeller', 'idSellerProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']],
+		right=sellerProdMapping,
+		how='inner', 
+		on=['idSellerProduct', 'idSeller']
+	)
+	# print(integrated)
+	# Join pd_spm and sellerProdData
+	integrated = pandas.merge(
+		left=integrated,
+		right=prodData[['idProduct', 'nameProduct', 'brand']], 
+		how='inner',
+		on='idProduct'
+	)
+	# Fill empty brand and brandSeller from one another
+	# since there're mapping
+	integrated[['brand', 'brandSeller']] = integrated[['brand', 'brandSeller']].apply(
+		lambda row: fillCols(row, 'brand', 'brandSeller'),
+		axis=1
+	)
+	# Integration with ceneje attributes data
+	integrated_attr = pandas.merge(
+		left=integrated,
+		right=cenejeAttributes.drop_duplicates(['idProduct', 'idAtt'], keep='first')[['idProduct', 'nameAtt', 'attValue']],
+		how='left',
+		on='idProduct'
+	)
+	# Take only those records that have idProduct duplicated (as they match)
+	matching = integrated[integrated.duplicated(subset='idProduct', keep=False)]
+	matching = cleanHtml(matching, fillna_value='not available')
+	# print(matching.loc[matching.idProduct.isin(['9631030'])])
+	# integrated.to_csv('ceneje_data/IntegratedProducts.csv', sep='\t')
+	# matching.to_csv('ceneje_data/Matching.csv', sep='\t')
+	keys = ['brandSeller', 'nameSeller', 'descriptionSeller', 'nameProduct', 'brand']	
+	init = time.time()
+	data = prepareDeepmatcherData(matching, 'idProduct', keys, .002)
 	print(time.time() - init)
-	print(data.head(50))
+	data.to_csv('ceneje_data/deepmatcher.csv', sep='\t')
+	# data.to_csv('ceneje_data/deppmatcher_data.csv', sep='\t')
+	print(len(data))
 	# data[['label']] = 'match'
 	# print(data.head(40))
 	# integrated_attr.to_csv('ceneje_data/AttributesIntegratedProducts.csv', sep='\t')
