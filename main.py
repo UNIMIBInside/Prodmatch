@@ -69,6 +69,7 @@ def strCleanHtml(s: str, strip: bool):
 	cleaned string
 	"""
 	s = re.sub(r'(&)(\d+)', r'\1#\2', s)
+	# I don't know why it has to be called two times
 	s = html.unescape(html.unescape(s))
 	if strip:
 		s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
@@ -144,11 +145,13 @@ def fillCols(row, col1, col2):
 def pairUp(row, df, keys, perc):
 	x = []
 	x.append(row[keys].values)
+	# Retrieve all products not matching with the one in row['idProduct']
 	non_match = df.loc[ df.idProduct != row['idProduct']]
 	how_many = int(len(non_match) * perc)
 	if how_many == 0 or how_many > len(non_match):
 		raise Exception('Can\'t sample items. Requested ' + str(how_many) + ', sampleable: ' + str(len(non_match)))
 	# print(len(non_match), how_many)
+	# Create pair (prod, prod non matching) for every product sampled from non_match DataFrame
 	return product(x, non_match.sample(how_many)[keys].values)
 
 def prepareDeepmatcherData(df: pandas.DataFrame, group_cols, keys: list, perc=.75): 
@@ -194,6 +197,10 @@ def prepareDeepmatcherData(df: pandas.DataFrame, group_cols, keys: list, perc=.7
 	# 			index_in_group += 1
 	# 		else:
 	# 			index_in_group = 0
+	"""
+	To create non-matching tuples, every product p will be paired up with a subset 
+	sample at random from products different from p. That's essentially what pairUp method do
+	"""
 	non_match = df[[group_cols] + keys]\
 		.apply(lambda row: pandas.Series(pairUp(row, df, keys, perc)), axis=1)\
 		.stack()\
@@ -202,8 +209,11 @@ def prepareDeepmatcherData(df: pandas.DataFrame, group_cols, keys: list, perc=.7
 		.set_axis(labels=left + right, axis=1, inplace=False)\
 		.reset_index(level=0, drop=True)
 	non_match['label'] = 'non_match'
-	grouped = df.groupby(group_cols)[keys]
-	match = grouped.apply(lambda x : combinations(x.values, 2))\
+	"""
+	To create matching tuples i group the dataframe by idProduct, and for every group
+	i pair up products two by two (combinations)
+	"""
+	match = df.groupby(group_cols)[keys].apply(lambda x : combinations(x.values, 2))\
 			.apply(pandas.Series)\
 			.stack()\
 			.apply(lambda x: list(chain.from_iterable(x)))\
