@@ -248,7 +248,7 @@ if __name__ == '__main__':
 		on=['idSellerProduct', 'idSeller']
 	)
 	# print(integrated)
-	# Join pd_spm and sellerProdData
+	# Join result of previous join with prodData
 	integrated = pandas.merge(
 		left=integrated,
 		right=prodData[['idProduct', 'nameProduct', 'brand']], 
@@ -261,15 +261,18 @@ if __name__ == '__main__':
 		lambda row: fillCols(row, 'brand', 'brandSeller'),
 		axis=1
 	)
+	
 	# Integration with ceneje attributes data
-	integrated_attr = pandas.merge(
-		left=integrated,
-		right=cenejeAttributes.drop_duplicates(['idProduct', 'idAtt'], keep='first')[['idProduct', 'nameAtt', 'attValue']],
-		how='left',
-		on='idProduct'
-	)
+	# integrated_attr = pandas.merge(
+	# 	left=integrated,
+	# 	right=cenejeAttributes.drop_duplicates(['idProduct', 'idAtt'], keep='first')[['idProduct', 'nameAtt', 'attValue']],
+	# 	how='left',
+	# 	on='idProduct'
+	# )
+
 	# Take only those records that have idProduct duplicated (as they match)
 	matching = integrated[integrated.duplicated(subset='idProduct', keep=False)]
+	# Clean rubbish HTML from text
 	matching = cleanHtml(matching, fillna_value='not available')
 	# print(matching.loc[matching.idProduct.isin(['9631030'])])
 	# integrated.to_csv('ceneje_data/IntegratedProducts.csv', sep='\t')
