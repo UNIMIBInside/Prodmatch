@@ -11,6 +11,7 @@ beautifulsoup4 = "*"
 lxml = "*"
 numpy = "*"
 deepmatcher = {git = "https://github.com/belerico/deepmatcher.git"}
+spacy = "*"
 
 [requires]
 python_version = "3.7"
