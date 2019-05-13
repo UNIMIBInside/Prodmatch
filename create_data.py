@@ -57,15 +57,32 @@ if __name__ == '__main__':
 	# 	how='left',
 	# 	on='idProduct'
 	# )
-	# integrated_attr.to_csv(path.join(DATA_DIR, 'AttributesIntegratedProducts.csv'), sep='\t')
+	# integrated_attr.to_csv(path.join(DATA_DIR, 'AttributesIntegratedProducts.tsv'), sep='\t')
 
 	# Take only those records that have idProduct duplicated (as they match)
 	matching = integrated[integrated.duplicated(subset='idProduct', keep=False)]
 	# Clean rubbish HTML from text
-	matching = preprocess.cleanHtml(matching, na_value='')
+	matching = preprocess.cleanHtml(matching, na_value='not_available')
 	integrated.to_csv(path.join(DATA_DIR, 'IntegratedProducts.csv'), sep='\t')
 	matching.to_csv(path.join(DATA_DIR, 'Matching.csv'), sep='\t')
+	keys = ['idProduct', 'brandSeller', 'nameSeller', 'descriptionSeller', 'nameProduct', 'brand']
 	init = time.time()
-	data = deepmatcherdata(matching, group_cols=['idProduct'], keys=matching.keys().values, clean_html=False, perc=.002).getData()
+	deepdata = deepmatcherdata(
+		matching, 
+		group_cols=['idProduct'], 
+		keys=keys,
+		id_attr='id',
+		left_attr='ltable',
+		right_attr='rtable',
+		label_attr='label',
+		# keys=matching.keys().values, 
+		clean_html=False, 
+		perc=.002
+	)
+	data = deepdata.deepdata
 	print(time.time() - init)
-	data.to_csv(path.join(DATA_DIR, 'Deepmatcher.csv'), sep='\t')
+	data.to_csv(path.join(DATA_DIR, 'deepmatcher.csv'))
+	train, val, test = deepdata.train_val_test_split([0.6, 0.2, 0.2])
+	train.to_csv(path.join(DATA_DIR, 'train.csv'))
+	val.to_csv(path.join(DATA_DIR, 'validation.csv'))
+	test.to_csv(path.join(DATA_DIR, 'test.csv'))

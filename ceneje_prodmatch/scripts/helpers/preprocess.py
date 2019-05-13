@@ -2,6 +2,7 @@ import html
 import numpy
 import re
 import time
+import string
 from os import path
 from pandas import pandas
 from bs4 import BeautifulSoup
@@ -14,7 +15,7 @@ with methods to preprocess whatever dtypes
 
 def strip(df: pandas.DataFrame, fillna=True, na_value=''):
     """ 
-    Apply colStrip function to all object columns in DataFrame, i.e. all columns containg string values
+    Apply strip function to all object columns in DataFrame, i.e. all columns containg string values
     
     Parameters
     ----------
@@ -35,7 +36,7 @@ def strip(df: pandas.DataFrame, fillna=True, na_value=''):
     # Apply to all object columns col_strip_clean function
     # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colStrip(col, not(fillna), na_value), axis=1)
     # This version speed up performance using numpy.vectorize
-    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda x: ' '.join(x.strip())))
+    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda x: ' '.join(x.split())))
     return df
 
 
@@ -78,11 +79,12 @@ def __strCleanHtml(s: str, strip: bool):
     # I don't know why it has to be called two times
     s = html.unescape(html.unescape(s))
     if strip:
-        s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
+        rules = str.maketrans('', '', string.punctuation)
+        # s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
+        s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').translate(rules).split())
     else:
         s = BeautifulSoup(s, 'lxml').get_text(separator=u' ')
     return s
-
 
 def cleanHtml(col: pandas.Series, strip=True, fillna=True, na_value=''):
     """
@@ -110,7 +112,11 @@ def cleanHtml(col: pandas.Series, strip=True, fillna=True, na_value=''):
     # Remove exceeding whitespaces, since:
     # split() splits string by whitespaces, tabs, ... and ' '.join() concatenates them
     if strip:
-        col = col.apply(lambda row: ' '.join(BeautifulSoup(row, 'lxml').get_text(separator=u' ').split()))
+        rules = str.maketrans('', '', string.punctuation)
+        # col = col.apply(lambda row: ' '.join(BeautifulSoup(row, 'lxml').get_text(separator=u' ')
+        #                                 .split()))
+        col = col.apply(lambda row: ' '.join(BeautifulSoup(row, 'lxml').get_text(separator=u' ')
+                                        .translate(rules).split()))
     else:
         col = col.apply(lambda row: BeautifulSoup(row, 'lxml').get_text(separator=u' '))
     # col = col.apply(numpy.vectorize(lambda x: strCleanHtml(x, strip)))

@@ -10,8 +10,9 @@ pandas = "*"
 beautifulsoup4 = "*"
 lxml = "*"
 numpy = "*"
-deepmatcher = {git = "https://github.com/belerico/deepmatcher.git"}
-spacy = "*"
+sklearn = "*"
+deepmatcher = {editable = true,git = "https://github.com/belerico/deepmatcher.git",ref = "master"}
+requests = "*"
 
 [requires]
 python_version = "3.7"
