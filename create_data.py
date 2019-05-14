@@ -76,14 +76,14 @@ if __name__ == '__main__':
 		right_attr='rtable_',
 		label_attr='label',
 		normalize=False, 
-		perc=.002
+		perc=.001
 	)
 	data = deepdata.deepdata
 	print(time.time() - init)
 	data.to_csv(path.join(DATA_DIR, 'deepmatcher.csv'))
 	train, val, test = deepdata.train_val_test_split([0.6, 0.2, 0.2])
-	unlabeled_data = train.iloc[len(train) * 0.2:]
-	train = train.iloc[len(train) * 0.2:]
+	unlabeled_data = train[:int(len(train) * 0.2)]
+	train = train[int(len(train) * 0.2):]
 	train.to_csv(path.join(DATA_DIR, 'train.csv'))
 	val.to_csv(path.join(DATA_DIR, 'validation.csv'))
 	test.to_csv(path.join(DATA_DIR, 'test.csv'))

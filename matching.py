@@ -6,7 +6,12 @@ from ceneje_prodmatch import DATA_DIR, RESULTS_DIR, CACHE_DIR
 from ceneje_prodmatch.scripts.helpers import preprocess
 from ceneje_prodmatch.scripts.helpers.deepmatcherdata import deepmatcherdata
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(
+    format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
+    datefmt='%Y-%m-%d:%H:%M:%S',
+    level=logging.DEBUG
+)
+logging.getLogger('deepmatcher.core')
 
 if __name__ == "__main__":
     columns = ['idProduct']
