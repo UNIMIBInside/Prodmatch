@@ -14,7 +14,7 @@ class deepmatcherdata(object):
             left_attr: str,
             right_attr: str,
             clean_html=True, 
-            create_non_match=True, 
+            create_non_match=True,
             perc=.75
     ):
         """

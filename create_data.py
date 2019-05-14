@@ -75,7 +75,6 @@ if __name__ == '__main__':
 		left_attr='ltable',
 		right_attr='rtable',
 		label_attr='label',
-		# keys=matching.keys().values, 
 		clean_html=False, 
 		perc=.002
 	)
@@ -83,6 +82,9 @@ if __name__ == '__main__':
 	print(time.time() - init)
 	data.to_csv(path.join(DATA_DIR, 'deepmatcher.csv'))
 	train, val, test = deepdata.train_val_test_split([0.6, 0.2, 0.2])
+	unlabeled_data = train.iloc[len(train) * 0.2:]
+	train = train.iloc[len(train) * 0.2:]
 	train.to_csv(path.join(DATA_DIR, 'train.csv'))
 	val.to_csv(path.join(DATA_DIR, 'validation.csv'))
 	test.to_csv(path.join(DATA_DIR, 'test.csv'))
+	unlabeled_data.to_csv(path.join(DATA_DIR, 'unlabeled.csv'))
