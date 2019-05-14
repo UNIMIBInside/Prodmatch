@@ -6,6 +6,10 @@ import string
 from os import path
 from pandas import pandas
 from bs4 import BeautifulSoup
+from ceneje_prodmatch import DATA_DIR
+
+with open(path.join(DATA_DIR, 'slovenian-stopwords.txt'), 'r') as f:
+    stop_words = f.read().split()
 
 """
 Helper functions used to preprocess data.
@@ -62,9 +66,58 @@ def strip(col: pandas.Series, fillna=True, na_value=''):
     col = col.apply(lambda row: ' '.join(row.split()))
     return col
 
-def __strCleanHtml(s: str, strip: bool):
+def tolower(col: pandas.Series, fillna=True, na_value=''):
+    """ 
+    Strip leading and trailing whitespaces and remove exceeding ones, i.e. 
+    between two strings, all but one whitespace will be cleaned
+
+    Parameters
+    ----------
+    col (pandas.Series): dataframe column to clean\n
+    fillna (bool): wheter or not call pandas.Series.fillna(na_value)\n
+    na_value (str): value to replace na
+
+    Returns
+    -------
+    pandas.Series: cleaned column
     """
-    Helper function, it cleans up HTML rubbish from string s
+    if col.dtype != 'object':
+        raise Exception('tolower works only with object dtype')
+    if fillna:
+        col = col.fillna(na_value)
+    col = col.apply(numpy.vectorize(str.lower))
+    return col
+
+def tolower(df: pandas.DataFrame, fillna=True, na_value=''):
+    """ 
+    Apply tolower function to all object columns in DataFrame, i.e. all columns containg string values
+    
+    Parameters
+    ----------
+    df (pandas.DataFrame): DataFrame to be lowered\n
+    fillna (bool): wheter or not call pandas.Series.fillna(na_value)\n
+    na_value (str): value to replace na
+
+    Returns
+    -------
+    pandas.DataFrame: DataFrame with all object columns cleaned
+    """
+    # Get the columns containing object values (strings)
+    df_obj_cols = df.dtypes[df.dtypes == 'object'].index.tolist()
+    if df_obj_cols == []:
+        return df
+    if fillna:
+        df[df_obj_cols] = df[df_obj_cols].fillna(na_value)
+    # Apply to all object columns col_strip_clean function
+    # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colStrip(col, not(fillna), na_value), axis=1)
+    # This version speed up performance using numpy.vectorize
+    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(str.lower))
+    return df
+
+def __normalize(s: str, strip: bool, tolower: bool, remove_stopwords: bool):
+    """
+    Helper function, it cleans up HTML rubbish from string s, lower the case, remove unnecessary whitespaces
+    and stopwords
 
     Parameters
     ----------
@@ -81,19 +134,37 @@ def __strCleanHtml(s: str, strip: bool):
     if strip:
         rules = str.maketrans('', '', string.punctuation)
         # s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
-        s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').translate(rules).split())
+        s = ' '.join(
+            [
+                word for word in BeautifulSoup(s, 'lxml')\
+                                    .get_text(separator=u' ')\
+                                    .translate(rules)\
+                                    .split()
+                if not word in stop_words
+            ]
+        )
     else:
         s = BeautifulSoup(s, 'lxml').get_text(separator=u' ')
     return s
 
-def cleanHtml(col: pandas.Series, strip=True, fillna=True, na_value=''):
+def normalize(
+        col: pandas.Series, 
+        strip=True, 
+        tolower=True, 
+        remove_stopwords=True, 
+        fillna=True, 
+        na_value=''
+    ):
     """
-    Generically clean HTML text from an object column
+    Generically clean HTML text from an object column, lower the case, remove unnecessary whitespaces
+    and stopwords
 
     Parameters
     ----------
     col (pandas.Series): column to be cleaned\n
     strip (bool): wheter or not strip leading and trailing whitespaces and remove exceeding ones\n
+    tolower (bool): wheater or not lower the case\n
+    remove_stopwords (bool): wheater or not remove stopwords\n
     fillna (bool): wheter or not call pandas.Series.fillna(na_value)\n
     na_value (str): value to replace na
 
@@ -123,7 +194,14 @@ def cleanHtml(col: pandas.Series, strip=True, fillna=True, na_value=''):
     return col
 
 
-def cleanHtml(df: pandas.DataFrame, strip=True, fillna=True, na_value=''):
+def normalize(
+        df: pandas.DataFrame,
+        strip=True, 
+        tolower=True, 
+        remove_stopwords=True, 
+        fillna=True, 
+        na_value=''
+    ):
     """ 
     Apply strCleanHtml function to all object columns, i.e. all columns containg string values
     
@@ -146,5 +224,5 @@ def cleanHtml(df: pandas.DataFrame, strip=True, fillna=True, na_value=''):
         df[df_obj_cols] = df[df_obj_cols].fillna(na_value)
     # Apply to all object columns colCleanHtml function
     # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colCleanHtml(col, not(fillna), na_value), axis=1)
-    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda x: __strCleanHtml(x, strip)))
+    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda x: __normalize(x, strip, tolower, remove_stopwords)))
     return df
