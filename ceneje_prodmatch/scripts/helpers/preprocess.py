@@ -123,7 +123,9 @@ def __normalize(s: str, strip: bool, tolower: bool, remove_stopwords: bool):
     ----------
     s (str): string to be cleaned\n
     strip (bool): wheter or not strip leading and trailing whitespaces and remove exceeding ones\n
-
+    tolower (bool): wheater or not lower the case\n
+    remove_stopwords (bool): wheater or not remove stopwords\n
+        
     Returns
     -------
     cleaned string
@@ -139,6 +141,7 @@ def __normalize(s: str, strip: bool, tolower: bool, remove_stopwords: bool):
                 word for word in BeautifulSoup(s, 'lxml')\
                                     .get_text(separator=u' ')\
                                     .translate(rules)\
+                                    .lower()\
                                     .split()
                 if not word in stop_words
             ]
