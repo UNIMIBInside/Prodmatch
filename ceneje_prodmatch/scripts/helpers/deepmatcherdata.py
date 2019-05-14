@@ -13,7 +13,7 @@ class deepmatcherdata(object):
             label_attr: str,
             left_attr: str,
             right_attr: str,
-            clean_html=True, 
+            normalize=True, 
             create_non_match=True,
             perc=.75
     ):
@@ -50,8 +50,8 @@ class deepmatcherdata(object):
             keys = self.data.keys().values
         if perc <= 0 or perc >= 1:
             raise Exception('Percentage must be in (0;1) interval')
-        if clean_html:
-            self.__data = preprocess.cleanHtml(matching_tuples)
+        if normalize:
+            self.__data = preprocess.normalize(matching_tuples)
         self.__data = matching_tuples
         self.__deeplabels = [left_attr + key for key in keys] + [right_attr + key for key in keys]
         self.matching = self.__getMatchingData(group_cols, keys, label_attr)

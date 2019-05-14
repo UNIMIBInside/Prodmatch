@@ -62,20 +62,20 @@ if __name__ == '__main__':
 	# Take only those records that have idProduct duplicated (as they match)
 	matching = integrated[integrated.duplicated(subset='idProduct', keep=False)]
 	# Clean rubbish HTML from text
-	matching = preprocess.cleanHtml(matching, na_value='not_available')
-	integrated.to_csv(path.join(DATA_DIR, 'IntegratedProducts.csv'), sep='\t')
-	matching.to_csv(path.join(DATA_DIR, 'Matching.csv'), sep='\t')
+	matching = preprocess.normalize(matching, na_value='not_available')
+	integrated.to_csv(path.join(DATA_DIR, 'IntegratedProducts.csv'))
+	matching.to_csv(path.join(DATA_DIR, 'Matching.csv'))
 	keys = ['idProduct', 'brandSeller', 'nameSeller', 'descriptionSeller', 'nameProduct', 'brand']
 	init = time.time()
 	deepdata = deepmatcherdata(
 		matching, 
 		group_cols=['idProduct'], 
 		keys=keys,
-		id_attr='id',
-		left_attr='ltable',
-		right_attr='rtable',
+		id_attr='_id',
+		left_attr='ltable_',
+		right_attr='rtable_',
 		label_attr='label',
-		clean_html=False, 
+		normalize=False, 
 		perc=.002
 	)
 	data = deepdata.deepdata

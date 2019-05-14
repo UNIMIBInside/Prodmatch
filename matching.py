@@ -1,17 +1,12 @@
-import numpy
-import time
+import logging
 import deepmatcher as dm
 from os import path
 from pandas import pandas
 from ceneje_prodmatch import DATA_DIR, RESULTS_DIR, CACHE_DIR
 from ceneje_prodmatch.scripts.helpers import preprocess
 from ceneje_prodmatch.scripts.helpers.deepmatcherdata import deepmatcherdata
-import io
-from torchtext.utils import unicode_csv_reader
-import logging
 
 logging.basicConfig(level=logging.DEBUG)
-
 
 if __name__ == "__main__":
     columns = ['idProduct']
@@ -26,8 +21,8 @@ if __name__ == "__main__":
         test='test.csv',
         ignore_columns=ignore_columns,
         lowercase=True,
-        embeddings='fasttext.wiki.vec',
-        id_attr='id',
+        embeddings='fasttext.sl.bin',
+        id_attr='_id',
         label_attr='label',
         left_prefix='ltable_',
         right_prefix='rtable_',
@@ -48,3 +43,10 @@ if __name__ == "__main__":
         best_save_path=path.join(RESULTS_DIR, 'rnn_lstm_fasttext_model.pth'),
     )
     model.run_eval(test)
+    model.load_state(path.join(RESULTS_DIR, 'rnn_lstm_fasttext_model.pth'))
+    candidate = dm.data.process_unlabeled(
+        path=path.join('ceneje_prodmatch/ceneje_data/unlabeled.csv'),
+        trained_model=model     ,
+        ignore_columns=ignore_columns + ['label'])
+    predictions = model.run_prediction(candidate, output_attributes=list(candidate.get_raw_table().columns))
+    predictions.to_csv('ceneje_prodmatch/results/predictions.csv')

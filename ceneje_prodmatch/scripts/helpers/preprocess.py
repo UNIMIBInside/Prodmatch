@@ -114,18 +114,15 @@ def tolower(df: pandas.DataFrame, fillna=True, na_value=''):
     df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(str.lower))
     return df
 
-def __normalize(s: str, strip: bool, tolower: bool, remove_stopwords: bool):
+def __normalize(s: str):
     """
-    Helper function, it cleans up HTML rubbish from string s, lower the case, remove unnecessary whitespaces
-    and stopwords
+    Helper function, it cleans up HTML rubbish from string s, lower the case, 
+    remove unnecessary whitespaces, stopwords and punctuation
 
     Parameters
     ----------
     s (str): string to be cleaned\n
-    strip (bool): wheter or not strip leading and trailing whitespaces and remove exceeding ones\n
-    tolower (bool): wheater or not lower the case\n
-    remove_stopwords (bool): wheater or not remove stopwords\n
-        
+ 
     Returns
     -------
     cleaned string
@@ -133,41 +130,32 @@ def __normalize(s: str, strip: bool, tolower: bool, remove_stopwords: bool):
     s = re.sub(r'(&)(\d+)', r'\1#\2', s)
     # I don't know why it has to be called two times
     s = html.unescape(html.unescape(s))
-    if strip:
-        rules = str.maketrans('', '', string.punctuation)
-        # s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
-        s = ' '.join(
-            [
-                word for word in BeautifulSoup(s, 'lxml')\
-                                    .get_text(separator=u' ')\
-                                    .translate(rules)\
-                                    .lower()\
-                                    .split()
-                if not word in stop_words
-            ]
-        )
-    else:
-        s = BeautifulSoup(s, 'lxml').get_text(separator=u' ')
+    rules = str.maketrans('', '', string.punctuation)
+    # s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
+    s = ' '.join(
+        [
+            word for word in BeautifulSoup(s, 'lxml')\
+                                .get_text(separator=u' ')\
+                                .translate(rules)\
+                                .lower()\
+                                .split()
+            if not word in stop_words
+        ]
+    )
     return s
 
 def normalize(
         col: pandas.Series, 
-        strip=True, 
-        tolower=True, 
-        remove_stopwords=True, 
         fillna=True, 
         na_value=''
     ):
     """
-    Generically clean HTML text from an object column, lower the case, remove unnecessary whitespaces
-    and stopwords
+    Generically clean HTML text from an object column, lower the case, 
+    remove unnecessary whitespaces, stopwords and punctuation
 
     Parameters
     ----------
     col (pandas.Series): column to be cleaned\n
-    strip (bool): wheter or not strip leading and trailing whitespaces and remove exceeding ones\n
-    tolower (bool): wheater or not lower the case\n
-    remove_stopwords (bool): wheater or not remove stopwords\n
     fillna (bool): wheter or not call pandas.Series.fillna(na_value)\n
     na_value (str): value to replace na
 
@@ -185,33 +173,28 @@ def normalize(
     # Retrieve text inside html tags and separate it with a space
     # Remove exceeding whitespaces, since:
     # split() splits string by whitespaces, tabs, ... and ' '.join() concatenates them
-    if strip:
-        rules = str.maketrans('', '', string.punctuation)
-        # col = col.apply(lambda row: ' '.join(BeautifulSoup(row, 'lxml').get_text(separator=u' ')
-        #                                 .split()))
-        col = col.apply(lambda row: ' '.join(BeautifulSoup(row, 'lxml').get_text(separator=u' ')
-                                        .translate(rules).split()))
-    else:
-        col = col.apply(lambda row: BeautifulSoup(row, 'lxml').get_text(separator=u' '))
-    # col = col.apply(numpy.vectorize(lambda x: strCleanHtml(x, strip)))
+    rules = str.maketrans('', '', string.punctuation)
+    # col = col.apply(lambda row: ' '.join(BeautifulSoup(row, 'lxml').get_text(separator=u' ')
+    #                                 .split()))
+    col = col.apply(lambda row: ' '.join(BeautifulSoup(row, 'lxml').get_text(separator=u' ')
+                                    .translate(rules).split()))
     return col
 
 
 def normalize(
         df: pandas.DataFrame,
-        strip=True, 
-        tolower=True, 
-        remove_stopwords=True, 
         fillna=True, 
         na_value=''
     ):
     """ 
-    Apply strCleanHtml function to all object columns, i.e. all columns containg string values
-    
+    Apply __noralize function to all object columns, i.e. all columns containg string values.
+    Generically clean HTML text from a DataFrame, lower the case, 
+    remove unnecessary whitespaces, stopwords and punctuation
+
+
     Parameters
     ----------
     df (pandas.DataFrame): DataFrame to clean\n
-    strip (bool): wheter or not strip leading and trailing whitespaces and remove exceeding ones\n
     fillna (bool): wheter or not call pandas.Series.fillna(na_value)\n
     na_value (str): value to replace na
 
@@ -227,5 +210,5 @@ def normalize(
         df[df_obj_cols] = df[df_obj_cols].fillna(na_value)
     # Apply to all object columns colCleanHtml function
     # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colCleanHtml(col, not(fillna), na_value), axis=1)
-    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda x: __normalize(x, strip, tolower, remove_stopwords)))
+    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda x: __normalize(x)))
     return df
