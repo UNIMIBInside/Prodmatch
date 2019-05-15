@@ -6,12 +6,9 @@ from ceneje_prodmatch import DATA_DIR, DEEPMATCH_DIR, RESULTS_DIR, CACHE_DIR
 from ceneje_prodmatch.scripts.helpers import preprocess
 from ceneje_prodmatch.scripts.helpers.deepmatcherdata import deepmatcherdata
 
-logging.basicConfig(
-    format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
-    datefmt='%Y-%m-%d:%H:%M:%S',
-    level=logging.DEBUG
-)
 logging.getLogger('deepmatcher.core')
+logging.getLogger('deepmatcher.modules')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if __name__ == "__main__":
     columns = ['idProduct']
@@ -43,15 +40,16 @@ if __name__ == "__main__":
     model.run_train(
         train,
         validation,
+        device=device,
         epochs=10,
         batch_size=16,
         best_save_path=path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'),
     )
-    model.run_eval(test)
+    model.run_eval(test, device=device)
     model.load_state(path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'))
     candidate = dm.data.process_unlabeled(
         path=path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
         trained_model=model     ,
         ignore_columns=ignore_columns + ['label'])
-    predictions = model.run_prediction(candidate, output_attributes=list(candidate.get_raw_table().columns))
+    predictions = model.run_prediction(candidate, device=device, output_attributes=list(candidate.get_raw_table().columns))
     predictions.to_csv(RESULTS_DIR, 'predictions.csv')
