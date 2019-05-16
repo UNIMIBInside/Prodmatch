@@ -21,7 +21,6 @@ if __name__ == "__main__":
         train='train.csv',
         validation='validation.csv',
         test='test.csv',
-        device=device,
         ignore_columns=ignore_columns,
         lowercase=True,
         embeddings='fasttext.sl.bin',
@@ -54,4 +53,4 @@ if __name__ == "__main__":
         trained_model=model     ,
         ignore_columns=ignore_columns + ['label'])
     predictions = model.run_prediction(candidate, device=device, output_attributes=list(candidate.get_raw_table().columns))
-    predictions.to_csv(RESULTS_DIR, 'predictions.csv')
+    predictions.to_csv(path.join(RESULTS_DIR, 'predictions.csv'))
