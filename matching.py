@@ -21,6 +21,7 @@ if __name__ == "__main__":
         train='train.csv',
         validation='validation.csv',
         test='test.csv',
+        device=device,
         ignore_columns=ignore_columns,
         lowercase=True,
         embeddings='fasttext.sl.bin',
@@ -31,12 +32,13 @@ if __name__ == "__main__":
         pca=False
     )
     model = dm.MatchingModel(
+        device=device, 
         attr_summarizer=dm.attr_summarizers.RNN(
             word_contextualizer='lstm'
         ),
         attr_comparator='abs-diff'
     )
-    model.initialize(train)
+    model.initialize(train, device)
     model.run_train(
         train,
         validation,
@@ -46,7 +48,7 @@ if __name__ == "__main__":
         best_save_path=path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'),
     )
     model.run_eval(test, device=device)
-    model.load_state(path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'))
+    model.load_state(path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'), device=device)
     candidate = dm.data.process_unlabeled(
         path=path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
         trained_model=model     ,
