@@ -22,7 +22,7 @@ if __name__ == "__main__":
         validation='validation.csv',
         test='test.csv',
         ignore_columns=ignore_columns,
-        lowercase=True,
+        lowercase=False,
         embeddings='fasttext.sl.bin',
         id_attr='_id',
         label_attr='label',
@@ -37,14 +37,14 @@ if __name__ == "__main__":
         ),
         attr_comparator='abs-diff'
     )
-    model.initialize(train, device)
+    model.initialize(train, device=device)
     model.run_train(
         train,
         validation,
-        device=device,
         epochs=10,
         batch_size=16,
         best_save_path=path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'),
+        device=device
     )
     model.run_eval(test, device=device)
     model.load_state(path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'), device=device)
@@ -52,5 +52,5 @@ if __name__ == "__main__":
         path=path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
         trained_model=model     ,
         ignore_columns=ignore_columns + ['label'])
-    predictions = model.run_prediction(candidate, device=device, output_attributes=list(candidate.get_raw_table().columns))
+    predictions = model.run_prediction(candidate, output_attributes=list(candidate.get_raw_table().columns), device=device)
     predictions.to_csv(path.join(RESULTS_DIR, 'predictions.csv'))
