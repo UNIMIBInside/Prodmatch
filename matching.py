@@ -1,3 +1,4 @@
+import torch
 import logging
 import deepmatcher as dm
 from os import path
@@ -7,7 +8,6 @@ from ceneje_prodmatch.scripts.helpers import preprocess
 from ceneje_prodmatch.scripts.helpers.deepmatcherdata import deepmatcherdata
 
 logging.getLogger('deepmatcher.core')
-logging.getLogger('deepmatcher.modules')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if __name__ == "__main__":
@@ -28,10 +28,10 @@ if __name__ == "__main__":
         label_attr='label',
         left_prefix='ltable_',
         right_prefix='rtable_',
-        pca=False
+        pca=False,
+        device=device
     )
     model = dm.MatchingModel(
-        device=device, 
         attr_summarizer=dm.attr_summarizers.RNN(
             word_contextualizer='lstm'
         ),
