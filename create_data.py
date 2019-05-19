@@ -14,36 +14,66 @@ def fillCols(row, col1, col2):
 		row[col2] = row[col1]
 	return row
 
-def read_files_start_with(folder: str, prefix: str, sep: str, encoding='utf-8'):
+def read_files_start_with(folder: str, prefix: str, **kwargs):
+	"""
+	Function that reads csv files, starting with a user defined prefix, from a specified folder
+
+	Parameters
+	----------
+	folder (str): folder from which read files
+	prefix (str): pick files only starting with prefix
+	kwargs: keyword arguments to pass to pandas.read_csv() function
+
+	Returns
+	-------
+	List of pandas.DataFrame object, sorted by filename
+	"""
 	prefixed = sorted([filename for filename in os.listdir(folder) if filename.startswith(prefix)])
-	print(prefixed)
 	return 	[
 				pandas.read_csv(
-					path.join(folder, prefixed[i]), 
-					sep=sep, 
-					encoding=encoding, 
-					dtype={'idProduct':object, 'idSeller':object, 'idSellerProduct':object}
+					path.join(folder, prefixed[i]),  
+					dtype={'idProduct':object, 'idSeller':object, 'idSellerProduct':object},
+					**kwargs
 				) 
 				for i in range(len(prefixed))
 	]
 
-def read_files(folder: str, prefixes: str, sep: str, encoding='utf-8'):
+def read_files(folder: str, prefixes: str, **kwargs):
+	"""
+	Function that reads csv files, starting with a user defined prefixes, from a specified folder
+
+	Parameters
+	----------
+	folder (str): folder from which read files
+	prefixes (str): pick files only starting with prefixes
+	kwargs: keyword arguments to pass to pandas.read_csv() function
+
+	Returns
+	-------
+	List of tuples of pandas.DataFrame object. Every tuple contains n pandas.DataFrame objects, where n=len(prefixes),
+	following the order specified by prefixes, ready for future ordered automatic joins 
+	"""
 	files = [
-				read_files_start_with(folder, prefixes[i], sep, encoding)
+				read_files_start_with(folder, prefixes[i], **kwargs)
 				for i in range(len(prefixes))
 	]
 	return list(zip(*files))
 
 def join_datasets(datasets: list):
+	"""
+	Since every join will merge SellerProductsData x SellerProductsMapping x Products (if i'm not wrong),
+	this function executes those joins given a list of tuple of datasets, where every tuple contains dataset
+	following SellerProductsData_, SellerProductsMapping_, Products_ order
+	"""
 	return [
+		# SellerProductsData_ dataset
 		datasets[i][0][['idSeller', 'idSellerProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']]\
 			.merge(
-				right=datasets[i][1],
+				right=datasets[i][1],  # SellerProductsMapping_ dataset
 				how='inner', 
 				on=['idSellerProduct', 'idSeller']
 			).merge(
-				# left=integrated,
-				right=datasets[i][2][['idProduct', 'nameProduct', 'brand']], 
+				right=datasets[i][2][['idProduct', 'nameProduct', 'brand']],  # Products_ dataset
 				how='inner',
 				on='idProduct'
 			)
@@ -62,7 +92,7 @@ def get_normalized_matching(integrated_data: list):
 
 if __name__ == '__main__':
 	init = time.time()
-	files = read_files(DATA_DIR, ['SellerProductsData', 'SellerProductsMapping', 'Products'], sep='\t')
+	files = read_files(DATA_DIR, ['SellerProductsData', 'SellerProductsMapping', 'Products'], sep='\t', encoding='utf-8')
 	integrated_data = join_datasets(files)
 	matching = get_normalized_matching(integrated_data) 
 	matching.to_csv(path.join(DATA_DIR, 'matching.csv'))
