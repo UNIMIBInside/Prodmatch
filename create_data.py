@@ -96,11 +96,15 @@ def join_datasets(datasets: list):
 		for i in range(len(datasets))
 	]
 
-def get_normalized_matching(integrated_data: list):
+def get_normalized_matching(integrated_data: list, **kwargs):
+	"""
+	kwargs: keyword arguments to pass to normalize function
+	"""
 	return pandas.concat(
 		[
 			preprocess.normalize(
-				integrated_data[i][integrated_data[i].duplicated(subset='idProduct', keep=False)]
+				integrated_data[i][integrated_data[i].duplicated(subset='idProduct', keep=False)],
+				**kwargs
 			)
 			for i in range(len(integrated_data))
 		]
@@ -111,12 +115,12 @@ if __name__ == '__main__':
 	files = read_files(
 		folder=DATA_DIR, 
 		prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'], 
-		products=['Monitor'],
+		products=['LedTv'],
 		sep='\t', 
 		encoding='utf-8'
 	)
 	integrated_data = join_datasets(files)
-	matching = get_normalized_matching(integrated_data) 
+	matching = get_normalized_matching(integrated_data, lower=True, remove_brackets=False) 
 	matching.to_csv(path.join(DATA_DIR, 'matching.csv'))
 	# Set seed for reproducible results
 	# numpy.random.seed(42)
