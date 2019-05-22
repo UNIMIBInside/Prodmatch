@@ -11,10 +11,17 @@ from ceneje_prodmatch import DATA_DIR
 with open(path.join(DATA_DIR, 'slovenian-stopwords.txt'), 'r') as f:
     stop_words = f.read().split()
 
+# Rules to remove punctuation
+rules = str.maketrans('', '', string.punctuation)
+
 """
 Helper functions used to preprocess data.
 For now it only works with objects (textual) data, but it can be enriched
 with methods to preprocess whatever dtypes
+"""
+
+"""
+\((.*?)\) remove all that's inside the brackets, brackets included
 """
 
 def strip(df: pandas.DataFrame, fillna=True, na_value=''):
@@ -130,7 +137,6 @@ def __normalize(s: str):
     s = re.sub(r'(&)(\d+)', r'\1#\2', s)
     # I don't know why it has to be called two times
     s = html.unescape(html.unescape(s))
-    rules = str.maketrans('', '', string.punctuation)
     # s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
     s = ' '.join(
         [
@@ -173,7 +179,6 @@ def normalize(
     # Retrieve text inside html tags and separate it with a space
     # Remove exceeding whitespaces, since:
     # split() splits string by whitespaces, tabs, ... and ' '.join() concatenates them
-    rules = str.maketrans('', '', string.punctuation)
     # col = col.apply(lambda row: ' '.join(BeautifulSoup(row, 'lxml').get_text(separator=u' ')
     #                                 .split()))
     col = col.apply(lambda row: ' '.join(BeautifulSoup(row, 'lxml').get_text(separator=u' ')

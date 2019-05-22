@@ -14,7 +14,7 @@ def fillCols(row, col1, col2):
 		row[col2] = row[col1]
 	return row
 
-def read_files_start_with(folder: str, prefix: str, **kwargs):
+def read_files_start_with(folder: str, prefix: str, products=None, **kwargs):
 	"""
 	Function that reads csv files, starting with a user defined prefix, from a specified folder
 
@@ -28,7 +28,17 @@ def read_files_start_with(folder: str, prefix: str, **kwargs):
 	-------
 	List of pandas.DataFrame object, sorted by filename
 	"""
-	prefixed = sorted([filename for filename in os.listdir(folder) if filename.startswith(prefix)])
+	if products is None:
+		prefixed = sorted(
+			[filename for filename in os.listdir(folder) if filename.startswith(prefix)]
+		)
+	else:
+		prefixed = sorted(
+			[filename for filename in os.listdir(folder) 
+				if filename.startswith(prefix) and 
+				any(product for product in products if product in filename)
+			]
+		)
 	return 	[
 				pandas.read_csv(
 					path.join(folder, prefixed[i]),  
@@ -38,7 +48,7 @@ def read_files_start_with(folder: str, prefix: str, **kwargs):
 				for i in range(len(prefixed))
 	]
 
-def read_files(folder: str, prefixes: str, **kwargs):
+def read_files(folder: str, prefixes: str, products=None, **kwargs):
 	"""
 	Function that reads csv files, starting with a user defined prefixes, from a specified folder
 
@@ -46,6 +56,7 @@ def read_files(folder: str, prefixes: str, **kwargs):
 	----------
 	folder (str): folder from which read files
 	prefixes (str): pick files only starting with prefixes
+	products (list or None): pick only files that contains products after prefix
 	kwargs: keyword arguments to pass to pandas.read_csv() function
 
 	Returns
@@ -54,7 +65,7 @@ def read_files(folder: str, prefixes: str, **kwargs):
 	following the order specified by prefixes, ready for future ordered automatic joins 
 	"""
 	files = [
-				read_files_start_with(folder, prefixes[i], **kwargs)
+				read_files_start_with(folder, prefixes[i], products, **kwargs)
 				for i in range(len(prefixes))
 	]
 	return list(zip(*files))
@@ -64,6 +75,11 @@ def join_datasets(datasets: list):
 	Since every join will merge SellerProductsData x SellerProductsMapping x Products (if i'm not wrong),
 	this function executes those joins given a list of tuple of datasets, where every tuple contains dataset
 	following SellerProductsData_, SellerProductsMapping_, Products_ order
+
+	Parameters
+	----------
+	datasets (list of tuples of pandas.DataFrame): list that contains tuples of pandas.DataFrame.
+		Every dataset in a tuples will be joined from left to right
 	"""
 	return [
 		# SellerProductsData_ dataset
@@ -92,7 +108,13 @@ def get_normalized_matching(integrated_data: list):
 
 if __name__ == '__main__':
 	init = time.time()
-	files = read_files(DATA_DIR, ['SellerProductsData', 'SellerProductsMapping', 'Products'], sep='\t', encoding='utf-8')
+	files = read_files(
+		folder=DATA_DIR, 
+		prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'], 
+		products=['Monitor'],
+		sep='\t', 
+		encoding='utf-8'
+	)
 	integrated_data = join_datasets(files)
 	matching = get_normalized_matching(integrated_data) 
 	matching.to_csv(path.join(DATA_DIR, 'matching.csv'))

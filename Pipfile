@@ -11,8 +11,8 @@ beautifulsoup4 = "*"
 lxml = "*"
 numpy = "*"
 sklearn = "*"
-deepmatcher = {editable = true,git = "https://github.com/belerico/deepmatcher.git",ref = "master"}
+deepmatcher = {editable = true,git = "https://github.com/belerico/deepmatcher.git",ref = "torch_1.0.1"}
 requests = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
