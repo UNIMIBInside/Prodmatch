@@ -1,34 +1,38 @@
 import os
 import numpy
 import time
+import py_entitymatching as em
 from os import path
 from pandas import pandas
 from ceneje_prodmatch import DATA_DIR, DEEPMATCH_DIR
 from ceneje_prodmatch.scripts.helpers import preprocess
 from ceneje_prodmatch.scripts.helpers.deepmatcherdata import deepmatcherdata
 
-def fillCols(row, col1, col2):
-	if row[col1] == '':
-		row[col1] = row[col2]
-	else:
-		row[col2] = row[col1]
-	return row
+# def fillCols(row, col1, col2):
+# 	if row[col1] == '':
+# 		row[col1] = row[col2]
+# 	else:
+# 		row[col2] = row[col1]
+# 	return row
 
-def read_files_start_with(folder: str, prefix: str, products=None, **kwargs):
+def read_files_start_with(folder: str, prefix: str, contains=None, **kwargs):
 	"""
 	Function that reads csv files, starting with a user defined prefix, from a specified folder
+	If contains is not None, then the selected files are all that starts with prefix and 
+	contains one string from contains
 
 	Parameters
 	----------
 	folder (str): folder from which read files
 	prefix (str): pick files only starting with prefix
+	contains (list): list of strings that a file may contains in its name
 	kwargs: keyword arguments to pass to pandas.read_csv() function
 
 	Returns
 	-------
 	List of pandas.DataFrame object, sorted by filename
 	"""
-	if products is None:
+	if contains is None:
 		prefixed = sorted(
 			[filename for filename in os.listdir(folder) if filename.startswith(prefix)]
 		)
@@ -36,7 +40,7 @@ def read_files_start_with(folder: str, prefix: str, products=None, **kwargs):
 		prefixed = sorted(
 			[filename for filename in os.listdir(folder) 
 				if filename.startswith(prefix) and 
-				any(product for product in products if product in filename)
+				any(product for product in contains if product in filename)
 			]
 		)
 	return 	[
@@ -44,11 +48,11 @@ def read_files_start_with(folder: str, prefix: str, products=None, **kwargs):
 					path.join(folder, prefixed[i]),  
 					dtype={'idProduct':object, 'idSeller':object, 'idSellerProduct':object},
 					**kwargs
-				) 
+				)
 				for i in range(len(prefixed))
 	]
 
-def read_files(folder: str, prefixes: str, products=None, **kwargs):
+def read_files(folder: str, prefixes: str, contains=None, **kwargs):
 	"""
 	Function that reads csv files, starting with a user defined prefixes, from a specified folder
 
@@ -56,7 +60,7 @@ def read_files(folder: str, prefixes: str, products=None, **kwargs):
 	----------
 	folder (str): folder from which read files
 	prefixes (str): pick files only starting with prefixes
-	products (list or None): pick only files that contains products after prefix
+	contains (list or None): pick only files that contains contains after prefix
 	kwargs: keyword arguments to pass to pandas.read_csv() function
 
 	Returns
@@ -65,7 +69,7 @@ def read_files(folder: str, prefixes: str, products=None, **kwargs):
 	following the order specified by prefixes, ready for future ordered automatic joins 
 	"""
 	files = [
-				read_files_start_with(folder, prefixes[i], products, **kwargs)
+				read_files_start_with(folder, prefixes[i], contains, **kwargs)
 				for i in range(len(prefixes))
 	]
 	return list(zip(*files))
@@ -89,7 +93,7 @@ def join_datasets(datasets: list):
 				how='inner', 
 				on=['idSellerProduct', 'idSeller']
 			).merge(
-				right=datasets[i][2][['idProduct', 'nameProduct', 'brand']],  # Products_ dataset
+				right=datasets[i][2][['idProduct']],  # Products_ dataset
 				how='inner',
 				on='idProduct'
 			)
@@ -103,6 +107,7 @@ def get_normalized_matching(integrated_data: list, **kwargs):
 	return pandas.concat(
 		[
 			preprocess.normalize(
+				# For every integrated dataset, keep only those products that are duplicates (matching)
 				integrated_data[i][integrated_data[i].duplicated(subset='idProduct', keep=False)],
 				**kwargs
 			)
@@ -115,13 +120,15 @@ if __name__ == '__main__':
 	files = read_files(
 		folder=DATA_DIR, 
 		prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'], 
-		products=['LedTv'],
 		sep='\t', 
 		encoding='utf-8'
 	)
 	integrated_data = join_datasets(files)
+	pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, 'integrated.csv'))
 	matching = get_normalized_matching(integrated_data, lower=True, remove_brackets=False) 
 	matching.to_csv(path.join(DATA_DIR, 'matching.csv'))
+	
+	
 	# Set seed for reproducible results
 	# numpy.random.seed(42)
 	# Read data
@@ -173,7 +180,9 @@ if __name__ == '__main__':
 	# matching = preprocess.normalize(matching, na_value='not_available')
 	# integrated.to_csv(path.join(DATA_DIR, 'IntegratedProducts.csv'))
 	# matching.to_csv(path.join(DATA_DIR, 'Matching.csv'))
-	keys = ['idProduct', 'brandSeller', 'nameSeller', 'descriptionSeller', 'nameProduct', 'brand']
+	
+	
+	keys = ['idProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']
 	deepdata = deepmatcherdata(
 		matching, 
 		group_cols=['idProduct'], 

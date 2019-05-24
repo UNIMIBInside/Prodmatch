@@ -1,4 +1,5 @@
 import numpy
+import py_entitymatching as em
 from pandas import pandas
 from itertools import combinations, chain, product
 from ceneje_prodmatch.scripts.helpers import preprocess
@@ -53,6 +54,17 @@ class deepmatcherdata(object):
         if normalize:
             self.__data = preprocess.normalize(matching_tuples)
         self.__data = matching_tuples
+        """ A = self.__data
+        B = self.__data
+        em.set_key(A, 'index')
+        em.set_key(B, 'index')
+        ab = em.AttrEquivalenceBlocker()
+        C1 = ab.block_tables(A, B, 
+                    l_block_attr='descriptionSeller', r_block_attr='descriptionSeller',
+                    l_output_attrs=keys,
+                    r_output_attrs=keys,
+                    l_output_prefix='l_', r_output_prefix='r_')
+        print(C1.head()) """
         self.__deeplabels = [left_attr + key for key in keys] + [right_attr + key for key in keys]
         self.matching = self.__getMatchingData(group_cols, keys, label_attr)
         self.non_matching = None
