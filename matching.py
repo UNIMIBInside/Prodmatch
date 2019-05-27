@@ -1,4 +1,4 @@
-import tqdm
+from tqdm import tqdm
 import nltk
 import torch
 import logging
@@ -13,14 +13,18 @@ logging.getLogger('deepmatcher.core')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_jaccard_scores(unlabeled: pandas.DataFrame):
+	unlabeled = unlabeled.fillna('')
 	left_cols = [col for col in unlabeled if col.startswith('ltable_') and col != 'ltable_idProduct']
 	right_cols = [col for col in unlabeled if col.startswith('rtable_') and col != 'rtable_idProduct']
-	with tqdm(total=len(list(unlabeled.iterrows()))) as pbar:
-		for i, row in unlabeled.iterrows():
-			left_prod = set(' '.join(unlabeled[left_cols]))
-			right_prod = set(' '.join(unlabeled[right_cols]))
-			unlabeled.loc['match_score', i] = nltk.jaccard_distance(left_prod, right_prod)
-			pbar.update(1)
+	# with tqdm(total=len(list(unlabeled.iterrows()))) as pbar:
+	# 	for i, row in unlabeled.iterrows():
+	# 		left_prod = set(' '.join(unlabeled[left_cols]))
+	# 		right_prod = set(' '.join(unlabeled[right_cols]))
+	# 		unlabeled.loc['match_score', i] = nltk.jaccard_distance(left_prod, right_prod)
+	# 		pbar.update(1)
+	tqdm.pandas()
+	unlabeled['match_score'] = unlabeled\
+								.progress_apply(lambda row: nltk.jaccard_distance(set(' '.join(row[left_cols])), set(' '.join(row[right_cols]))), axis=1)
 			
 
 def get_match_predictions(results: pandas.DataFrame, threshold: float, match_pred_attr: str):
