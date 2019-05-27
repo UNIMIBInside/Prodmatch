@@ -12,33 +12,48 @@ from ceneje_prodmatch.scripts.helpers.deepmatcherdata import deepmatcherdata
 logging.getLogger('deepmatcher.core')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def get_jaccard_scores(unlabeled: pandas.DataFrame):
-	unlabeled = unlabeled.fillna('')
-	left_cols = [col for col in unlabeled if col.startswith('ltable_') and col != 'ltable_idProduct']
-	right_cols = [col for col in unlabeled if col.startswith('rtable_') and col != 'rtable_idProduct']
-	# with tqdm(total=len(list(unlabeled.iterrows()))) as pbar:
-	# 	for i, row in unlabeled.iterrows():
-	# 		left_prod = set(' '.join(unlabeled[left_cols]))
-	# 		right_prod = set(' '.join(unlabeled[right_cols]))
-	# 		unlabeled.loc['match_score', i] = nltk.jaccard_distance(left_prod, right_prod)
-	# 		pbar.update(1)
-	tqdm.pandas()
-	unlabeled['match_score'] = unlabeled\
-								.progress_apply(lambda row: nltk.jaccard_distance(set(' '.join(row[left_cols])), set(' '.join(row[right_cols]))), axis=1)
-			
+def get_jaccard_scores(
+	unlabeled: pandas.DataFrame, 
+	ngrams=3, 
+	left_attr='ltable_', 
+	right_attr='rtable_', 
+	ignore_columns=[]):
+	
+	def jaccard(row_left, row_right):
+		left_prod = set(nltk.ngrams(' '.join(row_left.tolist()), n=ngrams))
+		right_prod = set(nltk.ngrams(' '.join(row_right.tolist()), n=ngrams))
+		# Get Jaccard similarity
+		return 1 - nltk.jaccard_distance(left_prod, right_prod)
 
-def get_match_predictions(results: pandas.DataFrame, threshold: float, match_pred_attr: str):
+	unlabeled = unlabeled.fillna('')
+	left_cols = [
+		col for col in unlabeled if col.startswith(left_attr) and col not in ignore_cols
+	]
+	right_cols = [
+		col for col in unlabeled if col.startswith(right_attr) and col not in ignore_cols
+	]
+	tqdm.pandas()
+	match_score = unlabeled[left_cols + right_cols]\
+					.progress_apply(lambda row: jaccard(row[left_cols], row[right_cols]), axis=1)
+	unlabeled.insert(0, 'match_score', match_score)
+	return unlabeled
+
+def get_match_predictions(results: pandas.DataFrame, threshold=0.5, match_pred_attr='match_prediction'):
 	# Check if match_score column is present
 	assert('match_score' in results.columns)
 	# Check threshold range
 	assert(threshold >= 0 and threshold <= 1)
-	results['match_prediction'] = results['match_score']\
+	results[match_pred_attr] = results['match_score']\
 		.apply(lambda score: 1 if score >= threshold else 0)
-	# Reorder columns to avoid scrolling...
-	results =  results[['match_score', 'match_prediction'] + results.columns.values[1:-1].tolist()]
+	# Reorder columns to avoid scrolling
+	results =  results[['match_score', match_pred_attr] + results.columns.values[1:-1].tolist()]
 	return results
 
-def get_statistics(results: pandas.DataFrame, label_attr: str, match_pred_attr: str):
+def get_statistics(
+	results: pandas.DataFrame, 
+	label_attr='label', 
+	match_pred_attr='match_prediction'):
+	
 	assert(match_pred_attr in results.columns)
 	assert(label_attr in results.columns)
 	TP = FP = TN = FN = 0
@@ -58,56 +73,57 @@ def get_statistics(results: pandas.DataFrame, label_attr: str, match_pred_attr: 
 				TN += 1	
 	precision = TP / (TP + FP)
 	recall = TP / (TP + FN)
-	accurcy = (TP + TN) / len(results)
+	accurcy = (TP + TN) / (TP + FP + TN + FN)
 	F1 = 2 * (precision * recall) / (precision + recall)
 	return {'precision': precision, 'recall': recall, 'accuracy': accurcy, 'F1': F1, 'wrong': results.iloc[wrong_preds]}
 
 if __name__ == "__main__":
-	unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, 'unlabeled.csv'))
-	predictions = get_jaccard_scores(unlabeled)
-	# predictions = pandas.read_csv('/home/belerico/Desktop/predictions_no_name_prod.csv')
-	predictions = get_match_predictions(predictions, 0.9, 'match_prediction')
-	print(get_statistics(predictions, 'label', 'match_prediction'))
-	# columns = ['idProduct']
-	# ignore_columns = ['ltable_' + col for col in columns]
-	# ignore_columns += ['rtable_' + col for col in columns]
-	# ignore_columns += ['idProduct']
-	# train, validation, test = dm.data.process(
-	#     path=DEEPMATCH_DIR,
-	#     cache=path.join(CACHE_DIR, 'rnn_lstm_fasttext_cache.pth'),
-	#     train='train.csv',
-	#     validation='validation.csv',
-	#     test='test.csv',
-	#     ignore_columns=ignore_columns,
-	#     lowercase=False,
-	#     embeddings='fasttext.sl.bin',
-	#     id_attr='_id',
-	#     label_attr='label',
-	#     left_prefix='ltable_',
-	#     right_prefix='rtable_',
-	#     pca=False,
-	#     device=device
-	# )
-	# model = dm.MatchingModel(
-	#     attr_summarizer=dm.attr_summarizers.RNN(
-	#         word_contextualizer='lstm'
-	#     ),
-	#     attr_comparator='abs-diff'
-	# )
-	# model.initialize(train, device=device)
-	# model.run_train(
-	#     train,
-	#     validation,
-	#     epochs=10,
-	#     batch_size=16,
-	#     best_save_path=path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'),
-	#     device=device
-	# )
-	# model.run_eval(test, device=device)
-	# model.load_state(path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'), device=device)
-	# candidate = dm.data.process_unlabeled(
-	#     path=path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
-	#     trained_model=model     ,
-	#     ignore_columns=ignore_columns + ['label'])
-	# predictions = model.run_prediction(candidate, output_attributes=list(candidate.get_raw_table().columns), device=device)
-	# predictions.to_csv(path.join(RESULTS_DIR, 'predictions.csv'))
+	columns = ['idProduct']
+	ignore_columns = ['ltable_' + col for col in columns]
+	ignore_columns += ['rtable_' + col for col in columns]
+	ignore_columns += ['idProduct']
+	train, validation, test = dm.data.process(
+	    path=DEEPMATCH_DIR,
+	    cache=path.join(CACHE_DIR, 'rnn_lstm_fasttext_cache.pth'),
+	    train='train.csv',
+	    validation='validation.csv',
+	    test='test.csv',
+	    ignore_columns=ignore_columns,
+	    lowercase=False,
+	    embeddings='fasttext.sl.bin',
+	    id_attr='_id',
+	    label_attr='label',
+	    left_prefix='ltable_',
+	    right_prefix='rtable_',
+	    pca=False,
+	    device=device
+	)
+	model = dm.MatchingModel(
+	    attr_summarizer=dm.attr_summarizers.RNN(
+	        word_contextualizer='lstm'
+	    ),
+	    attr_comparator='abs-diff'
+	)
+	model.initialize(train, device=device)
+	model.run_train(
+	    train,
+	    validation,
+	    epochs=10,
+	    batch_size=16,
+	    best_save_path=path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'),
+	    device=device
+	)
+	model.run_eval(test, device=device)
+	model.load_state(path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'), device=device)
+	candidate = dm.data.process_unlabeled(
+	    path=path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
+	    trained_model=model     ,
+	    ignore_columns=ignore_columns + ['label'])
+	predictions = model.run_prediction(candidate, output_attributes=list(candidate.get_raw_table().columns), device=device)
+	predictions.to_csv(path.join(RESULTS_DIR, 'predictions.csv'))
+
+	# unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, 'unlabeled.csv'))
+	# predictions = get_jaccard_scores(unlabeled, ngrams=3, ignore_columns=ignore_columns)
+	# predictions = get_match_predictions(predictions)
+	# predictions.to_csv(path.join(RESULTS_DIR, 'predictions_jaccard_3.csv'))
+	# print(get_statistics(predictions))
