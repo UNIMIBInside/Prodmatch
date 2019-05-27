@@ -12,11 +12,12 @@ logging.getLogger('deepmatcher.core')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_jaccard_scores(unlabeled: pandas.DataFrame):
-	left_cols = [col for col in unlabeled if col.startswith('_left')]
-	right_cols = [col for col in unlabeled if col.startswith('_right')]
+	left_cols = [col for col in unlabeled if col.startswith('ltable_') and col != 'ltable_idProduct']
+	right_cols = [col for col in unlabeled if col.startswith('rtable_') and col != 'rtable_idProduct']
+	print(left_cols, '\n', right_cols)
 	for i, row in unlabeled.iterrows():
-		left_prod = ' '.join(unlabeled[left_cols])
-		right_prod = ' '.join(unlabeled[right_cols])
+		left_prod = set(' '.join(unlabeled[left_cols]))
+		right_prod = set(' '.join(unlabeled[right_cols]))
 		unlabeled.loc['match_score', i] = nltk.jaccard_distance(left_prod, right_prod)
 
 def get_match_predictions(results: pandas.DataFrame, threshold: float, match_pred_attr: str):
