@@ -1,3 +1,4 @@
+import nltk
 import torch
 import logging
 import deepmatcher as dm
@@ -9,6 +10,14 @@ from ceneje_prodmatch.scripts.helpers.deepmatcherdata import deepmatcherdata
 
 logging.getLogger('deepmatcher.core')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+def get_jaccard_scores(unlabeled: pandas.DataFrame):
+	left_cols = [col for col in unlabeled if col.startswith('_left')]
+	right_cols = [col for col in unlabeled if col.startswith('_right')]
+	for i, row in unlabeled.iterrows():
+		left_prod = ' '.join(unlabeled[left_cols])
+		right_prod = ' '.join(unlabeled[right_cols])
+		unlabeled.loc['match_score', i] = nltk.jaccard_distance(left_prod, right_prod)
 
 def get_match_predictions(results: pandas.DataFrame, threshold: float, match_pred_attr: str):
 	# Check if match_score column is present
@@ -46,7 +55,9 @@ def get_statistics(results: pandas.DataFrame, label_attr: str, match_pred_attr: 
 	return {'precision': precision, 'recall': recall, 'accuracy': accurcy, 'F1': F1, 'wrong': results.iloc[wrong_preds]}
 
 if __name__ == "__main__":
-	predictions = pandas.read_csv('/home/belerico/Desktop/predictions_no_name_prod.csv')
+	unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, 'unlabeled.csv'))
+	predictions = get_jaccard_scores(unlabeled)
+	# predictions = pandas.read_csv('/home/belerico/Desktop/predictions_no_name_prod.csv')
 	predictions = get_match_predictions(predictions, 0.9, 'match_prediction')
 	print(get_statistics(predictions, 'label', 'match_prediction'))
 	# columns = ['idProduct']
