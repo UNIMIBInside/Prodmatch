@@ -1,4 +1,5 @@
 from tqdm import tqdm
+import math
 import nltk
 import torch
 import logging
@@ -107,7 +108,7 @@ def get_pos_neg_ratio(path:str, **kwargs):
 	data = pandas.read_csv(path, **kwargs)
 	pos = len(data[data[['label']] == 1])
 	neg = len(data) - pos
-	print(neg / pos)
+	return math.ceil(neg / pos)
 
 
 if __name__ == "__main__":
@@ -115,44 +116,45 @@ if __name__ == "__main__":
 	ignore_columns = ['ltable_' + col for col in columns]
 	ignore_columns += ['rtable_' + col for col in columns]
 	ignore_columns += ['idProduct']
-	get_pos_neg_ratio(path.join(DEEPMATCH_DIR, 'train.csv'))
-	# train, validation, test = dm.data.process(
-	#     path=DEEPMATCH_DIR,
-	#     cache=path.join(CACHE_DIR, 'rnn_lstm_fasttext_cache.pth'),
-	#     train='train.csv',
-	#     validation='validation.csv',
-	#     test='test.csv',
-	#     ignore_columns=ignore_columns,
-	#     lowercase=False,
-	#     embeddings='fasttext.sl.bin',
-	#     id_attr='_id',
-	#     label_attr='label',
-	#     left_prefix='ltable_',
-	#     right_prefix='rtable_',
-	#     pca=False,
-	#     device=device
-	# )
-	# model = dm.MatchingModel(
-	#     attr_summarizer=dm.attr_summarizers.SIF(),
-	#     attr_comparator='abs-diff'
-	# )
-	# model.initialize(train, device=device)
-	# model.run_train(
-	#     train,
-	#     validation,
-	#     epochs=10,
-	#     batch_size=16,
-	#     best_save_path=path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'),
-	#     device=device
-	# )
-	# model.run_eval(test, device=device)
-	# model.load_state(path.join(RESULTS_DIR, 'models', 'rnn_lstm_fasttext_model.pth'), device=device)
-	# candidate = dm.data.process_unlabeled(
-	#     path=path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
-	#     trained_model=model     ,
-	#     ignore_columns=ignore_columns + ['label'])
-	# predictions = model.run_prediction(candidate, output_attributes=list(candidate.get_raw_table().columns), device=device)
-	# predictions.to_csv(path.join(RESULTS_DIR, 'predictions.csv'))
+	pos_neg_ratio = get_pos_neg_ratio(path.join(DEEPMATCH_DIR, 'train.csv'))
+	train, validation, test = dm.data.process(
+	    path=DEEPMATCH_DIR,
+	    cache=path.join(CACHE_DIR, 'rnn_pos_neg_fasttext_cache.pth'),
+	    train='train.csv',
+	    validation='validation.csv',
+	    test='test.csv',
+	    ignore_columns=ignore_columns,
+	    lowercase=False,
+	    embeddings='fasttext.sl.bin',
+	    id_attr='_id',
+	    label_attr='label',
+	    left_prefix='ltable_',
+	    right_prefix='rtable_',
+	    pos_neg_ratio=pos_neg_ratio,
+	    pca=False,
+	    device=device
+	)
+	model = dm.MatchingModel(
+	    attr_summarizer=dm.attr_summarizers.RNN(),
+	    attr_comparator='abs-diff'
+	)
+	model.initialize(train, device=device)
+	model.run_train(
+	    train,
+	    validation,
+	    epochs=10,
+	    batch_size=16,
+	    best_save_path=path.join(RESULTS_DIR, 'models', 'rnn_pos_neg_fasttext_model.pth'),
+	    device=device
+	)
+	model.run_eval(test, device=device)
+	model.load_state(path.join(RESULTS_DIR, 'models', 'rnn_pos_neg_fasttext_model.pth'), device=device)
+	candidate = dm.data.process_unlabeled(
+	    path=path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
+	    trained_model=model     ,
+	    ignore_columns=ignore_columns + ['label'])
+	predictions = model.run_prediction(candidate, output_attributes=list(candidate.get_raw_table().columns), device=device)
+	predictions.to_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg.csv'))
 
 	# unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, 'unlabeled.csv'))
 	# predictions = get_similarity_scores(unlabeled, ngrams=0, distance='edit_distance', ignore_columns=ignore_columns, na_value='na')
