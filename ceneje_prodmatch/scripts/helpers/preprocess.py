@@ -3,6 +3,7 @@ import numpy
 import re
 import time
 import string
+from tqdm import tqdm
 from os import path
 from pandas import pandas
 from bs4 import BeautifulSoup
@@ -55,7 +56,7 @@ def strip(df: pandas.DataFrame, fillna=True, na_value=''):
     return df
 
 
-def strip(col: pandas.Series, fillna=True, na_value=''):
+def strip_col(col: pandas.Series, fillna=True, na_value=''):
     """ 
     Strip leading and trailing whitespaces and remove exceeding ones, i.e. 
     between two strings, all but one whitespace will be cleaned
@@ -77,7 +78,7 @@ def strip(col: pandas.Series, fillna=True, na_value=''):
     col = col.apply(lambda row: ' '.join(row.split()))
     return col
 
-def tolower(col: pandas.Series, fillna=True, na_value=''):
+def tolower_col(col: pandas.Series, fillna=True, na_value=''):
     """ 
     Lower case of the specified column
 
@@ -124,7 +125,7 @@ def tolower(df: pandas.DataFrame, fillna=True, na_value=''):
     df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(str.lower))
     return df
 
-def remove_brackets(col: pandas.Series, fillna=True, na_value=''):
+def remove_brackets_col(col: pandas.Series, fillna=True, na_value=''):
     """ 
     Remove brackets and what's inside them from the specified column
 
@@ -209,7 +210,7 @@ def __normalize(s: str, **kwargs):
     )
     return s
 
-def normalize(
+def normalize_col(
         col: pandas.Series, 
         fillna=True, 
         na_value='',
@@ -281,5 +282,6 @@ def normalize(
         df[df_obj_cols] = df[df_obj_cols].fillna(na_value)
     # Apply to all object columns colCleanHtml function
     # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colCleanHtml(col, not(fillna), na_value), axis=1)
+    print('Normalizing data')
     df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda x: __normalize(x, **kwargs)))
     return df

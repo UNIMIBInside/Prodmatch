@@ -1,15 +1,15 @@
 import numpy
-import py_entitymatching as em
 from pandas import pandas
+from tqdm import tqdm
 from itertools import combinations, chain, product
 from ceneje_prodmatch.scripts.helpers import preprocess
 
-class deepmatcherdata(object):
+class DeepmatcherData(object):
     
     def __init__(self, 
             matching_tuples: pandas.DataFrame, 
             group_cols, 
-            keys: list,
+            attributes: list,
             id_attr: str,
             label_attr: str,
             left_attr: str,
@@ -37,7 +37,7 @@ class deepmatcherdata(object):
         preprocess: wheater or not preprocess matching tuples data. It would be better if the preprocess
         takes place before creating data for deepmatcher, since data will grow on both rows and columns\n
         group_cols: column(s) to group by on\n
-        keys: list with attributes name\n
+        attributes: list with attributes name to include in the output data\n
         create_non_match: wheater or not create non matching tuples\n
         perc: how many non-matching tuples will be created for each product in percentage (0;1)
 
@@ -47,8 +47,8 @@ class deepmatcherdata(object):
         """
         if group_cols == []:
             raise Exception('group_cols must be a string or list indicating by which cols the data will be grouped by')
-        if keys == []:
-            keys = self.data.keys().values
+        if attributes == []:
+            attributes = self.data.keys().values
         if perc <= 0 or perc >= 1:
             raise Exception('Percentage must be in (0;1) interval')
         if normalize:
@@ -61,34 +61,34 @@ class deepmatcherdata(object):
         ab = em.AttrEquivalenceBlocker()
         C1 = ab.block_tables(A, B, 
                     l_block_attr='descriptionSeller', r_block_attr='descriptionSeller',
-                    l_output_attrs=keys,
-                    r_output_attrs=keys,
+                    l_output_attrs=attributes,
+                    r_output_attrs=attributes,
                     l_output_prefix='l_', r_output_prefix='r_')
         print(C1.head()) """
-        self.__deeplabels = [left_attr + key for key in keys] + [right_attr + key for key in keys]
-        self.matching = self.__getMatchingData(group_cols, keys, label_attr)
+        self.__deeplabels = [left_attr + key for key in attributes] + [right_attr + key for key in attributes]
+        self.matching = self.__getMatchingData(group_cols, attributes, label_attr)
         self.non_matching = None
         if create_non_match:
-            self.non_matching = self.__getNonMatchingData(keys, label_attr, perc)
+            self.non_matching = self.__getNonMatchingData(attributes, label_attr, perc)
         self.deepdata = self.__getDeepdata(id_attr)
 
-    def __pairUp(self, row, keys, perc):
+    def __pairUp(self, row, attributes, perc):
         # Retrieve all products not matching with the one in row['idProduct']
-        non_match = self.__data.loc[ self.__data.idProduct != row['idProduct']][keys]
+        non_match = self.__data.loc[ self.__data.idProduct != row['idProduct']][attributes]
         how_many = int(len(non_match) * perc)
         if how_many == 0 or how_many > len(non_match):
             raise Exception('Can\'t sample items. Requested ' + str(how_many) + ', sampleable: ' + str(len(non_match)))
         # print(len(non_match), how_many)
         # Create pair (prod, prod non matching) for every product sampled from non_match DataFrame
-        return product([row[keys].values], non_match.sample(how_many).values)
+        return product([row[attributes].values], non_match.sample(how_many).values)
 
-    def __getNonMatchingData(self, keys: list, label_attr: str, perc=.75):
+    def __getNonMatchingData(self, attributes: list, label_attr: str, perc=.75):
         """
         To create non-matching tuples, every product p will be paired up with a subset 
         sample at random from products different from p. That's essentially what pairUp method do
         """
-        non_match = self.__data[keys]\
-                        .apply(lambda row: pandas.Series(self.__pairUp(row, keys, perc)), axis=1)\
+        non_match = self.__data[attributes]\
+                        .apply(lambda row: pandas.Series(self.__pairUp(row, attributes, perc)), axis=1)\
                         .stack()\
                         .apply(lambda x: list(chain.from_iterable(x)))\
                         .apply(pandas.Series)\
@@ -96,12 +96,12 @@ class deepmatcherdata(object):
         non_match[label_attr] = 0
         return non_match
 
-    def __getMatchingData(self, group_cols, keys: list, label_attr: str):
+    def __getMatchingData(self, group_cols, attributes: list, label_attr: str):
         """
         To create matching tuples i group the dataframe by idProduct, and for every group
         i pair up products two by two (combinations)
         """
-        match = self.__data.groupby(group_cols)[keys].apply(lambda x : combinations(x.values, 2))\
+        match = self.__data.groupby(group_cols)[attributes].apply(lambda x : combinations(x.values, 2))\
                     .apply(pandas.Series)\
                     .stack()\
                     .apply(lambda x: list(chain.from_iterable(x)))\
@@ -146,8 +146,8 @@ class deepmatcherdata(object):
     #     # 		how_many_in_group = idProductGroupedSizes[matching.loc[i_row, 'idProduct']] - index_in_group
     #     # 		for j in range(1, how_many_in_group):
     #     # 			# data.loc[last_row + j, 'label'] = 'match'
-    #     # 			data.loc[last_row + j, left] = matching.loc[i_row, keys].values
-    #     # 			data.loc[last_row + j, right] = matching.loc[i_row + j, keys].values
+    #     # 			data.loc[last_row + j, left] = matching.loc[i_row, attributes].values
+    #     # 			data.loc[last_row + j, right] = matching.loc[i_row + j, attributes].values
     #     # 		last_row = last_row + how_many_in_group - 1
     #     # 		# print(data)
     #     # 		if matching.loc[i_row, 'idProduct'] == matching.loc[i_row + 1, 'idProduct']:
@@ -163,10 +163,12 @@ class deepmatcherdata(object):
 
     def train_val_test_split(self, splits: list, shuffle=True):
         """
+        Split data into train, validation and test
         """
         assert(numpy.sum(splits) == 1)
         splits = numpy.asarray(splits)
         index_list = self.deepdata.index.tolist()
-        numpy.random.shuffle(index_list)
+        if shuffle:
+            numpy.random.shuffle(index_list)
         train, val, test = numpy.array_split(index_list, (splits[:-1].cumsum() * len(index_list)).astype(int))
         return self.deepdata.loc[train, :], self.deepdata.loc[val, :], self.deepdata.loc[test, :]

@@ -13,8 +13,7 @@ numpy = "*"
 sklearn = "*"
 deepmatcher = {editable = true,git = "https://github.com/belerico/deepmatcher.git",ref = "torch_1.0.1"}
 requests = "*"
-py-entitymatching = {editable = true,git = "https://github.com/belerico/py_entitymatching.git"}
-ipython = "*"
+py-stringmatching = "*"
 
 [requires]
 python_version = "3.6"

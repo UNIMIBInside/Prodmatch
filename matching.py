@@ -1,61 +1,22 @@
-from tqdm import tqdm
 import math
 import nltk
 import torch
 import logging
 import deepmatcher as dm
+import py_stringmatching as sm
+import torch.optim as optim
+from torch import nn
 from os import path
+from tqdm import tqdm
 from itertools import chain
 from pandas import pandas
+from torch.utils.data import Dataset, DataLoader
 from ceneje_prodmatch import DATA_DIR, DEEPMATCH_DIR, RESULTS_DIR, CACHE_DIR
-from ceneje_prodmatch.scripts.helpers import preprocess
-from ceneje_prodmatch.scripts.helpers.deepmatcherdata import deepmatcherdata
+from ceneje_prodmatch.scripts.matching.similarity import Similarity, SimilarityDataset, LogisticRegressionModel
+from ceneje_prodmatch.scripts.matching.runner import Runner
 
 logging.getLogger('deepmatcher.core')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-def get_similarity_scores(
-	unlabeled: pandas.DataFrame,
-	distance='jaccard_distance', 
-	ngrams=3, 
-	left_attr='ltable_', 
-	right_attr='rtable_', 
-	ignore_columns=[],
-	na_value=''):
-	
-	def similarity(row_left, row_right):
-		# Distance word based
-		if ngrams == 0:
-			left_prod = chain(*map(lambda s: s.split(' '), row_left.tolist()))
-			right_prod = chain(*map(lambda s: s.split(' '), row_right.tolist()))
-		else: 
-			left_prod = nltk.ngrams(' '.join(row_left.tolist()), n=ngrams)
-			right_prod = nltk.ngrams(' '.join(row_right.tolist()), n=ngrams)
-		if distance == 'jaccard_distance':
-			left_prod = set(left_prod)
-			right_prod = set(right_prod)
-		elif distance == 'edit_distance':
-			left_prod = list(left_prod)
-			right_prod = list(right_prod)
-		# Get similarity
-		return 1 - getattr(nltk, distance)(left_prod, right_prod) / max([len(left_prod), len(right_prod)])
-
-	assert(ngrams >= 0)
-
-	unlabeled = unlabeled.fillna(na_value)
-	left_cols = [
-		col for col in unlabeled 
-		if col.startswith(left_attr) and col not in ignore_columns
-	]
-	right_cols = [
-		col for col in unlabeled 
-		if col.startswith(right_attr) and col not in ignore_columns
-	]
-	tqdm.pandas()
-	match_score = unlabeled[left_cols + right_cols]\
-					.progress_apply(lambda row: similarity(row[left_cols], row[right_cols]), axis=1)
-	unlabeled.insert(0, 'match_score', match_score)
-	return unlabeled
 
 def get_match_predictions(
 	results: pandas.DataFrame, 
@@ -104,20 +65,21 @@ def get_statistics(
 			'F1': F1, 
 			'wrong': results.iloc[wrong_preds]}
 
-def get_pos_neg_ratio(path:str, **kwargs):
-	data = pandas.read_csv(path, **kwargs)
-	pos = len(data[data[['label']] == 1])
-	neg = len(data) - pos
-	return math.ceil(neg / pos)
+def get_pos_neg_ratio(dataset: pandas.DataFrame, label_attr='label'):
+	pos = len(dataset[dataset[label_attr] == 1])
+	neg = len(dataset) - pos
+	return neg / pos
 
 
 if __name__ == "__main__":
-	columns = ['idProduct']
-	ignore_columns = ['ltable_' + col for col in columns]
-	ignore_columns += ['rtable_' + col for col in columns]
-	ignore_columns += ['idProduct']
-	pos_neg_ratio = get_pos_neg_ratio(path.join(DEEPMATCH_DIR, 'train.csv'))
-	train, validation, test = dm.data.process(
+	columns = ['idProduct', 'id', 'price']
+	ignore_columns = ['left_' + col for col in columns]
+	ignore_columns += ['right_' + col for col in columns]
+	ignore_columns += ['idProduct', 'id']
+	
+	""" 
+		Run deepmatcher algorithm
+		train, validation, test = dm.data.process(
 	    path=DEEPMATCH_DIR,
 	    cache=path.join(CACHE_DIR, 'rnn_pos_neg_fasttext_cache.pth'),
 	    train='train.csv',
@@ -154,10 +116,47 @@ if __name__ == "__main__":
 	    trained_model=model     ,
 	    ignore_columns=ignore_columns + ['label'])
 	predictions = model.run_prediction(candidate, output_attributes=list(candidate.get_raw_table().columns), device=device)
-	predictions.to_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg.csv'))
+	predictions.to_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg.csv')) """
 
-	# unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, 'unlabeled.csv'))
-	# predictions = get_similarity_scores(unlabeled, ngrams=0, distance='edit_distance', ignore_columns=ignore_columns, na_value='na')
-	# predictions = get_match_predictions(predictions)
-	# predictions.to_csv(path.join(RESULTS_DIR, 'predictions_jaccard_3.csv'))
-	# print(get_statistics(predictions))
+
+	""" 
+	Run a similarity matching algorithm based on manual weight of the attributes
+
+	unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, 'unlabeled.csv'))
+	simil = Similarity(data=unlabeled, ignore_columns=ignore_columns, na_value='na')
+	predictions = simil.get_scores(metric=sm.Jaccard())
+	# predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_no_name_prod_hybrid.csv'))
+	predictions = get_match_predictions(predictions)
+	# predictions.to_csv(path.join(RESULTS_DIR, 'predictions_jaccard_5.csv'))
+	print(get_statistics(predictions))
+	"""
+
+
+	train = pandas.read_csv(path.join(DEEPMATCH_DIR, 'train.csv'))
+	val = pandas.read_csv(path.join(DEEPMATCH_DIR, 'validation.csv'))
+	unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, 'unlabeled.csv'))
+
+	train_dataset = SimilarityDataset(train, left_attr='left_', right_attr='right_', ignore_columns=ignore_columns)	
+	val_dataset = SimilarityDataset(val, left_attr='left_', right_attr='right_', ignore_columns=ignore_columns)
+	test_dataset = SimilarityDataset(unlabeled, left_attr='left_', right_attr='right_', ignore_columns=ignore_columns)
+	
+	# pos_weight = 2 * pos_neg_ratio / (1 + pos_neg_ratio)
+	# neg_weight = 2 - pos_weight
+
+	pos_neg_ratio = get_pos_neg_ratio(train)
+	model = LogisticRegressionModel(input_dim=3)
+
+	print(pos_neg_ratio)
+	model.run_train(
+		train_dataset, 
+		val_dataset, 
+		model, 
+		resume=True,
+		train_epochs=5, 
+		pos_neg_ratio=pos_neg_ratio,
+		log_freq=16
+	)
+	predictions = model.run_predict(test_dataset)
+	unlabeled.insert(0, 'match_score', predictions)
+	predictions = get_match_predictions(unlabeled)
+	print(get_statistics(predictions))

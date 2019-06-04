@@ -1,12 +1,11 @@
 import os
 import numpy
 import time
-import py_entitymatching as em
 from os import path
 from pandas import pandas
 from ceneje_prodmatch import DATA_DIR, DEEPMATCH_DIR
 from ceneje_prodmatch.scripts.helpers import preprocess
-from ceneje_prodmatch.scripts.helpers.deepmatcherdata import deepmatcherdata
+from ceneje_prodmatch.scripts.helpers.deepmatcherdata import DeepmatcherData
 
 # def fillCols(row, col1, col2):
 # 	if row[col1] == '':
@@ -115,6 +114,7 @@ def get_normalized_matching(integrated_data: list, **kwargs):
 		]
 	)
 
+
 if __name__ == '__main__':
 	init = time.time()
 	files = read_files(
@@ -183,13 +183,13 @@ if __name__ == '__main__':
 	
 	
 	keys = ['idProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']
-	deepdata = deepmatcherdata(
+	deepdata = DeepmatcherData(
 		matching, 
 		group_cols=['idProduct'], 
-		keys=keys,
-		id_attr='_id',
-		left_attr='ltable_',
-		right_attr='rtable_',
+		attributes=keys,
+		id_attr='id',
+		left_attr='left_',
+		right_attr='right_',
 		label_attr='label',
 		normalize=False, 
 		perc=.001
@@ -199,7 +199,7 @@ if __name__ == '__main__':
 	data.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher.csv'))
 	train, val, test = deepdata.train_val_test_split([0.6, 0.2, 0.2])
 	unlabeled_data = train[:int(len(train) * 0.2)]
-	train = train[int(len(train) * 0.2):]
+	train = train[int(len(train) * 0.2) + 1:]
 	train.to_csv(path.join(DEEPMATCH_DIR, 'train.csv'))
 	val.to_csv(path.join(DEEPMATCH_DIR, 'validation.csv'))
 	test.to_csv(path.join(DEEPMATCH_DIR, 'test.csv'))
