@@ -120,7 +120,6 @@ if __name__ == '__main__':
 	files = read_files(
 		folder=DATA_DIR, 
 		prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'], 
-		# contains=['LedTv'],
 		sep='\t', 
 		encoding='utf-8'
 	)
@@ -192,7 +191,8 @@ if __name__ == '__main__':
 		left_attr='left_',
 		right_attr='right_',
 		label_attr='label',
-		normalize=False, 
+		normalize=False,
+		non_match_ratio=2,
 		#perc=.001
 	)
 	data = deepdata.deepdata

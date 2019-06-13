@@ -62,7 +62,8 @@ class DeepmatcherData(object):
         if normalize:
             self.__data = preprocess.normalize(matching_tuples)
         self.__data = matching_tuples
-        """ A = self.__data
+        """ 
+        A = self.__data
         B = self.__data
         em.set_key(A, 'index')
         em.set_key(B, 'index')
@@ -84,9 +85,13 @@ class DeepmatcherData(object):
         self.deepdata = self.__getDeepdata(id_attr)
 
     def __pairUp(self, row, attributes, metric, tokenizer):
+        def compute_sim_score(r):
+            return metric.get_sim_score(
+                tokenizer.tokenize(r.values[0]), tokenizer.tokenize(row['nameSeller']))
+
         # Retrieve all products not matching with the one in row['idProduct']
         match = len(self.__data.loc[self.__data['idProduct'] == row['idProduct']])
-        how_many = int(comb(match, self.non_match_ratio, exact=True) * 2 / match)
+        how_many = int(comb(match, 2, exact=True) * self.non_match_ratio / match)
 
         # non_match = self.__data.loc[self.__data['idProduct'] != row['idProduct'], attributes]
         # print('idProduct/Match/Non match: ' + str(row['idProduct']) + '/' + str(match) + '/' + str(how_many))
@@ -96,15 +101,14 @@ class DeepmatcherData(object):
         # )
 
         non_match = self.__data.loc[
-            (self.__data['idProduct'] != row['idProduct']) & (self.__data['descriptionSeller'] != self.na_value), 
+            (self.__data['idProduct'] != row['idProduct']) & (self.__data['nameSeller'] != self.na_value), 
             attributes
         ]
-        non_match['similarity'] = non_match.apply(
-            lambda r: metric.get_sim_score(
-                tokenizer.tokenize(r['descriptionSeller']), tokenizer.tokenize(row['descriptionSeller'])),
+        non_match['similarity'] = non_match[['nameSeller']].apply(
+            compute_sim_score,
             axis=1
         )
-        simil = non_match.loc[non_match['similarity'] >= self.similarity_thr].sort_values(by=['similarity'])
+        simil = non_match.loc[non_match['similarity'] >= self.similarity_thr]
         how_many_left = how_many - len(simil)
         # if how_many == 0 or how_many > len(non_match):
         #     raise Exception('Can\'t sample items. Requested ' + str(how_many) + ', sampleable: ' + str(len(non_match)))
@@ -117,7 +121,7 @@ class DeepmatcherData(object):
         else:
             return product(
                 [row[attributes].values], 
-                simil.head(how_many)[attributes].values
+                simil.sample(how_many)[attributes].values
             )
 
     def __getNonMatchingData(self, attributes: list, label_attr: str):
@@ -125,8 +129,9 @@ class DeepmatcherData(object):
         To create non-matching tuples, every product p will be paired up with a subset 
         sample at random from products different from p. That's essentially what pairUp method do
         """
+        print('Create non-matching data...')
         metric = sm.Jaccard()
-        tokenizer = sm.QgramTokenizer()
+        tokenizer = sm.WhitespaceTokenizer()
         non_match = self.__data[attributes]\
                         .apply(lambda row: pandas.Series(self.__pairUp(row, attributes, metric, tokenizer)), axis=1)\
                         .stack()\
@@ -134,6 +139,7 @@ class DeepmatcherData(object):
                         .apply(pandas.Series)\
                         .set_axis(labels=self.__deeplabels, axis=1, inplace=False)
         non_match[label_attr] = 0
+        print('Finished')
         return non_match
 
     def __getMatchingData(self, group_cols, attributes: list, label_attr: str):
@@ -141,6 +147,7 @@ class DeepmatcherData(object):
         To create matching tuples i group the dataframe by idProduct, and for every group
         i pair up products two by two (combinations)
         """
+        print('Create matching data...')
         match = self.__data.groupby(group_cols)[attributes].apply(lambda x : combinations(x.values, 2))\
                     .apply(pandas.Series)\
                     .stack()\
@@ -148,6 +155,7 @@ class DeepmatcherData(object):
                     .apply(pandas.Series)\
                     .set_axis(labels=self.__deeplabels, axis=1, inplace=False)
         match[label_attr] = 1
+        print('Finished')
         return match
 
     def __getDeepdata(self, id_attr):

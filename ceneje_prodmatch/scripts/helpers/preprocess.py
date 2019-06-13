@@ -282,6 +282,7 @@ def normalize(
         df[df_obj_cols] = df[df_obj_cols].fillna(na_value)
     # Apply to all object columns colCleanHtml function
     # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colCleanHtml(col, not(fillna), na_value), axis=1)
-    print('Normalizing data')
+    print('Normalizing data...')
     df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda x: __normalize(x, **kwargs)))
+    print('Finished')
     return df
