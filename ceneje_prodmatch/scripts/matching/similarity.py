@@ -60,6 +60,7 @@ class Similarity(object):
         metric=sm.Jaccard(),
         tokenizer=sm.QgramTokenizer(),
         similarity=True,
+        undefined_scores=None,
         weights=None
         ):
         """
@@ -76,7 +77,11 @@ class Similarity(object):
             which metric to use: it has to be a py_stringmatching class. 
             For a complete review please look at `py_stringmatching` package\n
         tokenizer (str): which `py_stringmatching` tokenizer use to tokenize text\n
-        similarity (bool): compute similarity score if True, disteance otherwise
+        similarity (bool): compute similarity score if True, disteance otherwise\n
+        undefined_scores (list): 
+            a list that contains, for each positions, the default scores to give to a pair of
+            attributes if one of them contains `na_value`. If None every scores will be set
+            to 1/2 (better not decide)
         weights (list): 
             list of weights for each of the attributes. 
             If None, every attribute will be equally weighted
@@ -89,7 +94,7 @@ class Similarity(object):
             scores = []
             for i in range(len(row_left)):
                 if row_left[i] == self.na_value or row_right[i] == self.na_value:
-                    scores.append(0)
+                    scores.append(undefined_scores[i])
                 else:
                     if tokenizer is None:
                         scores.append(metric.get_sim_score(row_left[i], row_right[i]))
@@ -99,14 +104,12 @@ class Similarity(object):
 
         left_attrs_num = len(self.data[self.left_prod_attrs].keys())
         right_attrs_num = len(self.data[self.right_prod_attrs].keys())
-        if weights is not None:
-            assert(left_attrs_num == right_attrs_num == len(weights))
-            # assert(sum(weights) == 1)
-        else:
-            # Equal weight for every attributes
+        if weights is None:
             weights = [1] * left_attrs_num
-            assert(left_attrs_num == right_attrs_num == len(weights))
-       
+        if undefined_scores is None:
+            undefined_scores = [1/2] * left_attrs_num
+        assert(left_attrs_num == right_attrs_num == len(weights) == len(undefined_scores))
+
         tqdm.pandas()
         match_score = self.data[self.left_prod_attrs + self.right_prod_attrs]\
                         .progress_apply(
@@ -127,13 +130,14 @@ class SimilarityDataset(Dataset):
         tokenizer=sm.QgramTokenizer(),
         label_attr='label',
         left_attr='ltable_', 
-        right_attr='rtable_', 
+        right_attr='rtable_',
+        undefined_scores=None, 
         ignore_columns=[],
         na_value='',
         ):
         """
-        With this class one can compute distance or similarity measure, based on functions
-        provided by the `py_stringmatching` package.
+        With this class one can encapsulate a torch.Dataset. It will be used to batch 
+        attributes and compute a similarity vector between pair of attributes.
         It requires a dataset with a schema similar to the one for deepmatcher:
         |Left attr 1|Left attr 2|...|Right attr 1|Right attr 2|...|Other attrs|
 
@@ -146,6 +150,10 @@ class SimilarityDataset(Dataset):
         label_attr (str): string for recognize the label attribute\n
         left_attr (str): string prefix for recognize the left product attributes\n
         right_attr (str): string prefix for recognize the left product attributes\n
+        undefined_scores (list): 
+            a list that contains, for each positions, the default scores to give to a pair of
+            attributes if one of them contains `na_value`. If None every scores will be set
+            to 1/2 (better not decide)
         ignore_columns (list): list of attributes to ignore in the similarity computation\n
         na_value: value to fill NaN with
         """
@@ -166,8 +174,13 @@ class SimilarityDataset(Dataset):
             col for col in data 
             if col.startswith(right_attr) and col not in ignore_columns
         ]
-        assert(len(data[self.right_prod_attrs]) > 0)
-        assert(len(data[self.left_prod_attrs].keys()) == len(data[self.right_prod_attrs].keys()))
+        assert(len(self.right_prod_attrs) > 0)
+        assert(len(self.left_prod_attrs) == len(self.right_prod_attrs))
+        self.undefined_scores = undefined_scores
+        if undefined_scores is None:
+            self.undefined_scores = [1/2] * len(self.left_prod_attrs)
+        assert(len(self.undefined_scores) == len(self.left_prod_attrs))
+        self.undefined_scores = undefined_scores
         self.data[self.left_prod_attrs + self.right_prod_attrs] = self.data[self.left_prod_attrs + self.right_prod_attrs]\
                                                                         .fillna(value=na_value)
     
@@ -175,7 +188,7 @@ class SimilarityDataset(Dataset):
             scores = []
             for i in range(len(row_left)):
                 if row_left[i] == self.na_value or row_right[i] == self.na_value:
-                    scores.append(0)
+                    scores.append(self.undefined_scores[i])
                 else:
                     if self.tokenizer is None:
                         scores.append(self.metric.get_sim_score(row_left[i], row_right[i]))
@@ -194,7 +207,7 @@ class SimilarityDataset(Dataset):
         row_left = self.data.iloc[index, [self.data.columns.get_loc(col) for col in self.left_prod_attrs]]
         row_right = self.data.iloc[index, [self.data.columns.get_loc(col) for col in self.right_prod_attrs]]
         label = self.data.iloc[index, self.data.columns.get_loc(self.label_attr)]
-        scores = torch.FloatTensor(self.__scores(row_left, row_right))
+        scores = torch.tensor(self.__scores(row_left, row_right))
         return (scores, label)
 
 class LogisticRegressionModel(nn.Module):
