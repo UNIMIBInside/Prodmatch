@@ -1,6 +1,8 @@
 import numpy
+import py_stringmatching as sm
 from pandas import pandas
 from tqdm import tqdm
+from scipy.special import comb
 from itertools import combinations, chain, product
 from ceneje_prodmatch.scripts.helpers import preprocess
 
@@ -16,7 +18,9 @@ class DeepmatcherData(object):
             right_attr: str,
             normalize=True, 
             create_non_match=True,
-            perc=.75
+            na_value='',
+            non_match_ratio=2,
+            similarity_thr=0.7
     ):
         """
         Deepmatcher needs data in a particular way, such as:\n
@@ -39,7 +43,11 @@ class DeepmatcherData(object):
         group_cols: column(s) to group by on\n
         attributes: list with attributes name to include in the output data\n
         create_non_match: wheater or not create non matching tuples\n
-        perc: how many non-matching tuples will be created for each product in percentage (0;1)
+        non_match_ratio (float): how many non-matching tuples will be created for each matching tuple of a product. So if for example
+            there're 4 matching products, there will be created 4C2 = 6 combinations; so the number of non-matching tuples
+            will be 6 * non_match_ratio
+        similarity_thr (float): similarity threshold for creating non-matching tuples using a similarity function
+            (to make deepmatcher work harder)
 
         Returns
         -------
@@ -48,9 +56,9 @@ class DeepmatcherData(object):
         if group_cols == []:
             raise Exception('group_cols must be a string or list indicating by which cols the data will be grouped by')
         if attributes == []:
-            attributes = self.data.keys().values
-        if perc <= 0 or perc >= 1:
-            raise Exception('Percentage must be in (0;1) interval')
+            attributes = matching_tuples.keys().values
+        if non_match_ratio <= 0:
+            raise Exception('Percentage must be positive')
         if normalize:
             self.__data = preprocess.normalize(matching_tuples)
         self.__data = matching_tuples
@@ -67,28 +75,60 @@ class DeepmatcherData(object):
         print(C1.head()) """
         self.__deeplabels = [left_attr + key for key in attributes] + [right_attr + key for key in attributes]
         self.matching = self.__getMatchingData(group_cols, attributes, label_attr)
+        self.na_value = na_value
+        self.non_match_ratio = non_match_ratio
+        self.similarity_thr = similarity_thr
         self.non_matching = None
         if create_non_match:
-            self.non_matching = self.__getNonMatchingData(attributes, label_attr, perc)
+            self.non_matching = self.__getNonMatchingData(attributes, label_attr)
         self.deepdata = self.__getDeepdata(id_attr)
 
-    def __pairUp(self, row, attributes, perc):
+    def __pairUp(self, row, attributes, metric, tokenizer):
         # Retrieve all products not matching with the one in row['idProduct']
-        non_match = self.__data.loc[ self.__data.idProduct != row['idProduct']][attributes]
-        how_many = int(len(non_match) * perc)
-        if how_many == 0 or how_many > len(non_match):
-            raise Exception('Can\'t sample items. Requested ' + str(how_many) + ', sampleable: ' + str(len(non_match)))
-        # print(len(non_match), how_many)
-        # Create pair (prod, prod non matching) for every product sampled from non_match DataFrame
-        return product([row[attributes].values], non_match.sample(how_many).values)
+        match = len(self.__data.loc[self.__data['idProduct'] == row['idProduct']])
+        how_many = int(comb(match, self.non_match_ratio, exact=True) * 2 / match)
 
-    def __getNonMatchingData(self, attributes: list, label_attr: str, perc=.75):
+        # non_match = self.__data.loc[self.__data['idProduct'] != row['idProduct'], attributes]
+        # print('idProduct/Match/Non match: ' + str(row['idProduct']) + '/' + str(match) + '/' + str(how_many))
+        # return product(
+        #     [row[attributes].values], 
+        #     non_match.sample(how_many)[attributes].values
+        # )
+
+        non_match = self.__data.loc[
+            (self.__data['idProduct'] != row['idProduct']) & (self.__data['descriptionSeller'] != self.na_value), 
+            attributes
+        ]
+        non_match['similarity'] = non_match.apply(
+            lambda r: metric.get_sim_score(
+                tokenizer.tokenize(r['descriptionSeller']), tokenizer.tokenize(row['descriptionSeller'])),
+            axis=1
+        )
+        simil = non_match.loc[non_match['similarity'] >= self.similarity_thr].sort_values(by=['similarity'])
+        how_many_left = how_many - len(simil)
+        # if how_many == 0 or how_many > len(non_match):
+        #     raise Exception('Can\'t sample items. Requested ' + str(how_many) + ', sampleable: ' + str(len(non_match)))
+        # Create pair (prod, prod non matching) for every product sampled from non_match DataFrame
+        if how_many_left > 0:
+            return product(
+                [row[attributes].values], 
+                pandas.concat([non_match.sample(how_many_left), simil])[attributes].values
+            )
+        else:
+            return product(
+                [row[attributes].values], 
+                simil.head(how_many)[attributes].values
+            )
+
+    def __getNonMatchingData(self, attributes: list, label_attr: str):
         """
         To create non-matching tuples, every product p will be paired up with a subset 
         sample at random from products different from p. That's essentially what pairUp method do
         """
+        metric = sm.Jaccard()
+        tokenizer = sm.QgramTokenizer()
         non_match = self.__data[attributes]\
-                        .apply(lambda row: pandas.Series(self.__pairUp(row, attributes, perc)), axis=1)\
+                        .apply(lambda row: pandas.Series(self.__pairUp(row, attributes, metric, tokenizer)), axis=1)\
                         .stack()\
                         .apply(lambda x: list(chain.from_iterable(x)))\
                         .apply(pandas.Series)\

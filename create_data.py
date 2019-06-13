@@ -120,6 +120,7 @@ if __name__ == '__main__':
 	files = read_files(
 		folder=DATA_DIR, 
 		prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'], 
+		# contains=['LedTv'],
 		sep='\t', 
 		encoding='utf-8'
 	)
@@ -192,7 +193,7 @@ if __name__ == '__main__':
 		right_attr='right_',
 		label_attr='label',
 		normalize=False, 
-		perc=.001
+		#perc=.001
 	)
 	data = deepdata.deepdata
 	print(time.time() - init)

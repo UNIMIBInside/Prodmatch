@@ -79,6 +79,7 @@ if __name__ == "__main__":
 	
 	""" 
 		Run deepmatcher algorithm
+		
 		train, validation, test = dm.data.process(
 	    path=DEEPMATCH_DIR,
 	    cache=path.join(CACHE_DIR, 'rnn_pos_neg_fasttext_cache.pth'),
