@@ -113,7 +113,10 @@ class DeepmatcherData(object):
             compute_sim_score,
             axis=1
         )
-        simil = non_match.loc[non_match['similarity'] >= self.similarity_thr].sort_values(by=['similarity'], ascending=False)
+        non_match = non_match.sort_values(by=['similarity'], ascending=False)
+        mask = non_match['similarity'] >= self.similarity_thr
+        simil = non_match[mask]
+        not_simil = non_match[~mask]
         how_many_left = how_many - len(simil)
         # if how_many == 0 or how_many > len(non_match):
         #     raise Exception('Can\'t sample items. Requested ' + str(how_many) + ', sampleable: ' + str(len(non_match)))
@@ -121,7 +124,7 @@ class DeepmatcherData(object):
         if how_many_left > 0:
             return product(
                 [row], 
-                pandas.concat([non_match.sample(how_many_left), simil]).values.tolist()
+                pandas.concat([not_simil.head(how_many_left), simil]).values.tolist()
             )
         else:
             return product(
