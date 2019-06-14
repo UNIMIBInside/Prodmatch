@@ -5,6 +5,7 @@ from tqdm import tqdm
 from scipy.special import comb
 from itertools import combinations, chain, product
 from ceneje_prodmatch.scripts.helpers import preprocess
+import dask.dataframe as ddf 
 
 class DeepmatcherData(object):
     
@@ -104,10 +105,12 @@ class DeepmatcherData(object):
             (self.__data['idProduct'] != row['idProduct']) & (self.__data['nameSeller'] != self.na_value), 
             attributes
         ]
-        non_match['similarity'] = non_match[['nameSeller']].apply(
+        non_match_dask = ddf.from_pandas(non_match, npartitions=4)
+        non_match['similarity'] = non_match_dask[['nameSeller']].apply(
             compute_sim_score,
-            axis=1
-        )
+            axis=1,
+            meta=('object')
+        ).compute(scheduler='multiprocessing')
         simil = non_match.loc[non_match['similarity'] >= self.similarity_thr]
         how_many_left = how_many - len(simil)
         # if how_many == 0 or how_many > len(non_match):

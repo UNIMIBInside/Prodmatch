@@ -76,11 +76,12 @@ if __name__ == "__main__":
 	ignore_columns = ['left_' + col for col in columns]
 	ignore_columns += ['right_' + col for col in columns]
 	ignore_columns += ['idProduct', 'id']
+	train = pandas.read_csv(path.join(DEEPMATCH_DIR, 'train.csv'))
+	pos_neg_ratio = get_pos_neg_ratio(train)
 	
-	""" 
-		Run deepmatcher algorithm
+	# Run deepmatcher algorithm
 		
-		train, validation, test = dm.data.process(
+	train, validation, test = dm.data.process(
 	    path=DEEPMATCH_DIR,
 	    cache=path.join(CACHE_DIR, 'rnn_pos_neg_fasttext_cache.pth'),
 	    train='train.csv',
@@ -91,9 +92,8 @@ if __name__ == "__main__":
 	    embeddings='fasttext.sl.bin',
 	    id_attr='_id',
 	    label_attr='label',
-	    left_prefix='ltable_',
-	    right_prefix='rtable_',
-	    pos_neg_ratio=pos_neg_ratio,
+	    left_prefix='left_',
+	    right_prefix='right_',
 	    pca=False,
 	    device=device
 	)
@@ -107,6 +107,7 @@ if __name__ == "__main__":
 	    validation,
 	    epochs=10,
 	    batch_size=16,
+		pos_neg_ratio=pos_neg_ratio,
 	    best_save_path=path.join(RESULTS_DIR, 'models', 'rnn_pos_neg_fasttext_model.pth'),
 	    device=device
 	)
@@ -117,7 +118,7 @@ if __name__ == "__main__":
 	    trained_model=model     ,
 	    ignore_columns=ignore_columns + ['label'])
 	predictions = model.run_prediction(candidate, output_attributes=list(candidate.get_raw_table().columns), device=device)
-	predictions.to_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg.csv')) """
+	predictions.to_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg.csv'))
 
 
 	""" 
@@ -132,6 +133,9 @@ if __name__ == "__main__":
 	print(get_statistics(predictions))
 	"""
 
+
+	""" 
+	Run a similarity matching algorithm based on simple logistic regression
 
 	train = pandas.read_csv(path.join(DEEPMATCH_DIR, 'train.csv'))
 	val = pandas.read_csv(path.join(DEEPMATCH_DIR, 'validation.csv'))
@@ -160,4 +164,4 @@ if __name__ == "__main__":
 	predictions = model.run_predict(test_dataset)
 	unlabeled.insert(0, 'match_score', predictions)
 	predictions = get_match_predictions(unlabeled)
-	print(get_statistics(predictions))
+	print(get_statistics(predictions)) """

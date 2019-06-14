@@ -16,6 +16,7 @@ deepmatcher = {editable = true,git = "https://github.com/belerico/deepmatcher.gi
 requests = "*"
 py-stringmatching = "*"
 swifter = "*"
+dask = "*"
 
 [requires]
 python_version = "3.7"
