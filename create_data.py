@@ -5,7 +5,7 @@ from os import path
 from pandas import pandas
 from ceneje_prodmatch import DATA_DIR, DEEPMATCH_DIR
 from ceneje_prodmatch.scripts.helpers import preprocess
-from ceneje_prodmatch.scripts.helpers.deepmatcherdata import DeepmatcherData
+from ceneje_prodmatch.scripts.helpers.deepmatcherdata import DeepmatcherData, train_val_test_split
 
 # def fillCols(row, col1, col2):
 # 	if row[col1] == '':
@@ -103,31 +103,45 @@ def get_normalized_matching(integrated_data: list, **kwargs):
 	"""
 	kwargs: keyword arguments to pass to normalize function
 	"""
-	return pandas.concat(
-		[
-			preprocess.normalize(
-				# For every integrated dataset, keep only those products that are duplicates (matching)
-				integrated_data[i][integrated_data[i].duplicated(subset='idProduct', keep=False)],
-				**kwargs
-			)
-			for i in range(len(integrated_data))
-		]
-	)
+	return [
+		preprocess.normalize(
+			# For every integrated dataset, keep only those products that are duplicates (matching)
+			integrated_data[i][integrated_data[i].duplicated(subset='idProduct', keep=False)],
+			**kwargs
+		)
+		for i in range(len(integrated_data))
+	]
 
+def get_deepmatcher_data(matching_datasets: list, attributes: list):
+	return pandas.concat([
+		DeepmatcherData(
+			matching, 
+			group_cols=['idProduct'], 
+			attributes=attributes,
+			id_attr='id',
+			left_attr='left_',
+			right_attr='right_',
+			label_attr='label',
+			normalize=False,
+			non_match_ratio=2,
+			#perc=.001
+		).deepdata
+		for matching in matching_datasets
+	])
 
 if __name__ == '__main__':
 	init = time.time()
 	files = read_files(
 		folder=DATA_DIR, 
 		prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'], 
-		contains=['WashingMachine'],
+		# contains=['WashingMachine'],
 		sep='\t', 
 		encoding='utf-8'
 	)
 	integrated_data = join_datasets(files)
 	pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, 'integrated.csv'))
 	matching = get_normalized_matching(integrated_data, lower=True, remove_brackets=False) 
-	matching.to_csv(path.join(DATA_DIR, 'matching.csv'))
+	pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching.csv'))
 	
 	
 	# Set seed for reproducible results
@@ -183,23 +197,24 @@ if __name__ == '__main__':
 	# matching.to_csv(path.join(DATA_DIR, 'Matching.csv'))
 	
 	
-	keys = ['idProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']
-	deepdata = DeepmatcherData(
-		matching, 
-		group_cols=['idProduct'], 
-		attributes=keys,
-		id_attr='id',
-		left_attr='left_',
-		right_attr='right_',
-		label_attr='label',
-		normalize=False,
-		non_match_ratio=2,
-		#perc=.001
-	)
-	data = deepdata.deepdata
+	attributes = ['idProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']
+	# deepdata = DeepmatcherData(
+	# 	matching, 
+	# 	group_cols=['idProduct'], 
+	# 	attributes=keys,
+	# 	id_attr='id',
+	# 	left_attr='left_',
+	# 	right_attr='right_',
+	# 	label_attr='label',
+	# 	normalize=False,
+	# 	non_match_ratio=2,
+	# 	#perc=.001
+	# )
+	# data = deepdata.deepdata
+	deepdata = get_deepmatcher_data(matching, attributes)
 	print(time.time() - init)
-	data.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher.csv'))
-	train, val, test = deepdata.train_val_test_split([0.6, 0.2, 0.2])
+	deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher.csv'))
+	train, val, test = train_val_test_split(deepdata, [0.6, 0.2, 0.2])
 	unlabeled_data = train[:int(len(train) * 0.2)]
 	train = train[int(len(train) * 0.2) + 1:]
 	train.to_csv(path.join(DEEPMATCH_DIR, 'train.csv'))

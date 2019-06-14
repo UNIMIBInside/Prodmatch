@@ -1,11 +1,11 @@
 import numpy
 import py_stringmatching as sm
+import dask.dataframe as ddf 
 from pandas import pandas
 from tqdm import tqdm
 from scipy.special import comb
 from itertools import combinations, chain, product
 from ceneje_prodmatch.scripts.helpers import preprocess
-import dask.dataframe as ddf 
 
 class DeepmatcherData(object):
     
@@ -105,12 +105,12 @@ class DeepmatcherData(object):
             (self.__data['idProduct'] != row['idProduct']) & (self.__data['nameSeller'] != self.na_value), 
             attributes
         ]
-        non_match_dask = ddf.from_pandas(non_match, npartitions=4)
+        non_match_dask = ddf.from_pandas(non_match, npartitions=16)
         non_match['similarity'] = non_match_dask[['nameSeller']].apply(
             compute_sim_score,
             axis=1,
-            meta=('object')
-        ).compute(scheduler='multiprocessing')
+            meta=('float64')
+        ).compute()
         simil = non_match.loc[non_match['similarity'] >= self.similarity_thr]
         how_many_left = how_many - len(simil)
         # if how_many == 0 or how_many > len(non_match):
@@ -212,14 +212,14 @@ class DeepmatcherData(object):
     #     # return deepdata.rename_axis('id', axis=0, copy=False)
     #     return self.deepdata
 
-    def train_val_test_split(self, splits: list, shuffle=True):
-        """
-        Split data into train, validation and test
-        """
-        assert(numpy.sum(splits) == 1)
-        splits = numpy.asarray(splits)
-        index_list = self.deepdata.index.tolist()
-        if shuffle:
-            numpy.random.shuffle(index_list)
-        train, val, test = numpy.array_split(index_list, (splits[:-1].cumsum() * len(index_list)).astype(int))
-        return self.deepdata.loc[train, :], self.deepdata.loc[val, :], self.deepdata.loc[test, :]
+def train_val_test_split(data:pandas.DataFrame, splits: list, shuffle=True):
+    """
+    Split data into train, validation and test
+    """
+    assert(numpy.sum(splits) == 1)
+    splits = numpy.asarray(splits)
+    index_list = data.index.tolist()
+    if shuffle:
+        numpy.random.shuffle(index_list)
+    train, val, test = numpy.array_split(index_list, (splits[:-1].cumsum() * len(index_list)).astype(int))
+    return data.loc[train, :], data.loc[val, :], data.loc[test, :]
