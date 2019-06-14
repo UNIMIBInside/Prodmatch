@@ -124,6 +124,7 @@ def get_deepmatcher_data(matching_datasets: list, attributes: list):
 			label_attr='label',
 			normalize=False,
 			non_match_ratio=2,
+			similarity_thr=0.6
 			#perc=.001
 		).deepdata
 		for matching in matching_datasets
@@ -134,7 +135,7 @@ if __name__ == '__main__':
 	files = read_files(
 		folder=DATA_DIR, 
 		prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'], 
-		# contains=['WashingMachine'],
+		contains=['WashingMachine'],
 		sep='\t', 
 		encoding='utf-8'
 	)

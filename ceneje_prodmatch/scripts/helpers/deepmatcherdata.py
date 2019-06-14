@@ -88,10 +88,9 @@ class DeepmatcherData(object):
     def __pairUp(self, row, attributes, metric, tokenizer):
         def compute_sim_score(r):
             return metric.get_sim_score(
-                tokenizer.tokenize(r.values[0]), tokenizer.tokenize(row['nameSeller']))
-
+                tokenizer.tokenize(r.values[0]), tokenizer.tokenize(row.nameSeller))
         # Retrieve all products not matching with the one in row['idProduct']
-        match = len(self.__data.loc[self.__data['idProduct'] == row['idProduct']])
+        match = len(self.__data.loc[self.__data['idProduct'] == row.idProduct])
         how_many = int(comb(match, 2, exact=True) * self.non_match_ratio / match)
 
         # non_match = self.__data.loc[self.__data['idProduct'] != row['idProduct'], attributes]
@@ -102,29 +101,32 @@ class DeepmatcherData(object):
         # )
 
         non_match = self.__data.loc[
-            (self.__data['idProduct'] != row['idProduct']) & (self.__data['nameSeller'] != self.na_value), 
+            (self.__data['idProduct'] != row.idProduct) & (self.__data['nameSeller'] != self.na_value), 
             attributes
         ]
-        non_match_dask = ddf.from_pandas(non_match, npartitions=16)
-        non_match['similarity'] = non_match_dask[['nameSeller']].apply(
+        # non_match['similarity'] = ddf.from_pandas(non_match, npartitions=16)[['nameSeller']].apply(
+        #     compute_sim_score,
+        #     axis=1,
+        #     meta=('float64')
+        # ).compute()
+        non_match['similarity'] = non_match[['nameSeller']].apply(
             compute_sim_score,
-            axis=1,
-            meta=('float64')
-        ).compute()
-        simil = non_match.loc[non_match['similarity'] >= self.similarity_thr]
+            axis=1
+        )
+        simil = non_match.loc[non_match['similarity'] >= self.similarity_thr].sort_values(by=['similarity'], ascending=False)
         how_many_left = how_many - len(simil)
         # if how_many == 0 or how_many > len(non_match):
         #     raise Exception('Can\'t sample items. Requested ' + str(how_many) + ', sampleable: ' + str(len(non_match)))
         # Create pair (prod, prod non matching) for every product sampled from non_match DataFrame
         if how_many_left > 0:
             return product(
-                [row[attributes].values], 
-                pandas.concat([non_match.sample(how_many_left), simil])[attributes].values
+                [row], 
+                pandas.concat([non_match.sample(how_many_left), simil]).values.tolist()
             )
         else:
             return product(
-                [row[attributes].values], 
-                simil.sample(how_many)[attributes].values
+                [row], 
+                simil.head(how_many).values.tolist()
             )
 
     def __getNonMatchingData(self, attributes: list, label_attr: str):
@@ -134,13 +136,25 @@ class DeepmatcherData(object):
         """
         print('Create non-matching data...')
         metric = sm.Jaccard()
-        tokenizer = sm.WhitespaceTokenizer()
-        non_match = self.__data[attributes]\
-                        .apply(lambda row: pandas.Series(self.__pairUp(row, attributes, metric, tokenizer)), axis=1)\
-                        .stack()\
-                        .apply(lambda x: list(chain.from_iterable(x)))\
-                        .apply(pandas.Series)\
-                        .set_axis(labels=self.__deeplabels, axis=1, inplace=False)
+        tokenizer = sm.QgramTokenizer(padding=False)
+        # tokenizer = sm.WhitespaceTokenizer()
+        # non_match = self.__data[attributes]\
+        #                 .apply(lambda row: pandas.Series(self.__pairUp(row, attributes, metric, tokenizer)), axis=1)\
+        #                 .stack()\
+        #                 .apply(lambda x: list(chain.from_iterable(x)))\
+        #                 .apply(pandas.Series)\
+        #                 .set_axis(labels=self.__deeplabels, axis=1, inplace=False)
+        non_match = pandas.DataFrame([
+            chain.from_iterable([left_prod, right_prod])
+            for row in self.__data[attributes].itertuples(index=False)
+            for left_prod, right_prod in self.__pairUp(row, attributes, metric, tokenizer)
+        ], columns=self.__deeplabels + ['similarity'])
+        # non_match = pandas.DataFrame([
+        #     chain.from_iterable([left_prod, right_prod])
+        #     for pairs in self.__data[attributes]
+        #             .apply(lambda row: self.__pairUp(row, attributes, metric, tokenizer), axis=1)
+        #     for left_prod, right_prod in pairs
+        # ], columns=self.__deeplabels)
         non_match[label_attr] = 0
         print('Finished')
         return non_match
@@ -151,17 +165,23 @@ class DeepmatcherData(object):
         i pair up products two by two (combinations)
         """
         print('Create matching data...')
-        match = self.__data.groupby(group_cols)[attributes].apply(lambda x : combinations(x.values, 2))\
-                    .apply(pandas.Series)\
-                    .stack()\
-                    .apply(lambda x: list(chain.from_iterable(x)))\
-                    .apply(pandas.Series)\
-                    .set_axis(labels=self.__deeplabels, axis=1, inplace=False)
+        # match = self.__data.groupby(group_cols)[attributes].apply(lambda x : combinations(x.values, 2))\
+        #             .apply(pandas.Series)\
+        #             .stack()\
+        #             .apply(lambda x: list(chain.from_iterable(x)))\
+        #             .apply(pandas.Series)\
+        #             .set_axis(labels=self.__deeplabels, axis=1, inplace=False)
+        match = pandas.DataFrame([
+            chain.from_iterable([left_prod, right_prod])
+            for idProduct, group in self.__data[attributes].groupby(group_cols)
+            for left_prod, right_prod in combinations(group.values, 2)
+        ], columns=self.__deeplabels)
         match[label_attr] = 1
         print('Finished')
         return match
 
     def __getDeepdata(self, id_attr):
+        self.matching.insert(8, 'similarity', 0)
         deepdata = pandas.concat([self.matching, self.non_matching])\
                     .reset_index(drop=True)
         return deepdata.rename_axis(id_attr, axis=0, copy=False)
