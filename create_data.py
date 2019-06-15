@@ -139,19 +139,19 @@ def get_deepmatcher_data(matching_datasets: list, attributes: list):
 
 
 if __name__ == '__main__':
-    init = time.time()
-    files = read_files(
-        folder=DATA_DIR,
-        prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'],
-        # contains=['WashingMachine'],
-        sep='\t',
-        encoding='utf-8'
-    )
-    integrated_data = join_datasets(files)
-    pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, 'integrated.csv'))
-    matching = get_normalized_matching(
-        integrated_data, lower=True, remove_brackets=False)
-    pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching.csv'))
+    # init = time.time()
+    # files = read_files(
+    #     folder=DATA_DIR,
+    #     prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'],
+    #     # contains=['WashingMachine'],
+    #     sep='\t',
+    #     encoding='utf-8'
+    # )
+    # integrated_data = join_datasets(files)
+    # pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, 'integrated.csv'))
+    # matching = get_normalized_matching(
+    #     integrated_data, lower=True, remove_brackets=False)
+    # pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching.csv'))
 
     # Set seed for reproducible results
     # numpy.random.seed(42)
@@ -220,8 +220,9 @@ if __name__ == '__main__':
     #     # perc=.001
     # )
     # data = deepdata.deepdata
-    deepdata = get_deepmatcher_data(matching, attributes)
-    print(time.time() - init)
+    # deepdata = get_deepmatcher_data(matching, attributes)
+    deepdata = pandas.read_csv(path.join(DEEPMATCH_DIR, 'deepmatcher.csv'))
+    # print(time.time() - init)
     deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher.csv'))
     train, val, test = train_val_test_split(deepdata, [0.6, 0.2, 0.2])
     unlabeled_data = train[:int(len(train) * 0.2)]

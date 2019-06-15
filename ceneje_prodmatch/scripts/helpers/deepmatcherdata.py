@@ -297,10 +297,10 @@ def train_val_test_split(data: pandas.DataFrame, splits: list, shuffle=True):
     #     index_list, (splits[:-1].cumsum() * len(index_list)).astype(int))
     # return data.loc[train, :], data.loc[val, :], data.loc[test, :]
     splits = numpy.cumsum(splits)
+    print(splits)
     len_data = len(data)
     train, val, test = numpy.split(
         data.sample(frac=1),
         [int(splits[0] * len_data),
-         int(splits[1] * len_data),
-         int(splits[2] * len_data)])
+         int(splits[1] * len_data)])
     return train, val, test
