@@ -206,20 +206,20 @@ if __name__ == '__main__':
     # matching.to_csv(path.join(DATA_DIR, 'Matching.csv'))
 
     attributes = ['idProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']
-    deepdata = DeepmatcherData(
-        matching,
-        group_cols=['idProduct'],
-        attributes=attributes,
-        id_attr='id',
-        left_attr='left_',
-        right_attr='right_',
-        label_attr='label',
-        normalize=False,
-        non_match_ratio=2,
-        similarity_attr='nameSeller'
-        # perc=.001
-    )
-    data = deepdata.deepdata
+    # deepdata = DeepmatcherData(
+    #     matching,
+    #     group_cols=['idProduct'],
+    #     attributes=attributes,
+    #     id_attr='id',
+    #     left_attr='left_',
+    #     right_attr='right_',
+    #     label_attr='label',
+    #     normalize=False,
+    #     non_match_ratio=2,
+    #     similarity_attr='nameSeller'
+    #     # perc=.001
+    # )
+    # data = deepdata.deepdata
     deepdata = get_deepmatcher_data(matching, attributes)
     print(time.time() - init)
     deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher.csv'))
