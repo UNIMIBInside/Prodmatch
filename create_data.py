@@ -143,7 +143,7 @@ if __name__ == '__main__':
     files = read_files(
         folder=DATA_DIR,
         prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'],
-        contains=['WashingMachine'],
+        # contains=['WashingMachine'],
         sep='\t',
         encoding='utf-8'
     )
