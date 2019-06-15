@@ -113,7 +113,7 @@ class DeepmatcherData(object):
             if similarity_attr is None:
                 raise Exception(
                     'You must specify one attribute on which similarity will be computed')
-            elif similarity_attr is not in self.data:
+            elif similarity_attr not in self.data.columns:
                 raise Exception(
                     'The attribute on which similarity will be computed must be a data column')
             if metric is None:
