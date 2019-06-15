@@ -113,6 +113,9 @@ class DeepmatcherData(object):
             if similarity_attr is None:
                 raise Exception(
                     'You must specify one attribute on which similarity will be computed')
+            elif similarity_attr is not in self.data:
+                raise Exception(
+                    'The attribute on which similarity will be computed must be a data column')
             if metric is None:
                 metric = sm.Jaccard()
             if tokenizer is None:
@@ -166,8 +169,8 @@ class DeepmatcherData(object):
                 return product(
                     [row],
                     pandas.concat(
-                        [not_simil.iloc[:how_many_left, :], simil]).values.tolist()
-                )
+                        [not_simil.iloc[: how_many_left, :],
+                         simil]).values.tolist())
             else:
                 return product(
                     [row],
