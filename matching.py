@@ -85,36 +85,36 @@ if __name__ == "__main__":
 
     # Run deepmatcher algorithm
 
-    train, validation, test = dm.data.process(
-        path=DEEPMATCH_DIR, cache=path.join(
-            CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_name_cache.pth'),
-        train='train.csv', validation='validation.csv', test='test.csv',
-        ignore_columns=ignore_columns, lowercase=False,
-        embeddings='fasttext.sl.bin', id_attr='id', label_attr='label',
-        left_prefix='left_', right_prefix='right_', pca=False, device=device)
-    model = dm.MatchingModel(
-        attr_summarizer=dm.attr_summarizers.RNN(),
-        attr_comparator='abs-diff'
-    )
-    model.initialize(train, device=device)
-    model.run_train(
-        train,
-        validation,
-        epochs=10,
-        batch_size=16,
-        pos_neg_ratio=pos_neg_ratio,
-        best_save_path=path.join(RESULTS_DIR, 'models',
-                                 'rnn_pos_neg_fasttext_jaccard_name_model.pth'),
-        device=device
-    )
-    model.run_eval(test, device=device)
+    # train, validation, test = dm.data.process(
+    #     path=DEEPMATCH_DIR, cache=path.join(
+    #         CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_name_cache.pth'),
+    #     train='train.csv', validation='validation.csv', test='test.csv',
+    #     ignore_columns=ignore_columns, lowercase=False,
+    #     embeddings='fasttext.sl.bin', id_attr='id', label_attr='label',
+    #     left_prefix='left_', right_prefix='right_', pca=False, device=device)
+    # model = dm.MatchingModel(
+    #     attr_summarizer=dm.attr_summarizers.RNN(),
+    #     attr_comparator='abs-diff'
+    # )
+    # model.initialize(train, device=device)
+    # model.run_train(
+    #     train,
+    #     validation,
+    #     epochs=10,
+    #     batch_size=16,
+    #     pos_neg_ratio=pos_neg_ratio,
+    #     best_save_path=path.join(RESULTS_DIR, 'models',
+    #                              'rnn_pos_neg_fasttext_jaccard_name_model.pth'),
+    #     device=device
+    # )
+    # model.run_eval(test, device=device)
     model.load_state(
         path.join(
             RESULTS_DIR, 'models',
             'rnn_pos_neg_fasttext_jaccard_name_model.pth'),
         device=device)
     candidate = dm.data.process_unlabeled(
-        path=path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
+        path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
         trained_model=model,
         ignore_columns=ignore_columns + ['label'])
     predictions = model.run_prediction(candidate, output_attributes=list(
