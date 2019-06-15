@@ -211,7 +211,7 @@ if __name__ == '__main__':
     #     group_cols=['idProduct'],
     #     attributes=attributes,
     #     id_attr='id',
-    #     left_attr='left_',
+    #     left_attr='left_',+
     #     right_attr='right_',
     #     label_attr='label',
     #     normalize=False,
@@ -223,7 +223,6 @@ if __name__ == '__main__':
     deepdata = get_deepmatcher_data(matching, attributes)
     print(time.time() - init)
     deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher.csv'))
-    deepdata = pandas.read_csv(path.join(DEEPMATCH_DIR, 'deepmatcher.csv'))
     train, val, test = train_val_test_split(deepdata, [0.6, 0.2, 0.2])
     unlabeled_data = train[:int(len(train) * 0.2)]
     train = train[int(len(train) * 0.2) + 1:]
