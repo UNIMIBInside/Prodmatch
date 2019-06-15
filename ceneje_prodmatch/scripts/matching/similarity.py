@@ -15,13 +15,13 @@ from ... import DATA_DIR, DEEPMATCH_DIR, RESULTS_DIR, CACHE_DIR
 class Similarity(object):
 
     def __init__(
-        self, 
+        self,
         data: pandas.DataFrame,
-        left_attr='ltable_', 
-        right_attr='rtable_', 
+        left_attr='left_',
+        right_attr='right_',
         ignore_columns=[],
         na_value='',
-        ):
+    ):
         """
         With this class one can compute distance or similarity measure, based on functions
         provided by the `py_stringmatching` package.
@@ -42,18 +42,19 @@ class Similarity(object):
         self.ignore_columns = ignore_columns
         self.na_value = na_value
         self.left_prod_attrs = [
-            col for col in data 
+            col for col in data
             if col.startswith(left_attr) and col not in ignore_columns
         ]
         assert(len(data[self.left_prod_attrs]) > 0)
         self.right_prod_attrs = [
-            col for col in data 
+            col for col in data
             if col.startswith(right_attr) and col not in ignore_columns
         ]
         assert(len(data[self.right_prod_attrs]) > 0)
-        assert(len(data[self.left_prod_attrs].keys()) == len(data[self.right_prod_attrs].keys()))
-        self.data[self.left_prod_attrs + self.right_prod_attrs] = self.data[self.left_prod_attrs + self.right_prod_attrs]\
-                                                                        .fillna(value=na_value)
+        assert(len(data[self.left_prod_attrs].keys()) ==
+               len(data[self.right_prod_attrs].keys()))
+        self.data[self.left_prod_attrs + self.right_prod_attrs] = self.data[self.
+                                                                            left_prod_attrs + self.right_prod_attrs].fillna(value=na_value)
 
     def get_scores(
         self,
@@ -62,7 +63,7 @@ class Similarity(object):
         similarity=True,
         undefined_scores=None,
         weights=None
-        ):
+    ):
         """
         Method to compute scores: for every left and right product in every tuple,
         it calls on the metric object the method get_sim_score(left, right), where 
@@ -97,9 +98,11 @@ class Similarity(object):
                     scores.append(undefined_scores[i])
                 else:
                     if tokenizer is None:
-                        scores.append(metric.get_sim_score(row_left[i], row_right[i]))
+                        scores.append(metric.get_sim_score(
+                            row_left[i], row_right[i]))
                     else:
-                        scores.append(metric.get_sim_score(tokenizer.tokenize(row_left[i]), tokenizer.tokenize(row_right[i])))
+                        scores.append(metric.get_sim_score(tokenizer.tokenize(
+                            row_left[i]), tokenizer.tokenize(row_right[i])))
             return sum([scores[i] * weights[i] for i in range(len(scores))])
 
         left_attrs_num = len(self.data[self.left_prod_attrs].keys())
@@ -108,14 +111,16 @@ class Similarity(object):
             weights = [1] * left_attrs_num
         if undefined_scores is None:
             undefined_scores = [1/2] * left_attrs_num
-        assert(left_attrs_num == right_attrs_num == len(weights) == len(undefined_scores))
+        assert(left_attrs_num == right_attrs_num ==
+               len(weights) == len(undefined_scores))
 
         tqdm.pandas()
         match_score = self.data[self.left_prod_attrs + self.right_prod_attrs]\
-                        .progress_apply(
-                            lambda row: scores(row[self.left_prod_attrs], row[self.right_prod_attrs]), 
-                            axis=1
-                        )
+            .progress_apply(
+            lambda row: scores(row[self.left_prod_attrs],
+                               row[self.right_prod_attrs]),
+            axis=1
+        )
         new_data = self.data.copy()
         new_data.insert(0, 'match_score', match_score)
         return new_data
@@ -124,17 +129,17 @@ class Similarity(object):
 class SimilarityDataset(Dataset):
 
     def __init__(
-        self, 
+        self,
         data: pandas.DataFrame,
         metric=sm.Jaccard(),
         tokenizer=sm.QgramTokenizer(),
         label_attr='label',
-        left_attr='ltable_', 
-        right_attr='rtable_',
-        undefined_scores=None, 
+        left_attr='left_',
+        right_attr='right_',
+        undefined_scores=None,
         ignore_columns=[],
         na_value='',
-        ):
+    ):
         """
         With this class one can encapsulate a torch.Dataset. It will be used to batch 
         attributes and compute a similarity vector between pair of attributes.
@@ -166,49 +171,52 @@ class SimilarityDataset(Dataset):
         self.ignore_columns = ignore_columns
         self.na_value = na_value
         self.left_prod_attrs = [
-            col for col in data 
+            col for col in data
             if col.startswith(left_attr) and col not in ignore_columns
         ]
         assert(len(data[self.left_prod_attrs]) > 0)
         self.right_prod_attrs = [
-            col for col in data 
+            col for col in data
             if col.startswith(right_attr) and col not in ignore_columns
         ]
         assert(len(self.right_prod_attrs) > 0)
         assert(len(self.left_prod_attrs) == len(self.right_prod_attrs))
         self.undefined_scores = undefined_scores
-        if undefined_scores is None:
+        if self.undefined_scores is None:
             self.undefined_scores = [1/2] * len(self.left_prod_attrs)
         assert(len(self.undefined_scores) == len(self.left_prod_attrs))
-        self.undefined_scores = undefined_scores
-        self.data[self.left_prod_attrs + self.right_prod_attrs] = self.data[self.left_prod_attrs + self.right_prod_attrs]\
-                                                                        .fillna(value=na_value)
-    
+        self.data[self.left_prod_attrs + self.right_prod_attrs] = self.data[self.
+                                                                            left_prod_attrs + self.right_prod_attrs].fillna(value=na_value)
+
     def __scores(self, row_left, row_right):
-            scores = []
-            for i in range(len(row_left)):
-                if row_left[i] == self.na_value or row_right[i] == self.na_value:
-                    scores.append(self.undefined_scores[i])
+        scores = []
+        for i in range(len(row_left)):
+            if row_left[i] == self.na_value or row_right[i] == self.na_value:
+                scores.append(self.undefined_scores[i])
+            else:
+                if self.tokenizer is None:
+                    scores.append(self.metric.get_sim_score(
+                        row_left[i], row_right[i]))
                 else:
-                    if self.tokenizer is None:
-                        scores.append(self.metric.get_sim_score(row_left[i], row_right[i]))
-                    else:
-                        scores.append(
-                            self.metric.get_sim_score(
-                                self.tokenizer.tokenize(row_left[i]), self.tokenizer.tokenize(row_right[i])
-                            )
-                        )
-            return scores
+                    scores.append(
+                        self.metric.get_sim_score(
+                            self.tokenizer.tokenize(row_left[i]),
+                            self.tokenizer.tokenize(row_right[i])))
+        return scores
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, index):
-        row_left = self.data.iloc[index, [self.data.columns.get_loc(col) for col in self.left_prod_attrs]]
-        row_right = self.data.iloc[index, [self.data.columns.get_loc(col) for col in self.right_prod_attrs]]
-        label = self.data.iloc[index, self.data.columns.get_loc(self.label_attr)]
+        row_left = self.data.iloc[index, [
+            self.data.columns.get_loc(col) for col in self.left_prod_attrs]]
+        row_right = self.data.iloc[index, [
+            self.data.columns.get_loc(col) for col in self.right_prod_attrs]]
+        label = self.data.iloc[index,
+                               self.data.columns.get_loc(self.label_attr)]
         scores = torch.tensor(self.__scores(row_left, row_right))
         return (scores, label)
+
 
 class LogisticRegressionModel(nn.Module):
 
@@ -220,8 +228,8 @@ class LogisticRegressionModel(nn.Module):
     def forward(self, x):
         out = self.linear(x)
         out = self.log_softmax(out)
-        return out 
-    
+        return out
+
     def run_train(self, *args, **kwargs):
         """
         Train the LogisticRegressionModule model on the train_dataset; val_dataset is used

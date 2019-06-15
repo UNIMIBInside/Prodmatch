@@ -10,6 +10,7 @@ from torch.utils.data import Dataset, DataLoader
 from os import path
 from ... import DATA_DIR, DEEPMATCH_DIR, RESULTS_DIR, CACHE_DIR
 
+
 class Statistics(object):
     """Accumulator for loss statistics, inspired by ONMT.
 
@@ -58,23 +59,24 @@ class Statistics(object):
     def examples_per_sec(self):
         return self.examples / (time.time() - self.start_time)
 
+
 class Runner(object):
 
     @staticmethod
     def __compute_stats(output, target):
-            # Get indices of max values per batch
-            predictions = output.max(1)[1].data
-            correct = (predictions == target.data).float()
-            incorrect = (1 - correct).float()
-            positives = (target.data == 1).float()
-            negatives = (target.data == 0).float()
+        # Get indices of max values per batch
+        predictions = output.max(1)[1].data
+        correct = (predictions == target.data).float()
+        incorrect = (1 - correct).float()
+        positives = (target.data == 1).float()
+        negatives = (target.data == 0).float()
 
-            tp = torch.dot(correct, positives)
-            tn = torch.dot(correct, negatives)
-            fp = torch.dot(incorrect, negatives)
-            fn = torch.dot(incorrect, positives)
+        tp = torch.dot(correct, positives)
+        tn = torch.dot(correct, negatives)
+        fp = torch.dot(incorrect, negatives)
+        fn = torch.dot(incorrect, positives)
 
-            return tp, tn, fp, fn
+        return tp, tn, fp, fn
 
     @staticmethod
     def __print_final_stats(epoch, runtime, datatime, stats):
@@ -102,15 +104,15 @@ class Runner(object):
         pbar.set_postfix(ordered_dict=postfix_dict)
 
     @staticmethod
-    def __run( 
-        epoch,
-        model,
-        loader,
-        criterion=None,
-        optimizer=None,
-        train=True, 
-        return_predictions=False, 
-        log_freq=4):
+    def __run(
+            epoch,
+            model,
+            loader,
+            criterion=None,
+            optimizer=None,
+            train=True,
+            return_predictions=False,
+            log_freq=4):
 
         datatime = 0
         runtime = 0
@@ -150,6 +152,7 @@ class Runner(object):
 
                 if return_predictions:
                     for probs in output:
+                        # Get only the probability of being a match
                         predictions.append(float(probs[1].exp()))
 
                 if (batch_idx + 1) % log_freq == 0:
@@ -174,24 +177,25 @@ class Runner(object):
 
     @staticmethod
     def train(
-        train_dataset,
-        val_dataset,
-        model, 
-        resume=False,
-        criterion=None,
-        optimizer=None, 
-        scheduler=None,
-        train_epochs=10,
-        pos_neg_ratio=1,
-        best_model_name='best_model',
-        best_save_on='F1',
-        best_save_path=None,
-        device=None,
-        batch_size=32,
-        **kwargs):
+            train_dataset,
+            val_dataset,
+            model,
+            resume=False,
+            criterion=None,
+            optimizer=None,
+            scheduler=None,
+            train_epochs=10,
+            pos_neg_ratio=1,
+            best_model_name='best_model',
+            best_save_on='F1',
+            best_save_path=None,
+            device=None,
+            batch_size=32,
+            **kwargs):
 
         if device is None:
-            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+            device = torch.device(
+                'cuda' if torch.cuda.is_available() else 'cpu')
         if criterion is None:
             if pos_neg_ratio >= 1:
                 weight = torch.tensor([1/pos_neg_ratio, 1])
@@ -202,14 +206,17 @@ class Runner(object):
             optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
         if scheduler is None:
             scheduler = ReduceLROnPlateau(
-                optimizer, 
-                mode='max', 
-                factor=0.1, 
+                optimizer,
+                mode='max',
+                factor=0.1,
                 patience=5,
                 verbose=True)
+        if best_save_path is None:
+            best_save_path = path.join(RESULTS_DIR, 'models')
         if resume:
             print('Resuming best saved model')
-            load = torch.load(path.join(RESULTS_DIR, 'models', best_model_name + '.pth'))
+            load = torch.load(
+                path.join(best_save_path, best_model_name + '.pth'))
             train_epochs = load['train_epochs'] - load['epoch']
             model.load_state_dict(load['model_state_dict'])
             criterion.load_state_dict(load['criterion_state_dict'])
@@ -225,8 +232,6 @@ class Runner(object):
             best_save_on == 'recall' or
             best_save_on == 'f1'
         )
-        if best_save_path is None:
-            best_save_path = path.join(RESULTS_DIR, 'models')
 
         model.to(device)
         criterion.to(device)
@@ -237,21 +242,21 @@ class Runner(object):
 
         for epoch in range(train_epochs):
             Runner.__run(
-                epoch, 
-                model, 
-                train_loader, 
-                criterion, 
-                optimizer, 
-                train=True, 
+                epoch,
+                model,
+                train_loader,
+                criterion,
+                optimizer,
+                train=True,
                 **kwargs
             )
             stats = Runner.__run(
-                epoch, 
-                model, 
-                val_loader, 
-                criterion, 
-                optimizer, 
-                train=False, 
+                epoch,
+                model,
+                val_loader,
+                criterion,
+                optimizer,
+                train=False,
                 **kwargs
             )
             if getattr(stats, best_save_on)() > best:
@@ -269,23 +274,25 @@ class Runner(object):
                 print('Done')
             scheduler.step(getattr(stats, best_save_on)())
         return best
-    
+
     @staticmethod
     def predict(
-        dataset,
-        model,
-        load_best_model=True,
-        best_model_name='best_model',
-        best_save_path=None,
-        device=None,
-        batch_size=32,
-        **kwargs):
-        
+            dataset,
+            model,
+            load_best_model=True,
+            best_model_name='best_model',
+            best_save_path=None,
+            device=None,
+            batch_size=32,
+            **kwargs):
+
         if device is None:
-            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+            device = torch.device(
+                'cuda' if torch.cuda.is_available() else 'cpu')
         if load_best_model:
             if best_save_path is None:
-                best_save_path = path.join(RESULTS_DIR, 'models', best_model_name + '.pth')
+                best_save_path = path.join(
+                    RESULTS_DIR, 'models', best_model_name + '.pth')
             print('Loading best model')
             load = torch.load(best_save_path)
             model.load_state_dict(load['model_state_dict'])
@@ -293,11 +300,11 @@ class Runner(object):
         model.to(device)
         loader = DataLoader(dataset, batch_size, shuffle=False)
         predictions = Runner.__run(
-            epoch=0, 
-            model=model, 
-            loader=loader, 
-            train=False, 
-            return_predictions=True, 
+            epoch=0,
+            model=model,
+            loader=loader,
+            train=False,
+            return_predictions=True,
             **kwargs
         )
         return predictions
