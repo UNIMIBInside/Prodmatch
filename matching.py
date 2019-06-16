@@ -85,43 +85,43 @@ if __name__ == "__main__":
 
     # Run deepmatcher algorithm
 
-    # train, validation, test = dm.data.process(
-    #     path=DEEPMATCH_DIR, cache=path.join(
-    #         CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_name_cache.pth'),
-    #     train='train.csv', validation='validation.csv', test='test.csv',
-    #     ignore_columns=ignore_columns, lowercase=False,
-    #     embeddings='fasttext.sl.bin', id_attr='id', label_attr='label',
-    #     left_prefix='left_', right_prefix='right_', pca=False, device=device)
+    train, validation, test = dm.data.process(
+        path=DEEPMATCH_DIR, cache=path.join(
+            CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_desc_cache.pth'),
+        train='train_desc.csv', validation='validation_desc.csv', test='test_desc.csv',
+        ignore_columns=ignore_columns, lowercase=False,
+        embeddings='fasttext.sl.bin', id_attr='id', label_attr='label',
+        left_prefix='left_', right_prefix='right_', pca=False, device=device)
     model = dm.MatchingModel(
         attr_summarizer=dm.attr_summarizers.RNN(),
         attr_comparator='abs-diff'
     )
-    # model.initialize(train, device=device)
-    # model.run_train(
-    #     train,
-    #     validation,
-    #     epochs=10,
-    #     batch_size=16,
-    #     pos_neg_ratio=pos_neg_ratio,
-    #     best_save_path=path.join(RESULTS_DIR, 'models',
-    #                              'rnn_pos_neg_fasttext_jaccard_name_model.pth'),
-    #     device=device
-    # )
-    # model.run_eval(test, device=device)
+    model.initialize(train, device=device)
+    model.run_train(
+        train,
+        validation,
+        epochs=10,
+        batch_size=16,
+        pos_neg_ratio=pos_neg_ratio,
+        best_save_path=path.join(RESULTS_DIR, 'models',
+                                 'rnn_pos_neg_fasttext_jaccard_desc_model.pth'),
+        device=device
+    )
+    model.run_eval(test, device=device)
     model.load_state(
         path.join(
             RESULTS_DIR, 'models',
-            'rnn_pos_neg_fasttext_jaccard_name_model.pth'),
+            'rnn_pos_neg_fasttext_jaccard_desc_model.pth'),
         device=device)
     candidate = dm.data.process_unlabeled(
-        path.join(DEEPMATCH_DIR, 'unlabeled.csv'),
+        path.join(DEEPMATCH_DIR, 'unlabeled_desc.csv'),
         trained_model=model,
         ignore_columns=ignore_columns + ['label'])
     predictions = model.run_prediction(candidate, output_attributes=list(
         candidate.get_raw_table().columns), device=device)
     predictions.to_csv(
         path.join(
-            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_name.csv'))
+            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_desc.csv'))
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 
@@ -156,7 +156,7 @@ if __name__ == "__main__":
         val_dataset, 
         model, 
         resume=True,
-        train_epochs=5, 
+        train_epochs=10, 
         pos_neg_ratio=pos_neg_ratio,
         log_freq=16
     )
@@ -165,6 +165,6 @@ if __name__ == "__main__":
     predictions = get_match_predictions(unlabeled)
     print(get_statistics(predictions)) """
 
-    """ predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_jaccard_name.csv'))
+    """ predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_desc.csv'))
     predictions = get_match_predictions(predictions)
     print(get_statistics(predictions)) """
