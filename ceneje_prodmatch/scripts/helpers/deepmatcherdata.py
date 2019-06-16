@@ -199,13 +199,14 @@ class DeepmatcherData(object):
         #                 .apply(lambda x: list(chain.from_iterable(x)))\
         #                 .apply(pandas.Series)\
         #                 .set_axis(labels=self.__deeplabels, axis=1, inplace=False)
+        out_columns = self.__deeplabels
+        if self.create_nm_mode == 'similarity':
+            out_columns += ['similarity']
         non_match = pandas.DataFrame(
             [chain.from_iterable([left_prod, right_prod])
              for row in self.data[self.attributes].itertuples(index=False)
              for left_prod, right_prod in self.__pairUp(row)],
-            columns=self.__deeplabels + ['similarity'])
-        if self.create_nm_mode == 'random':
-            non_match[self.similarity_attr] = 0
+            columns=out_columns)
         # non_match = pandas.DataFrame([
         #     chain.from_iterable([left_prod, right_prod])
         #     for pairs in self.data[attributes]
@@ -238,7 +239,8 @@ class DeepmatcherData(object):
         return match
 
     def __getDeepdata(self, id_attr):
-        self.matching.insert(8, 'similarity', 0)
+        if self.create_nm_mode == 'similarity':
+            self.matching.insert(8, 'similarity', 0)
         deepdata = pandas.concat([self.matching, self.non_matching])\
             .reset_index(drop=True)
         return deepdata.rename_axis(id_attr, axis=0, copy=False)
