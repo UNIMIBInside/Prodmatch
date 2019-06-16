@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     # Run deepmatcher algorithm
 
-    train, validation, test = dm.data.process(
+    """ train, validation, test = dm.data.process(
         path=DEEPMATCH_DIR, cache=path.join(
             CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_desc_cache.pth'),
         train='train_desc.csv', validation='validation_desc.csv', test='test_desc.csv',
@@ -121,7 +121,7 @@ if __name__ == "__main__":
         candidate.get_raw_table().columns), device=device)
     predictions.to_csv(
         path.join(
-            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_desc.csv'))
+            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_desc.csv')) """
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 
@@ -165,6 +165,6 @@ if __name__ == "__main__":
     predictions = get_match_predictions(unlabeled)
     print(get_statistics(predictions)) """
 
-    """ predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_desc.csv'))
+    predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_name.csv'))
     predictions = get_match_predictions(predictions)
-    print(get_statistics(predictions)) """
+    print(get_statistics(predictions))

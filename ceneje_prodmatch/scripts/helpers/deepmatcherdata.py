@@ -119,7 +119,7 @@ class DeepmatcherData(object):
             if metric is None:
                 metric = sm.Jaccard()
             if tokenizer is None:
-                tokenizer = sm.QgramTokenizer()
+                tokenizer = sm.QgramTokenizer(return_set=True)
             self.similarity_attr = similarity_attr
             self.metric = metric
             self.tokenizer = tokenizer
@@ -150,9 +150,13 @@ class DeepmatcherData(object):
         #     non_match.sample(how_many)[attributes].values
         # )
 
+        # non_match = self.data.loc[
+        #     (self.data['idProduct'] != getattr(row, 'idProduct')) & (
+        #         self.data[self.similarity_attr] != self.na_value),
+        #     self.attributes
+        # ]
         non_match = self.data.loc[
-            (self.data['idProduct'] != getattr(row, 'idProduct')) & (
-                self.data[self.similarity_attr] != self.na_value),
+            (self.data['idProduct'] != getattr(row, 'idProduct')),
             self.attributes
         ]
         if self.create_nm_mode == 'similarity':
@@ -200,6 +204,8 @@ class DeepmatcherData(object):
              for row in self.data[self.attributes].itertuples(index=False)
              for left_prod, right_prod in self.__pairUp(row)],
             columns=self.__deeplabels + ['similarity'])
+        if self.create_nm_mode == 'random':
+            non_match[self.similarity_attr] = 0
         # non_match = pandas.DataFrame([
         #     chain.from_iterable([left_prod, right_prod])
         #     for pairs in self.data[attributes]
