@@ -100,7 +100,7 @@ def join_datasets(datasets: list):
             right=datasets[i][2][['idProduct']],  # Products_ dataset
             how='inner',
             on='idProduct'
-        )
+        ).reset_index(drop=True)
         for i in range(len(datasets))
     ]
 
@@ -136,12 +136,12 @@ def get_deepmatcher_data(matching_datasets: list, attributes: list):
             similarity_thr=0.6
         ).deepdata
         for matching in matching_datasets
-    ])
+    ].reset_index(drop=True))
 
 
 if __name__ == '__main__':
     init = time.time()
-    files = read_files(
+    """ files = read_files(
         folder=DATA_DIR,
         prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'],
         # contains=['WashingMachine'],
@@ -152,7 +152,7 @@ if __name__ == '__main__':
     pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, 'integrated_desc.csv'))
     matching = get_normalized_matching(
         integrated_data, lower=True, remove_brackets=False)
-    pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching_desc.csv'))
+    pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching_desc.csv')) """
 
     # Set seed for reproducible results
     # numpy.random.seed(42)
@@ -221,8 +221,8 @@ if __name__ == '__main__':
     #     # perc=.001
     # )
     # data = deepdata.deepdata
-    deepdata = get_deepmatcher_data(matching, attributes)
-    # deepdata = pandas.read_csv(path.join(DEEPMATCH_DIR, 'deepmatcher.csv'))
+    # deepdata = get_deepmatcher_data(matching, attributes)
+    deepdata = pandas.read_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_desc.csv'))
     print(time.time() - init)
     deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_desc.csv'))
     train, val, test = train_val_test_split(deepdata, [0.6, 0.2, 0.2])
