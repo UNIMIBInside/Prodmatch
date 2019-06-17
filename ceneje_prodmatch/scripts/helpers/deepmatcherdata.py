@@ -1,3 +1,4 @@
+import math
 import numpy
 import py_stringmatching as sm
 from pandas import pandas
@@ -140,7 +141,7 @@ class DeepmatcherData(object):
                                   == getattr(row, 'idProduct')])
 
         # How many non matching tuples will be created?
-        how_many = int(comb(match, 2, exact=True) *
+        how_many = math.ceil(comb(match, 2, exact=True) *
                        self.non_match_ratio / match)
 
         # non_match = self.data.loc[self.data['idProduct'] != getattr(row, 'idProduct'), attributes]
