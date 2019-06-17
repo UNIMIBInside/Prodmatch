@@ -97,7 +97,7 @@ if __name__ == "__main__":
         attr_comparator='abs-diff'
     )
     model.initialize(train, device=device)
-    """ model.run_train(
+    model.run_train(
         train,
         validation,
         epochs=10,
@@ -107,7 +107,7 @@ if __name__ == "__main__":
                                  'rnn_pos_neg_fasttext_jaccard_desc_model.pth'),
         device=device
     )
-    model.run_eval(test, device=device) """
+    model.run_eval(test, device=device)
     model.load_state(
         path.join(
             RESULTS_DIR, 'models',
