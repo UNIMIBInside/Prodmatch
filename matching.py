@@ -97,7 +97,7 @@ if __name__ == "__main__":
         attr_comparator='abs-diff'
     )
     model.initialize(train, device=device)
-    model.run_train(
+    """ model.run_train(
         train,
         validation,
         epochs=10,
@@ -107,7 +107,7 @@ if __name__ == "__main__":
                                  'rnn_pos_neg_fasttext_jaccard_desc_model.pth'),
         device=device
     )
-    model.run_eval(test, device=device)
+    model.run_eval(test, device=device) """
     model.load_state(
         path.join(
             RESULTS_DIR, 'models',
@@ -117,8 +117,7 @@ if __name__ == "__main__":
         path.join(DEEPMATCH_DIR, 'unlabeled_desc.csv'),
         trained_model=model,
         ignore_columns=ignore_columns + ['label'])
-    predictions = model.run_prediction(candidate, output_attributes=list(
-        candidate.get_raw_table().columns), device=device)
+    predictions = model.run_prediction(candidate, output_attributes=True, device=device)
     predictions.to_csv(
         path.join(
             RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_desc.csv'))
