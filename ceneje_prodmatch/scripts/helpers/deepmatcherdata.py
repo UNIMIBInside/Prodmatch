@@ -15,19 +15,19 @@ class DeepmatcherData(object):
                  matching_tuples: pandas.DataFrame,
                  group_cols,
                  attributes: list,
-                 id_attr: str,
-                 label_attr: str,
-                 left_attr: str,
-                 right_attr: str,
+                 id_attr='id',
+                 label_attr='label',
+                 left_attr='left_',
+                 right_attr='right_',
                  normalize=False,
                  create_nm=True,
                  create_nm_mode='similarity',
-                 similarity_attr=None,
+                 similarity_attr='similarity',
                  metric=None,
                  tokenizer=None,
                  na_value='',
                  non_match_ratio=2,
-                 similarity_thr=0.7
+                 similarity_thr=0.6
                  ):
         """
         Deepmatcher needs data in a particular way, such as:\n

@@ -87,8 +87,8 @@ if __name__ == "__main__":
 
     train, validation, test = dm.data.process(
         path=DEEPMATCH_DIR, cache=path.join(
-            CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_desc_cache.pth'),
-        train='train_desc.csv', validation='validation_desc.csv', test='test_desc.csv',
+            CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_rand_cache.pth'),
+        train='train_rand.csv', validation='validation_rand.csv', test='test_rand.csv',
         ignore_columns=ignore_columns, lowercase=False,
         embeddings='fasttext.sl.bin', id_attr='id', label_attr='label',
         left_prefix='left_', right_prefix='right_', pca=False, device=device)
@@ -104,23 +104,23 @@ if __name__ == "__main__":
         batch_size=16,
         pos_neg_ratio=pos_neg_ratio,
         best_save_path=path.join(RESULTS_DIR, 'models',
-                                 'rnn_pos_neg_fasttext_jaccard_desc_model.pth'),
+                                 'rnn_pos_neg_fasttext_jaccard_rand_model.pth'),
         device=device
     )
     model.run_eval(test, device=device)
     model.load_state(
         path.join(
             RESULTS_DIR, 'models',
-            'rnn_pos_neg_fasttext_jaccard_desc_model.pth'),
+            'rnn_pos_neg_fasttext_jaccard_rand_model.pth'),
         device=device)
     candidate = dm.data.process_unlabeled(
-        path.join(DEEPMATCH_DIR, 'unlabeled_desc.csv'),
+        path.join(DEEPMATCH_DIR, 'unlabeled_rand.csv'),
         trained_model=model,
         ignore_columns=ignore_columns + ['label'])
     predictions = model.run_prediction(candidate, output_attributes=True, device=device)
     predictions.to_csv(
         path.join(
-            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_desc.csv'))
+            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_rand.csv'))
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 
