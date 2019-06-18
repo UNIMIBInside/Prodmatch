@@ -141,10 +141,10 @@ if __name__ == '__main__':
         encoding='utf-8'
     )
     integrated_data = join_datasets(files)
-    pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, 'integrated_rand.csv'))
+    pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, 'integrated_desc.csv'))
     matching = get_normalized_matching(
         integrated_data, lower=True, remove_brackets=False)
-    pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching_rand.csv'))
+    pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching_desc.csv'))
 
     # Set seed for reproducible results
     # numpy.random.seed(42)
@@ -222,17 +222,17 @@ if __name__ == '__main__':
         right_attr='right_',
         label_attr='label',
         non_match_ratio=2,
-        create_nm_mode='random',
+        create_nm_mode='similarity',
         similarity_attr='descriptionSeller',
         similarity_thr=0.6
     )
     # deepdata = pandas.read_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_rand.csv'))
     print(time.time() - init)
-    deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_rand.csv'))
+    deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_desc.csv'))
     train, val, test = train_val_test_split(deepdata, [0.6, 0.2, 0.2])
     unlabeled_data = train[:int(len(train) * 0.2)]
     train = train[int(len(train) * 0.2) + 1:]
-    train.to_csv(path.join(DEEPMATCH_DIR, 'train_rand.csv'))
-    val.to_csv(path.join(DEEPMATCH_DIR, 'validation_rand.csv'))
-    test.to_csv(path.join(DEEPMATCH_DIR, 'test_rand.csv'))
-    unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, 'unlabeled_rand.csv'))
+    train.to_csv(path.join(DEEPMATCH_DIR, 'train_desc.csv'))
+    val.to_csv(path.join(DEEPMATCH_DIR, 'validation_desc.csv'))
+    test.to_csv(path.join(DEEPMATCH_DIR, 'test_desc.csv'))
+    unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, 'unlabeled_desc.csv'))

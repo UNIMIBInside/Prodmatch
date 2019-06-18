@@ -142,7 +142,7 @@ class DeepmatcherData(object):
 
         # How many non matching tuples will be created?
         how_many = math.ceil(comb(match, 2, exact=True) *
-                       self.non_match_ratio / match)
+                             self.non_match_ratio / match)
 
         # non_match = self.data.loc[self.data['idProduct'] != getattr(row, 'idProduct'), attributes]
         # print('idProduct/Match/Non match: ' + str(getattr(row, 'idProduct')) + '/' + str(match) + '/' + str(how_many))
@@ -156,10 +156,8 @@ class DeepmatcherData(object):
         #         self.data[self.similarity_attr] != self.na_value),
         #     self.attributes
         # ]
-        non_match = self.data.loc[
-            (self.data['idProduct'] != getattr(row, 'idProduct')),
-            self.attributes
-        ]
+        non_match = self.data.loc[(self.data['idProduct'] != getattr(row, 'idProduct')) & (
+            self.data[self.similarity_attr] != self.na_value), self.attributes]
         if self.create_nm_mode == 'similarity':
             non_match['similarity'] = non_match.loc[:, [
                 self.similarity_attr]].apply(compute_sim_score, axis=1)
