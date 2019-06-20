@@ -59,7 +59,7 @@ class Similarity(object):
     def get_scores(
         self,
         metric=sm.Jaccard(),
-        tokenizer=sm.QgramTokenizer(),
+        tokenizer=sm.QgramTokenizer(return_set=True),
         similarity=True,
         undefined_scores=None,
         weights=None
@@ -103,10 +103,14 @@ class Similarity(object):
                     else:
                         scores.append(metric.get_sim_score(tokenizer.tokenize(
                             row_left[i]), tokenizer.tokenize(row_right[i])))
-            return sum([scores[i] * weights[i] for i in range(len(scores))])
+            return sum([scores[i] * weights[i] for i in range(len(scores))]) / len(scores)
 
         left_attrs_num = len(self.data[self.left_prod_attrs].keys())
         right_attrs_num = len(self.data[self.right_prod_attrs].keys())
+        if metric is None:
+            metric = sm.Jaccard()
+        # if tokenizer is None:
+        #     tokenizer = sm.QgramTokenizer(return_set=True)
         if weights is None:
             weights = [1] * left_attrs_num
         if undefined_scores is None:

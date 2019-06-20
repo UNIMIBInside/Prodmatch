@@ -16,8 +16,6 @@ sklearn = "*"
 deepmatcher = {editable = true,git = "https://github.com/belerico/deepmatcher.git",ref = "torch_1.0.1"}
 requests = "*"
 py-stringmatching = "*"
-swifter = "*"
-dask = "*"
 
 [requires]
 python_version = "3.7"
