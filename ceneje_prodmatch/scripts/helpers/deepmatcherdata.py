@@ -100,7 +100,7 @@ class DeepmatcherData(object):
                     r_output_attrs=attributes,
                     l_output_prefix='l_', r_output_prefix='r_')
         print(C1.head()) """
-        self.__deeplabels = [
+        self.deeplabels = [
             left_attr + attr for attr in attributes] + [right_attr + attr for attr in attributes]
         self.matching = self.__getMatchingData(
             group_cols, label_attr)
@@ -156,9 +156,10 @@ class DeepmatcherData(object):
         #         self.data[self.similarity_attr] != self.na_value),
         #     self.attributes
         # ]
-        non_match = self.data.loc[(self.data['idProduct'] != getattr(row, 'idProduct')) & (
-            self.data[self.similarity_attr] != self.na_value), self.attributes]
+
         if self.create_nm_mode == 'similarity':
+            non_match = self.data.loc[(self.data['idProduct'] != getattr(row, 'idProduct')) & (
+                self.data[self.similarity_attr] != self.na_value), self.attributes]
             non_match['similarity'] = non_match.loc[:, [
                 self.similarity_attr]].apply(compute_sim_score, axis=1)
             non_match = non_match.sort_values(
@@ -180,6 +181,8 @@ class DeepmatcherData(object):
                     simil.iloc[:how_many, :].values.tolist()
                 )
         else:
+            non_match = self.data.loc[self.data['idProduct'] != getattr(
+                row, 'idProduct'), self.attributes]
             return product(
                 [row],
                 non_match.sample(how_many).values.tolist()
@@ -197,8 +200,8 @@ class DeepmatcherData(object):
         #                 .stack()\
         #                 .apply(lambda x: list(chain.from_iterable(x)))\
         #                 .apply(pandas.Series)\
-        #                 .set_axis(labels=self.__deeplabels, axis=1, inplace=False)
-        out_columns = self.__deeplabels
+        #                 .set_axis(labels=self.deeplabels, axis=1, inplace=False)
+        out_columns = self.deeplabels
         if self.create_nm_mode == 'similarity':
             out_columns += ['similarity']
         non_match = pandas.DataFrame(
@@ -211,7 +214,7 @@ class DeepmatcherData(object):
         #     for pairs in self.data[attributes]
         #             .apply(lambda row: self.__pairUp(row, attributes, metric, tokenizer), axis=1)
         #     for left_prod, right_prod in pairs
-        # ], columns=self.__deeplabels)
+        # ], columns=self.deeplabels)
         non_match[label_attr] = 0
         print('Finished')
         return non_match
@@ -227,12 +230,12 @@ class DeepmatcherData(object):
         #             .stack()\
         #             .apply(lambda x: list(chain.from_iterable(x)))\
         #             .apply(pandas.Series)\
-        #             .set_axis(labels=self.__deeplabels, axis=1, inplace=False)
+        #             .set_axis(labels=self.deeplabels, axis=1, inplace=False)
         match = pandas.DataFrame([
             chain.from_iterable([left_prod, right_prod])
             for idProduct, group in self.data[self.attributes].groupby(group_cols)
             for left_prod, right_prod in combinations(group.values, 2)
-        ], columns=self.__deeplabels)
+        ], columns=self.deeplabels)
         match[label_attr] = 1
         print('Finished')
         return match
@@ -240,9 +243,9 @@ class DeepmatcherData(object):
     def __getDeepdata(self, id_attr):
         if self.create_nm_mode == 'similarity':
             self.matching.insert(8, 'similarity', 0)
-        deepdata = pandas.concat([self.matching, self.non_matching])\
-            .reset_index(drop=True)
-        return deepdata.rename_axis(id_attr, axis=0, copy=False)
+        return pandas.concat([self.matching, self.non_matching])\
+            .reset_index(drop=True)\
+            .rename_axis(id_attr, axis=0, copy=False)
 
     # def getData(self):
     #     """
