@@ -104,8 +104,14 @@ def join_datasets(datasets: list):
         for i in range(len(datasets))
     ]
 
+def get_matching(integrated_data: list):
+    return [
+        integrated_data[i][integrated_data[i].duplicated(
+                subset='idProduct', keep=False)]
+        for i in range(len(integrated_data))
+    ]
 
-def get_normalized_matching(integrated_data: list, **kwargs):
+def get_normalized_matching(integrated_data: list, get_matching=True, **kwargs):
     """
     kwargs: keyword arguments to pass to normalize function
     """
@@ -116,6 +122,13 @@ def get_normalized_matching(integrated_data: list, **kwargs):
                 subset='idProduct', keep=False)],
             **kwargs
         )
+        if get_matching
+        else
+            preprocess.normalize(
+                # For every integrated dataset, keep only those products that are duplicates (matching)
+                integrated_data[i],
+                **kwargs
+            )
         for i in range(len(integrated_data))
     ]
 
@@ -136,15 +149,17 @@ if __name__ == '__main__':
     files = read_files(
         folder=DATA_DIR,
         prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'],
-        # contains=['WashingMachine'],
+        contains=['WashingMachine'],
         sep='\t',
         encoding='utf-8'
     )
     integrated_data = join_datasets(files)
-    pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, 'integrated_desc.csv'))
+    """ pandas.concat(integrated_data).to_csv(
+        path.join(DATA_DIR, 'integrated_try.csv')) 
     matching = get_normalized_matching(
-        integrated_data, lower=True, remove_brackets=False)
-    pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching_desc.csv'))
+        integrated_data, lower=True, remove_brackets=False) """
+    matching = get_matching(integrated_data)
+    # pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching_try.csv'))
 
     # Set seed for reproducible results
     # numpy.random.seed(42)
@@ -198,7 +213,7 @@ if __name__ == '__main__':
     # integrated.to_csv(path.join(DATA_DIR, 'IntegratedProducts.csv'))
     # matching.to_csv(path.join(DATA_DIR, 'Matching.csv'))
 
-    attributes = ['idProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']
+    attributes = ['idProduct', 'idSeller', 'idSellerProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']
     # deepdata = DeepmatcherData(
     #     matching,
     #     group_cols=['idProduct'],
@@ -222,17 +237,17 @@ if __name__ == '__main__':
         right_attr='right_',
         label_attr='label',
         non_match_ratio=2,
-        create_nm_mode='similarity',
+        create_nm_mode='random',
         similarity_attr='descriptionSeller',
         similarity_thr=0.6
     )
     # deepdata = pandas.read_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_rand.csv'))
     print(time.time() - init)
-    deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_desc.csv'))
-    train, val, test = train_val_test_split(deepdata, [0.6, 0.2, 0.2])
+    deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_try.csv'))
+    """  train, val, test = train_val_test_split(deepdata, [0.6, 0.2, 0.2])
     unlabeled_data = train[:int(len(train) * 0.2)]
     train = train[int(len(train) * 0.2) + 1:]
-    train.to_csv(path.join(DEEPMATCH_DIR, 'train_desc.csv'))
-    val.to_csv(path.join(DEEPMATCH_DIR, 'validation_desc.csv'))
-    test.to_csv(path.join(DEEPMATCH_DIR, 'test_desc.csv'))
-    unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, 'unlabeled_desc.csv'))
+    train.to_csv(path.join(DEEPMATCH_DIR, 'train_try.csv'))
+    val.to_csv(path.join(DEEPMATCH_DIR, 'validation_try.csv'))
+    test.to_csv(path.join(DEEPMATCH_DIR, 'test_try.csv'))
+    unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, 'unlabeled_try.csv')) """
