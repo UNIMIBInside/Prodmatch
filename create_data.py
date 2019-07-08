@@ -1,4 +1,5 @@
 import os
+import math
 import numpy
 import time
 from os import path
@@ -78,7 +79,7 @@ def read_files(folder: str, prefixes: str, contains=None, **kwargs):
     return list(zip(*files))
 
 
-def join_datasets(datasets: list):
+def join_datasets(datasets: list, unsplitted=False, idl3=None):
     """
     Since every join will merge SellerProductsData x SellerProductsMapping x Products (if i'm not wrong),
     this function executes those joins given a list of tuple of datasets, where every tuple contains dataset
@@ -89,6 +90,22 @@ def join_datasets(datasets: list):
     datasets (list of tuples of pandas.DataFrame): list that contains tuples of pandas.DataFrame.
             Every dataset in a tuples will be joined from left to right
     """
+    if unsplitted:
+        integrated_dataset = []
+        for category in idl3:
+            integrated_dataset.append(
+                datasets[0][0][['idSeller', 'idSellerProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']]\
+                .merge(
+                    right=datasets[0][1],  # SellerProductsMapping_ dataset
+                    how='inner',
+                    on=['idSellerProduct', 'idSeller']
+                ).merge(
+                    right=datasets[0][2][datasets[0][2]['L3'] == category][['idProduct']],  # Products_ dataset
+                    how='inner',
+                    on='idProduct'
+                ).reset_index(drop=True)
+            )
+        return integrated_dataset
     return [
         # SellerProductsData_ dataset
         datasets[i][0][['idSeller', 'idSellerProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']]\
@@ -123,8 +140,7 @@ def get_normalized_matching(integrated_data: list, get_matching=True, **kwargs):
             **kwargs
         )
         if get_matching
-        else
-            preprocess.normalize(
+        else preprocess.normalize(
                 # For every integrated dataset, keep only those products that are duplicates (matching)
                 integrated_data[i],
                 **kwargs
@@ -146,20 +162,37 @@ def get_deepmatcher_data(matching_datasets: list, *args, **kwargs):
 
 if __name__ == '__main__':
     init = time.time()
+    unsplitted = True
+    if unsplitted:
+        files = read_files(
+            folder=DATA_DIR,
+            prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'],
+            contains=['NewCategories'],
+            sep='\t',
+            encoding='utf-8'
+        )
+        integrated_unsplitted_data = join_datasets(files, unsplitted=True, idl3=[873, 930, 931, 1666, 971, 1014, 174])
+
     files = read_files(
         folder=DATA_DIR,
         prefixes=['SellerProductsData', 'SellerProductsMapping', 'Products'],
-        contains=['WashingMachine'],
+        contains=['WashingMachine', 'LedTv', 'Monitor', 'Refrigerator'],
         sep='\t',
         encoding='utf-8'
     )
-    integrated_data = join_datasets(files)
+    if unsplitted:
+        integrated_data = join_datasets(files) + integrated_unsplitted_data
+        integrated_data = integrated_data.reset_index(drop=True)
+    else:
+        integrated_data = join_datasets(files)
+
+    # print(integrated_data)
     """ pandas.concat(integrated_data).to_csv(
         path.join(DATA_DIR, 'integrated_try.csv')) 
     matching = get_normalized_matching(
         integrated_data, lower=True, remove_brackets=False) """
-    matching = get_matching(integrated_data)
-    # pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching_try.csv'))
+    matching = get_normalized_matching(integrated_data, lower=True, remove_brackets=True)
+    pandas.concat(matching).to_csv(path.join(DATA_DIR, 'matching_new_cat_rand.csv'))
 
     # Set seed for reproducible results
     # numpy.random.seed(42)
@@ -243,11 +276,11 @@ if __name__ == '__main__':
     )
     # deepdata = pandas.read_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_rand.csv'))
     print(time.time() - init)
-    deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_try.csv'))
-    """  train, val, test = train_val_test_split(deepdata, [0.6, 0.2, 0.2])
-    unlabeled_data = train[:int(len(train) * 0.2)]
-    train = train[int(len(train) * 0.2) + 1:]
-    train.to_csv(path.join(DEEPMATCH_DIR, 'train_try.csv'))
-    val.to_csv(path.join(DEEPMATCH_DIR, 'validation_try.csv'))
-    test.to_csv(path.join(DEEPMATCH_DIR, 'test_try.csv'))
-    unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, 'unlabeled_try.csv')) """
+    deepdata.to_csv(path.join(DEEPMATCH_DIR, 'deepmatcher_new_cat_rand.csv'))
+    train, val, test = train_val_test_split(deepdata, [0.6, 0.2, 0.2])
+    unlabeled_data = train[:math.ceil(len(train) * 0.2)]
+    train = train[math.ceil(len(train) * 0.2) + 1:]
+    train.to_csv(path.join(DEEPMATCH_DIR, 'train_new_cat_rand.csv'))
+    val.to_csv(path.join(DEEPMATCH_DIR, 'validation_new_cat_rand.csv'))
+    test.to_csv(path.join(DEEPMATCH_DIR, 'test_new_cat_rand.csv'))
+    unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, 'unlabeled_new_cat_rand.csv'))
