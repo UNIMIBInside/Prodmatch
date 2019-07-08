@@ -9,6 +9,7 @@ from pandas import pandas
 from bs4 import BeautifulSoup
 from ceneje_prodmatch import DATA_DIR
 
+
 with open(path.join(DATA_DIR, 'slovenian-stopwords.txt'), 'r') as f:
     stop_words = f.read().split()
 
@@ -16,8 +17,8 @@ with open(path.join(DATA_DIR, 'slovenian-stopwords.txt'), 'r') as f:
 rules = str.maketrans('', '', string.punctuation)
 
 # Compiled regex
-insert_hashtag = re.compile(r'(&)(\d+)')
-remove_brackets = re.compile(r'\((.*?)\)')
+insert_hashtag_regex = re.compile(r'(&)(\d+)')
+remove_brackets_regex = re.compile(r'\((.*?)\)')
 
 """
 Helper functions used to preprocess data.
@@ -144,7 +145,7 @@ def remove_brackets_col(col: pandas.Series, fillna=True, na_value=''):
     if fillna:
         col = col.fillna(na_value)
     # col = col.apply(numpy.vectorize(lambda s: re.sub(r'\((.*?)\)', ' ', s)))
-    col = col.apply(numpy.vectorize(lambda s: remove_brackets.sub(' ', s)))
+    col = col.apply(numpy.vectorize(lambda s: remove_brackets_regex.sub(' ', s)))
     return col
 
 def remove_brackets(df: pandas.DataFrame, fillna=True, na_value=''):
@@ -172,7 +173,7 @@ def remove_brackets(df: pandas.DataFrame, fillna=True, na_value=''):
     # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colStrip(col, not(fillna), na_value), axis=1)
     # This version speed up performance using numpy.vectorize
     # df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda s: re.sub(r'\((.*?)\)', ' ', s)))
-    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda s: remove_brackets.sub(' ', s)))
+    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda s: remove_brackets_regex.sub(' ', s)))
     return df
 
 
@@ -193,9 +194,9 @@ def __normalize(s: str, **kwargs):
         s = s.lower()
     if kwargs.get('remove_brackets'):
         # s = re.sub(r'\((.*?)\)', ' ', s)
-        s = remove_brackets.sub(' ', s)
+        s = remove_brackets_regex.sub(' ', s)
     # s = re.sub(r'(&)(\d+)', r'\1#\2', s)
-    s = insert_hashtag.sub(r'\1#\2', s)
+    s = insert_hashtag_regex.sub(r'\1#\2', s)
     # I don't know why it has to be called two times
     s = html.unescape(html.unescape(s))
     # s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
