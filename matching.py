@@ -12,8 +12,8 @@ from itertools import chain
 from pandas import pandas
 from torch.utils.data import Dataset, DataLoader
 from ceneje_prodmatch import DATA_DIR, DEEPMATCH_DIR, RESULTS_DIR, CACHE_DIR
-from ceneje_prodmatch.scripts.matching.similarity import Similarity, SimilarityDataset, LogisticRegressionModel
-from ceneje_prodmatch.scripts.matching.runner import Runner
+from ceneje_prodmatch.src.matching.similarity import Similarity, SimilarityDataset, LogisticRegressionModel
+from ceneje_prodmatch.src.matching.runner import Runner
 
 logging.getLogger('deepmatcher.core')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -76,7 +76,7 @@ def get_pos_neg_ratio(dataset: pandas.DataFrame, label_attr='label'):
 
 
 if __name__ == "__main__":
-    columns = ['idProduct']
+    """ columns = ['idProduct']
     ignore_columns = ['left_' + col for col in columns]
     ignore_columns += ['right_' + col for col in columns]
     ignore_columns += ['idProduct', 'similarity']
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     predictions = model.run_prediction(candidate, output_attributes=True, device=device)
     predictions.to_csv(
         path.join(
-            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_new_cat_rand.csv'))
+            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_new_cat_rand.csv')) """
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 
@@ -165,6 +165,6 @@ if __name__ == "__main__":
 
     print(get_statistics(predictions)) """
 
-    """ predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_hybrid_pos_neg_fasttext_jaccard_rand.csv'))
+    predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_new_cat_rand.csv'))
     predictions = get_match_predictions(predictions)
-    print(get_statistics(predictions)) """
+    print(get_statistics(predictions))

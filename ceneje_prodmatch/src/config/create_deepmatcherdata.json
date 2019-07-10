@@ -1,0 +1,50 @@
+{
+    "default": {
+        "prefixes": ["SellerProductsData", "SellerProductsMapping", "Products"],
+        "contains": ["WashingMachine"],
+        "normalize": false,
+        "add_time_to_name": true,
+        "integrated_data_to_csv": false,
+        "integrated_data_name": "integrated",
+        "matching_data_to_csv": false,
+        "matching_data_name": "matching"
+    },
+    "unsplitted": {
+        "unsplitted_data": false,
+        "unsplitted_contains": "NewCategories",
+        "L3_ids": [873, 930, 931, 1666, 971, 1014, 174]
+    },
+    "deepmatcher": {
+        "deepmatcher_data_name": "deepmatcher",
+        "attributes": [
+            "idProduct",
+            "idSeller",
+            "idSellerProduct",
+            "brandSeller",
+            "nameSeller",
+            "descriptionSeller"
+        ],
+        "group_cols": ["idProduct"],
+        "id_attr": "id",
+        "label_attr": "label",
+        "left_attr": "left_",
+        "right_attr": "right_",
+        "normalize": "False",
+        "create_nm": "True",
+        "create_nm_mode": "similarity",
+        "similarity_attr": "nameSeller",
+        "metric": "Jaccard()",
+        "tokenizer": "WhitespaceTokenizer(return_set=True)",
+        "na_value": "",
+        "non_match_ratio": 2,
+        "similarity_thr": 0.6
+    },
+    "split": {
+        "train_val_test": [0.6, 0.2, 0.2],
+        "unlabeled": 0.2,
+        "train_data_name": "train",
+        "val_data_name": "validation",
+        "test_data_name": "test",
+        "unlabeled_data_name": "unlabeled"
+    }
+}

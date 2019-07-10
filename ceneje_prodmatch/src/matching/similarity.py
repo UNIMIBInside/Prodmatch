@@ -14,6 +14,26 @@ from ... import DATA_DIR, DEEPMATCH_DIR, RESULTS_DIR, CACHE_DIR
 
 class Similarity(object):
 
+    """
+        With this class one can compute distance or similarity measure, based on functions
+        provided by the `py_stringmatching` package.
+        It requires a dataset with a schema similar to the one for deepmatcher:
+        |Left attr 1|Left attr 2|...|Right attr 1|Right attr 2|...|Other attrs|
+
+        Parameters
+        ----------
+        data (pandas.DataFrame): 
+            dataset on which compute similarity scores for each tuple
+        left_attr (str): 
+            string prefix for recognize the left product attributes
+        right_attr (str): 
+            string prefix for recognize the left product attributes
+        ignore_columns (list): 
+            list of attributes to ignore in the similarity computation
+        na_value: 
+            value to fill NaN with
+    """
+
     def __init__(
         self,
         data: pandas.DataFrame,
@@ -22,20 +42,6 @@ class Similarity(object):
         ignore_columns=[],
         na_value='',
     ):
-        """
-        With this class one can compute distance or similarity measure, based on functions
-        provided by the `py_stringmatching` package.
-        It requires a dataset with a schema similar to the one for deepmatcher:
-        |Left attr 1|Left attr 2|...|Right attr 1|Right attr 2|...|Other attrs|
-
-        Parameters
-        ----------
-        data (pandas.DataFrame): dataset on which compute similarity scores for each tuple\n
-        left_attr (str): string prefix for recognize the left product attributes\n
-        right_attr (str): string prefix for recognize the left product attributes\n
-        ignore_columns (list): list of attributes to ignore in the similarity computation\n
-        na_value: value to fill NaN with
-        """
         self.data = data
         self.left_attr = left_attr
         self.right_attr = right_attr
@@ -76,9 +82,11 @@ class Similarity(object):
 
         metric (str): 
             which metric to use: it has to be a py_stringmatching class. 
-            For a complete review please look at `py_stringmatching` package\n
-        tokenizer (str): which `py_stringmatching` tokenizer use to tokenize text\n
-        similarity (bool): compute similarity score if True, disteance otherwise\n
+            For a complete review please look at `py_stringmatching` package
+        tokenizer (str): 
+            which `py_stringmatching` tokenizer use to tokenize text
+        similarity (bool): 
+            compute similarity score if True, disteance otherwise
         undefined_scores (list): 
             a list that contains, for each positions, the default scores to give to a pair of
             attributes if one of them contains `na_value`. If None every scores will be set
@@ -132,6 +140,36 @@ class Similarity(object):
 
 class SimilarityDataset(Dataset):
 
+    """
+        With this class one can encapsulate a torch.Dataset. It will be used to batch 
+        attributes and compute a similarity vector between pair of attributes.
+        It requires a dataset with a schema similar to the one for deepmatcher:
+        |Left attr 1|Left attr 2|...|Right attr 1|Right attr 2|...|Other attrs|
+
+        Parameters
+        ----------
+        data (pandas.DataFrame): 
+            dataset on which compute similarity scores for each tuple
+        metric (str): 
+            which metric to use: it has to be a py_stringmatching class.
+            For a complete review please look at `py_stringmatching` package
+        tokenizer (str): 
+            which `py_stringmatching` tokenizer use to tokenize text
+        label_attr (str):
+            string for recognize the label attribute
+        left_attr (str): 
+        string prefix for recognize the left product attributes
+        right_attr (str):
+            string prefix for recognize the left product attributes
+        undefined_scores (list): 
+            a list that contains, for each positions, the default scores to give to a pair of attributes if one of them contains `na_value`. 
+            If None every scores will be set to 1/2 (better not decide)
+        ignore_columns (list):
+            list of attributes to ignore in the similarity computation
+        na_value:
+            value to fill NaN with
+    """
+
     def __init__(
         self,
         data: pandas.DataFrame,
@@ -144,28 +182,6 @@ class SimilarityDataset(Dataset):
         ignore_columns=[],
         na_value='',
     ):
-        """
-        With this class one can encapsulate a torch.Dataset. It will be used to batch 
-        attributes and compute a similarity vector between pair of attributes.
-        It requires a dataset with a schema similar to the one for deepmatcher:
-        |Left attr 1|Left attr 2|...|Right attr 1|Right attr 2|...|Other attrs|
-
-        Parameters
-        ----------
-        data (pandas.DataFrame): dataset on which compute similarity scores for each tuple\n
-        metric (str): which metric to use: it has to be a py_stringmatching class. 
-            For a complete review please look at `py_stringmatching` package\n
-        tokenizer (str): which `py_stringmatching` tokenizer use to tokenize text\n
-        label_attr (str): string for recognize the label attribute\n
-        left_attr (str): string prefix for recognize the left product attributes\n
-        right_attr (str): string prefix for recognize the left product attributes\n
-        undefined_scores (list): 
-            a list that contains, for each positions, the default scores to give to a pair of
-            attributes if one of them contains `na_value`. If None every scores will be set
-            to 1/2 (better not decide)
-        ignore_columns (list): list of attributes to ignore in the similarity computation\n
-        na_value: value to fill NaN with
-        """
         self.data = data
         self.metric = metric
         self.tokenizer = tokenizer
@@ -249,26 +265,39 @@ class LogisticRegressionModel(nn.Module):
         Parameters
         ----------
 
-        train_dataset: train dataset\n
-        val_dataset: dataset used to validate the model and save the best one\n
-        model: model to train\n
-        resume=False: wheater to resume training on the last best model saving\n
-        criterion=None: which type of loss will be computed. By default it's used NLLLoss with weight 
-        specified by the pos_neg_ratio (weight=[1/pos_neg_ratio, 1] if pos_neg_ratio >= 1; weight=[1, 1/pos_neg_ratio],
-        where the first element is the weight of the '0' class)\n
-        optimizer=None: how to compute backpropagation. By default will be used SDG with a learning rate equals to 0.01
-        and a 0.9 momentum\n
-        scheduler=None: a scheduler to drop learning rate. By default the learning rate will be dropped
-        based on the F1 measure on validation, if for 5 epochs won't upgrade\n
-        train_epochs=10: train epochs\n
-        pos_neg_ratio=1: ratio of positive examples weight wrt negative examples weight\n
-        best_model_name='best_model': name of the best model
-        best_save_on='F1': statistics on which the best model will be saved. It must be one of the following:
-        'accuracy', 'precision', 'recall', 'f1'\n
-        best_save_path=None: path where the best model will be saved.\n
-        device=None: device to run train and validation.\n
-        batch_size=32: batch size\n
-        **kwargs\n
+        train_dataset: 
+            train dataset
+        val_dataset: 
+            dataset used to validate the model and save the best one
+        model: 
+            model to train
+        resume=False: 
+            whether to resume training on the last best model saving
+        criterion=None: 
+            which type of loss will be computed. By default it's used NLLLoss with weight 
+            specified by the pos_neg_ratio (weight=[1/pos_neg_ratio, 1] if pos_neg_ratio >= 1; weight=[1, 1/pos_neg_ratio],
+            where the first element is the weight of the '0' class)
+            optimizer=None: how to compute backpropagation. By default will be used SDG with a learning rate equals to 0.01
+            and a 0.9 momentum
+        scheduler=None: 
+            a scheduler to drop learning rate. By default the learning rate will be dropped
+            based on the F1 measure on validation, if for 5 epochs won't upgrade
+        train_epochs=10: 
+            train epochs
+        pos_neg_ratio=1: 
+            ratio of positive examples weight wrt negative examples weight
+        best_model_name='best_model': 
+            name of the best model
+        best_save_on='F1': 
+            statistics on which the best model will be saved. It must be one of the following:
+            'accuracy', 'precision', 'recall', 'f1'
+        best_save_path=None: 
+            path where the best model will be saved.
+        device=None: 
+            device to run train and validation.
+        batch_size=32: 
+            batch size
+        **kwargs
         In the **kwargs you can specify the log frequency of the statistics
 
         Returns
@@ -285,14 +314,21 @@ class LogisticRegressionModel(nn.Module):
         Parameters
         ----------
 
-        dataset: dataset that will be evaluated\n
-        model: model evaluate\n
-        load_best_model=True: wheater to load the best evaluated model.\n
-        best_model_name='best_model': name of the best model.\n
-        best_save_path=None: path where the best model will be saved.\n
-        device=None: device to run train and validation.\n
-        batch_size=32: batch size\n
-        **kwargs\n
+        dataset: 
+            dataset that will be evaluated
+        model: 
+            model evaluate
+        load_best_model=True: 
+            whether to load the best evaluated model.
+        best_model_name='best_model': 
+            name of the best model.
+        best_save_path=None: 
+            path where the best model will be saved.
+        device=None:
+            device to run train and validation.
+        batch_size=32: 
+            batch size
+        **kwargs
         In the **kwargs you can specify the log frequency of the statistics
 
         Returns

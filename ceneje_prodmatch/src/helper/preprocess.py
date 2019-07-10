@@ -268,8 +268,8 @@ def normalize(
     df (pandas.DataFrame): DataFrame to clean\n
     fillna (bool): wheter or not call pandas.Series.fillna(na_value)\n
     na_value (str): value to replace na\n
-    lower (bool): wheater or not lower the case\n
-    remove_brackets (bool): wheater or not remove brackets and what's inside them
+    lower (bool): whether or not lower the case\n
+    remove_brackets (bool): whether or not remove brackets and what's inside them
 
     Returns
     -------

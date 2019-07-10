@@ -6,10 +6,62 @@ from tqdm import tqdm
 from scipy.special import comb
 from collections import namedtuple
 from itertools import combinations, chain, product
-from ceneje_prodmatch.scripts.helpers import preprocess
+from ceneje_prodmatch.src.helper import preprocess
 
 
 class DeepmatcherData(object):
+
+    """
+        Deepmatcher needs data in a particular way, such as:  
+        |Label|Left product attributes|Right product attributes|  
+        where Label is 'Match' or 'Not match' and the same attributes for both products.  
+        I suppose that the data are all the matching tuples, in the sense that every idSellerProduct
+        is joined with the idProduct from ceneje, if so the algorithm works like this:  
+        For creating the matching ('match', left prod, right prod) tuples, the original tuples will be grouped by
+        group_cols (i think this would always be idProduct, but better be general), and for every group 
+        there will be created combinations.  
+        For creating the non matching ('non match', left prod, right prod) tuples, the original ones
+        will be paired up with a subset sample at random from products different from it
+
+        Parameters
+        ----------
+        matching_tuples: 
+            dataset containing all the matching seller products (idSellerProduct) joined with
+            the ceneje idProduct from which data will be created  
+        group_cols: 
+            column(s) to group by on  
+        attributes: 
+            list with attributes name to include in the output data  
+        (id|label|left|right)_attr (str): 
+            string that will be used to name columns
+        normalize: 
+            whether or not preprocess matching tuples data. It would be better if the preprocess
+            takes place before creating data for deepmatcher, since data will grow on both rows and columns
+        create_nm (bool): 
+            whether or not create non matching tuples  
+        create_nm_mode (str): 
+            string representing the non matching tuple creation mode: `similarity`
+            uses a similarity function specified by `similarity` argument (default Jaccard with word tokenization);
+            `random` picks non matching tuples at random  
+        similarity_attr (str): 
+            attribute on which compute similarity
+        metric (str): 
+            which metric to use: it has to be a py_stringmatching class. 
+            For a complete review please look at `py_stringmatching` package  
+        tokenizer (str): 
+            which `py_stringmatching` tokenizer use to tokenize text  
+        non_match_ratio (float): 
+            how many non-matching tuples will be created for each matching tuple of a product. So if for example
+            there're 4 matching products, there will be created 4C2 = 6 combinations; so the number of non-matching tuples
+            will be 6 * non_match_ratio
+        similarity_thr (float): 
+            similarity threshold for creating non-matching tuples using a similarity function
+            (to make deepmatcher work harder)
+
+        Returns
+        -------
+        DataFrame in the form accepted by Deepmatcher
+    """
 
     def __init__(self,
                  matching_tuples: pandas.DataFrame,
@@ -28,59 +80,11 @@ class DeepmatcherData(object):
                  na_value='',
                  non_match_ratio=2,
                  similarity_thr=0.6
-                 ):
-        """
-        Deepmatcher needs data in a particular way, such as:\n
-        |Label|Left product attributes|Right product attributes|\n
-        where Label is 'Match' or 'Not match' and the same attributes for both products.\n
-        I suppose that the data are all the matching tuples, in the sense that every idSellerProduct
-        is joined with the idProduct from ceneje, if so the algorithm works like this:
-        * For creating the matching ('match', left prod, right prod) tuples, the original tuples will be grouped by
-        group_cols (i think this would always be idProduct, but better be general), and for every group 
-        there will be created combinations 
-        * For creating the non matching ('non match', left prod, right prod) tuples, the original ones
-        will be paired up with a subset sample at random from products different from it
-
-        Parameters
-        ----------
-        matching_tuples: 
-            dataset possibly containing all the matching seller products (idSellerProduct) joined with
-            the ceneje idProduct from which data will be create\n
-        group_cols: 
-            column(s) to group by on\n
-        attributes: 
-            list with attributes name to include in the output data\n
-        *_attr (str): 
-            string that will be used to name columns
-        normalize: 
-            wheater or not preprocess matching tuples data. It would be better if the preprocess
-            takes place before creating data for deepmatcher, since data will grow on both rows and columns\n
-        create_nm (bool): wheater or not create non matching tuples\n
-        create_nm_mode (str): string representing the non matching tuple creation mode: `similarity`
-            uses a similarity function specified by `similarity` argument (default Jaccard with word tokenization);
-            `random` picks non matching tuples at random\n
-        similarity_attr (str): 
-            attribute on which compute similarity
-        metric (str): 
-            which metric to use: it has to be a py_stringmatching class. 
-            For a complete review please look at `py_stringmatching` package\n
-        tokenizer (str): 
-            which `py_stringmatching` tokenizer use to tokenize text\n
-        non_match_ratio (float): 
-            how many non-matching tuples will be created for each matching tuple of a product. So if for example
-            there're 4 matching products, there will be created 4C2 = 6 combinations; so the number of non-matching tuples
-            will be 6 * non_match_ratio
-        similarity_thr (float): similarity threshold for creating non-matching tuples using a similarity function
-            (to make deepmatcher work harder)
-
-        Returns
-        -------
-        DataFrame in the form accepted by Deepmatcher
-        """
-        if group_cols == []:
+    ):
+        if group_cols == [] or group_cols is None:
             raise Exception(
                 'group_cols must be a string or list indicating by which cols the data will be grouped by')
-        if attributes == []:
+        if attributes == [] or attributes is None:
             attributes = matching_tuples.keys().values
         if non_match_ratio <= 0:
             raise Exception('Percentage must be positive')
@@ -102,7 +106,7 @@ class DeepmatcherData(object):
         print(C1.head()) """
         self.deeplabels = [
             left_attr + attr for attr in attributes] + [right_attr + attr for attr in attributes]
-        self.matching = self.__getMatchingData(
+        self.matching = self.getMatchingData(
             group_cols, label_attr)
         self.na_value = na_value
         self.non_match_ratio = non_match_ratio
@@ -118,25 +122,29 @@ class DeepmatcherData(object):
                 raise Exception(
                     'The attribute on which similarity will be computed must be a data column')
             if metric is None:
-                metric = sm.Jaccard()
+                metric_obj = sm.Jaccard()
+            else:
+                metric_obj = eval('sm.' + metric)
             if tokenizer is None:
-                tokenizer = sm.QgramTokenizer(return_set=True)
+                tokenizer_obj = sm.QgramTokenizer(return_set=True)
+            else:
+                tokenizer_obj = eval('sm.' + tokenizer)
             self.similarity_attr = similarity_attr
-            self.metric = metric
-            self.tokenizer = tokenizer
-        self.similarity_thr = similarity_thr
+            self.metric = metric_obj
+            self.tokenizer = tokenizer_obj
+            self.similarity_thr = similarity_thr
         self.non_matching = None
         if create_nm:
-            self.non_matching = self.__getNonMatchingData(label_attr)
-        self.deepdata = self.__getDeepdata(id_attr)
+            self.non_matching = self.getNonMatchingData(label_attr)
+        self.deepdata = self.getDeepdata(id_attr)
 
-    def __pairUp(self, row: namedtuple):
+    def pairUp(self, row: namedtuple):
         def compute_sim_score(r):
             return self.metric.get_sim_score(
                 self.tokenizer.tokenize(r[self.similarity_attr]),
                 self.tokenizer.tokenize(getattr(row, self.similarity_attr)))
 
-        # Retrieve all products not matching with the one in getattr(row, 'idProduct')
+        # Retrieve all products matching with the one in getattr(row, 'idProduct')
         match = len(self.data.loc[self.data['idProduct']
                                   == getattr(row, 'idProduct')])
 
@@ -158,6 +166,7 @@ class DeepmatcherData(object):
         # ]
 
         if self.create_nm_mode == 'similarity':
+            # Retrieve all products not matching with the one in getattr(row, 'idProduct')
             non_match = self.data.loc[(self.data['idProduct'] != getattr(row, 'idProduct')) & (
                 self.data[self.similarity_attr] != self.na_value), self.attributes]
             non_match['similarity'] = non_match.loc[:, [
@@ -188,7 +197,7 @@ class DeepmatcherData(object):
                 non_match.sample(how_many).values.tolist()
             )
 
-    def __getNonMatchingData(self, label_attr: str):
+    def getNonMatchingData(self, label_attr: str):
         """
         To create non-matching tuples, every product p will be paired up with a subset 
         sample at random from products different from p. That's essentially what pairUp method do
@@ -204,11 +213,11 @@ class DeepmatcherData(object):
         out_columns = self.deeplabels
         if self.create_nm_mode == 'similarity':
             out_columns += ['similarity']
-        non_match = pandas.DataFrame(
-            [chain.from_iterable([left_prod, right_prod])
-             for row in self.data[self.attributes].itertuples(index=False)
-             for left_prod, right_prod in self.__pairUp(row)],
-            columns=out_columns)
+        non_match = pandas.DataFrame([
+            chain.from_iterable([left_prod, right_prod])
+            for row in self.data[self.attributes].itertuples(index=False)
+            for left_prod, right_prod in self.pairUp(row)
+        ], columns=out_columns)
         # non_match = pandas.DataFrame([
         #     chain.from_iterable([left_prod, right_prod])
         #     for pairs in self.data[attributes]
@@ -219,7 +228,7 @@ class DeepmatcherData(object):
         print('Finished')
         return non_match
 
-    def __getMatchingData(self, group_cols, label_attr: str):
+    def getMatchingData(self, group_cols, label_attr: str):
         """
         To create matching tuples i group the dataframe by idProduct, and for every group
         i pair up products two by two (combinations)
@@ -240,59 +249,12 @@ class DeepmatcherData(object):
         print('Finished')
         return match
 
-    def __getDeepdata(self, id_attr):
+    def getDeepdata(self, id_attr):
         if self.create_nm_mode == 'similarity':
-            self.matching.insert(8, 'similarity', 0)
+            self.matching.insert(len(self.non_matching.columns) - 1, 'similarity', 0)
         return pandas.concat([self.matching, self.non_matching])\
             .reset_index(drop=True)\
             .rename_axis(id_attr, axis=0, copy=False)
-
-    # def getData(self):
-    #     """
-    #     Deepmatcher needs data in a particular way, such as:
-    #     |Label|Left product attributes|Right product attributes|
-    #     where Label is 'Match' or 'Not match' and the same attributes for both products.
-    #     I suppose that the data are all the matching tuples, in the sense that every idSellerProduct
-    #     is joined with the idProduct from ceneje, if so the algorithm works like this:
-    #     * For creating the matching ('match', left prod, right prod) tuples, the original tuples will be grouped by
-    #     group_cols (i think this would always be idProduct, but better be general), and for every group
-    #     there will be created combinations
-    #     * For creating the non matching ('non match', left prod, right prod) tuples, the original ones
-    #     will be paired up with a subset sample at random from products different from it
-
-    #     Returns
-    #     -------
-    #     DataFrame in the form accepted by Deepmatcher
-    #     """
-    #     # data = pandas.DataFrame(columns=['label'] + left + right)
-    #     # matching = matching.sort_values(by='idProduct').reset_index()
-    #     # matching.index = numpy.arange(0, len(matching))
-    #     # print(matching[38:43])
-    #     # last_row = -1
-    #     # index_in_group = 0
-    #     # init = time.time()
-    #     # for i_row, _ in matching.iterrows():
-    #     # 	if i_row == len(matching) - 1:
-    #     # 		pass
-    #     # 	else:
-    #     # 		how_many_in_group = idProductGroupedSizes[matching.loc[i_row, 'idProduct']] - index_in_group
-    #     # 		for j in range(1, how_many_in_group):
-    #     # 			# data.loc[last_row + j, 'label'] = 'match'
-    #     # 			data.loc[last_row + j, left] = matching.loc[i_row, attributes].values
-    #     # 			data.loc[last_row + j, right] = matching.loc[i_row + j, attributes].values
-    #     # 		last_row = last_row + how_many_in_group - 1
-    #     # 		# print(data)
-    #     # 		if matching.loc[i_row, 'idProduct'] == matching.loc[i_row + 1, 'idProduct']:
-    #     # 			index_in_group += 1
-    #     # 		else:
-    #     # 			index_in_group = 0
-
-    #     # deepdata = pandas.concat([self.matching, self.non_matching])\
-    #     #             .reset_index(level=0)\
-    #     #             .reset_index(level=0, drop=True)
-    #     # return deepdata.rename_axis('id', axis=0, copy=False)
-    #     return self.deepdata
-
 
 def train_val_test_split(data: pandas.DataFrame, splits: list, shuffle=True):
     """
