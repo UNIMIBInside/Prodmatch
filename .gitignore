@@ -108,6 +108,8 @@ cache
 
 ceneje_data/
 
+src/config/config.json
+
 deepmatcher_data/
 
 results/

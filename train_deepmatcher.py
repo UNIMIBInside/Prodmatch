@@ -1,5 +1,7 @@
+import os
 import math
 import nltk
+import json
 import torch
 import logging
 import deepmatcher as dm
@@ -11,7 +13,7 @@ from tqdm import tqdm
 from itertools import chain
 from pandas import pandas
 from torch.utils.data import Dataset, DataLoader
-from ceneje_prodmatch import DATA_DIR, DEEPMATCH_DIR, RESULTS_DIR, CACHE_DIR
+from ceneje_prodmatch import DATA_DIR, DEEPMATCH_DIR, RESULTS_DIR, CACHE_DIR, CONFIG_DIR
 from ceneje_prodmatch.src.matching.similarity import Similarity, SimilarityDataset, LogisticRegressionModel
 from ceneje_prodmatch.src.matching.runner import Runner
 
@@ -77,28 +79,34 @@ def get_pos_neg_ratio(dataset: pandas.DataFrame, label_attr='label'):
 
 if __name__ == "__main__":
 
-    columns = ['idProduct', 'idSellerProduct', 'idSeller']
-    ignore_columns = ['left_' + col for col in columns]
-    ignore_columns += ['right_' + col for col in columns]
-    ignore_columns += ['similarity']
-    train = pandas.read_csv(path.join(DEEPMATCH_DIR, 'train_new_cat_rand.csv'))
+    # Import config
+    with open(os.path.join(CONFIG_DIR, 'config.json')) as f:
+        cfg = json.load(f)
+    deepmatcher_cfg = cfg['deepmatcher']
+
+    columns = deepmatcher_cfg['matching']['left_right_ignore_cols']
+    ignore_columns  = [deepmatcher_cfg['create']['left_prefix'] + col for col in columns]
+    ignore_columns += [deepmatcher_cfg['create']['right_prefix'] + col for col in columns]
+    if deepmatcher_cfg['create']['create_nm_mode'] == 'similarity':
+        ignore_columns += ['similarity']
+    train = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['train_data_name'] + '.csv'))
     pos_neg_ratio = get_pos_neg_ratio(train)
 
     # Run deepmatcher algorithm
 
     train, validation, test = dm.data.process(
         path=DEEPMATCH_DIR, 
-        cache=path.join(CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_rand_cache.pth'),
-        train='train_new_cat_rand.csv', 
-        validation='validation_new_cat_rand.csv', 
-        test='test_new_cat_rand.csv',
+        cache=path.join(CACHE_DIR, deepmatcher_cfg['matching']['cache_name'] + '.pth'),
+        train=cfg['split']['train_data_name'] + '.csv', 
+        validation=cfg['split']['val_data_name'] + '.csv', 
+        test=cfg['split']['test_data_name'] + '.csv',
         ignore_columns=ignore_columns, 
         lowercase=False,
         embeddings='fasttext.sl.bin', 
-        id_attr='id', 
-        label_attr='label',
-        left_prefix='left_', 
-        right_prefix='right_', 
+        id_attr=deepmatcher_cfg['create']['id_attr'], 
+        label_attr=deepmatcher_cfg['create']['label_attr'],
+        left_prefix=deepmatcher_cfg['create']['left_prefix'], 
+        right_prefix=deepmatcher_cfg['create']['right_prefix'], 
         pca=False,
         device=device
     )
@@ -107,27 +115,27 @@ if __name__ == "__main__":
         attr_comparator='abs-diff'
     )
     model.initialize(train, device=device)
-    model.train(
+    model.run_train(
         train,
         validation,
-        epochs=10,
-        batch_size=16,
+        epochs=deepmatcher_cfg['matching']['epochs'],
+        batch_size=deepmatcher_cfg['matching']['batch_size'],
         pos_neg_ratio=pos_neg_ratio,
         best_save_path=path.join(RESULTS_DIR, 'models',
-                                 'rnn_pos_neg_fasttext_jaccard_new_cat_rand_model.pth'),
+                                 deepmatcher_cfg['matching']['best_model_name'] + '.pth'),
         device=device
     )
     model.run_eval(test, device=device)
     model.load_state(
-        path.join(RESULTS_DIR, 'models','rnn_pos_neg_fasttext_jaccard_new_cat_rand_model.pth'),
+        path.join(RESULTS_DIR, 'models', deepmatcher_cfg['matching']['best_model_name'] + '.pth'),
         device=device)
     candidate = dm.data.process_unlabeled(
-        path.join(DEEPMATCH_DIR, 'unlabeled_new_cat_rand.csv'),
+        path.join(DEEPMATCH_DIR, cfg['split']['unlabeled_data_name'] + '.csv'),
         trained_model=model,
-        ignore_columns=ignore_columns + ['label'])
-    predictions = model.prediction(candidate, output_attributes=True, device=device)
+        ignore_columns=ignore_columns + [deepmatcher_cfg['create']['label_attr']])
+    predictions = model.run_prediction(candidate, output_attributes=True, device=device)
     predictions.to_csv(
-        path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_new_cat_rand.csv')
+        path.join(RESULTS_DIR, deepmatcher_cfg['matching']['predictions_data_name'] + '.csv')
     )
 
     # Run a similarity matching algorithm based on manual weight of the attributes
@@ -173,6 +181,6 @@ if __name__ == "__main__":
 
     print(get_statistics(predictions)) """
 
-    predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_new_cat_rand.csv'))
+    # predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_new_cat_rand.csv'))
     predictions = get_match_predictions(predictions)
     print(get_statistics(predictions))

@@ -212,12 +212,12 @@ def get_deepmatcher_data(matching_datasets: list, *args, **kwargs):
 if __name__ == '__main__':
 
     # Import config
-    with open(os.path.join(CONFIG_DIR, 'create_deepmatcherdata.json')) as f:
+    with open(os.path.join(CONFIG_DIR, 'config.json')) as f:
         cfg = json.load(f)
 
     default_cfg = cfg['default']
     unsplitted_cfg = cfg['unsplitted']
-    deepmatcher_cfg = cfg['deepmatcher']
+    deepmatcher_cfg = cfg['deepmatcher']['create']
     split_cfg = cfg['split']
 
     init = time.time()
@@ -253,10 +253,7 @@ if __name__ == '__main__':
     if unsplitted:
         integrated_data += integrated_unsplitted_data
     if default_cfg['integrated_data_to_csv']:
-        name = default_cfg['integrated_data_name']
-        if default_cfg['add_time_to_name']:
-            name += '_' + time.strftime(default_cfg['time_format'])
-        pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, name + '.csv')) 
+        pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, default_cfg['integrated_data_name'] + '.csv')) 
     
     # Get matching tuples
     matching = get_matching(
@@ -266,10 +263,7 @@ if __name__ == '__main__':
         remove_brackets=default_cfg['remove_brackets']
     )
     if default_cfg['matching_data_to_csv']:
-        name = default_cfg['matching_data_name']
-        if default_cfg['add_time_to_name']:
-            name += '_' + time.strftime(default_cfg['time_format'])
-        pandas.concat(matching).to_csv(path.join(DATA_DIR, name + '.csv'))
+        pandas.concat(matching).to_csv(path.join(DATA_DIR, default_cfg['matching_data_name'] + '.csv'))
 
     # Create deepmatcher dataset
     deepdata = get_deepmatcher_data(
@@ -286,10 +280,7 @@ if __name__ == '__main__':
         similarity_thr=deepmatcher_cfg['similarity_thr']
     )
     if deepmatcher_cfg['deepmatcher_data_to_csv']:
-        name = deepmatcher_cfg['deepmatcher_data_name']
-        if default_cfg['add_time_to_name']:
-            name += '_' + time.strftime(default_cfg['time_format'])
-        deepdata.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
+        deepdata.to_csv(path.join(DEEPMATCH_DIR, deepmatcher_cfg['deepmatcher_data_name'] + '.csv'))
     print(time.time() - init)
     
     # Split into train, validation, test and unlabeled
@@ -298,22 +289,7 @@ if __name__ == '__main__':
         unlabeled_data = train[:math.ceil(len(train) * split_cfg['unlabeled'])]
         train = train[math.ceil(len(train) * split_cfg['unlabeled']) + 1:]
         
-        name = split_cfg['train_data_name']
-        if default_cfg['add_time_to_name']:
-            name += '_' + time.strftime(default_cfg['time_format'])
-        train.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
-
-        name = split_cfg['val_data_name']
-        if default_cfg['add_time_to_name']:
-            name += '_' + time.strftime(default_cfg['time_format'])
-        val.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
-
-        name = split_cfg['test_data_name']
-        if default_cfg['add_time_to_name']:
-            name += '_' + time.strftime(default_cfg['time_format'])
-        test.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
-
-        name = split_cfg['unlabeled_data_name']
-        if default_cfg['add_time_to_name']:
-            name += '_' + time.strftime(default_cfg['time_format'])
-        unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
+        train.to_csv(path.join(DEEPMATCH_DIR, split_cfg['train_data_name'] + '.csv'))
+        val.to_csv(path.join(DEEPMATCH_DIR, split_cfg['val_data_name'] + '.csv'))
+        test.to_csv(path.join(DEEPMATCH_DIR, split_cfg['test_data_name'] + '.csv'))
+        unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, split_cfg['unlabeled_data_name'] + '.csv'))

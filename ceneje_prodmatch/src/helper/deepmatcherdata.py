@@ -138,7 +138,7 @@ class DeepmatcherData(object):
             self.non_matching = self.getNonMatchingData(label_attr)
         self.deepdata = self.getDeepdata(id_attr)
 
-    def pairUp(self, row: namedtuple):
+    def __pairUp(self, row: namedtuple):
         def compute_sim_score(r):
             return self.metric.get_sim_score(
                 self.tokenizer.tokenize(r[self.similarity_attr]),
@@ -200,7 +200,7 @@ class DeepmatcherData(object):
     def getNonMatchingData(self, label_attr: str):
         """
         To create non-matching tuples, every product p will be paired up with a subset 
-        sample at random from products different from p. That's essentially what pairUp method do
+        sample at random from products different from p. That's essentially what __pairUp method do
         """
         print('Create non-matching data...')
         # tokenizer = sm.WhitespaceTokenizer()
@@ -216,7 +216,7 @@ class DeepmatcherData(object):
         non_match = pandas.DataFrame([
             chain.from_iterable([left_prod, right_prod])
             for row in self.data[self.attributes].itertuples(index=False)
-            for left_prod, right_prod in self.pairUp(row)
+            for left_prod, right_prod in self.__pairUp(row)
         ], columns=out_columns)
         # non_match = pandas.DataFrame([
         #     chain.from_iterable([left_prod, right_prod])
