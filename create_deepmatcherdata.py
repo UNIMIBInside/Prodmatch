@@ -5,7 +5,7 @@ import numpy
 import time
 from os import path
 from pandas import pandas
-from ceneje_prodmatch import DATA_DIR, DEEPMATCH_DIR, CONFIG_DIR
+from ceneje_prodmatch import DATA_DIR, UNSPLITTED_DATA_DIR, DEEPMATCH_DIR, CONFIG_DIR
 from ceneje_prodmatch.src.helper import preprocess
 from ceneje_prodmatch.src.helper.deepmatcherdata import DeepmatcherData, train_val_test_split
 
@@ -61,7 +61,12 @@ def read_files_start_with(folder: str, prefix: str, contains=None, **kwargs):
     ]
 
 
-def read_files(folder: str, prefixes: str, contains=None, **kwargs):
+def read_files(
+    folder: str, 
+    prefixes: str, 
+    contains=None, 
+    **kwargs
+):
     """
     Function that reads csv files, starting with a user defined prefixes, from a specified folder
 
@@ -72,7 +77,9 @@ def read_files(folder: str, prefixes: str, contains=None, **kwargs):
     prefixes (str): 
         pick files only starting with prefixes
     contains (list or None): 
-        pick only files that contains `contains` after prefix
+        pick only files that contains `contains` after prefix.
+        If is None, then I suppose files are splitted by category, and for each category
+        there're three datasets: SellerProductsData_, SellerProductsMapping_ and Products_
     kwargs: 
         keyword arguments to pass to pandas.read_csv() function
 
@@ -89,7 +96,13 @@ def read_files(folder: str, prefixes: str, contains=None, **kwargs):
     return list(zip(*files))
 
 
-def join_datasets(datasets: list, unsplitted=False, L3=None):
+def join_datasets(
+    datasets: list, 
+    seller_prod_data_attrs: list, 
+    ceneje_prod_data_attrs: list,
+    unsplitted=False, 
+    L3=None
+):
     """
     Since every join will merge SellerProductsData x SellerProductsMapping x Products (if i'm not wrong),
     this function executes those joins given a list of tuple of datasets, where every tuple contains dataset
@@ -100,6 +113,10 @@ def join_datasets(datasets: list, unsplitted=False, L3=None):
     datasets (list of tuples of pandas.DataFrame): 
         list that contains tuples of pandas.DataFrame.
         Every dataset in a tuples will be joined from left to right
+    seller_prod_data_attrs (list):
+        columns in output from seller products data dataset
+    ceneje_prod_data_attrs (list):
+        columns in output from ceneje products data dataset
     unsplitted (bool):
         Are the datasets in the folder splitted by category? 
         If not, then one must specify the L3 category, in order to automatize the process
@@ -118,13 +135,13 @@ def join_datasets(datasets: list, unsplitted=False, L3=None):
         for category in L3:
             integrated_dataset.append(
                 # SellerProductsData_ dataset
-                datasets[0][0][['idSeller', 'idSellerProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']]\
+                datasets[0][0][['idSeller', 'idSellerProduct'] + seller_prod_data_attrs]\
                 .merge(
                     right=datasets[0][1],  # SellerProductsMapping_ dataset
                     how='inner',
                     on=['idSellerProduct', 'idSeller']
                 ).merge(
-                    right=datasets[0][2][datasets[0][2]['L3'] == category][['idProduct']],  # Products_ dataset
+                    right=datasets[0][2][datasets[0][2]['L3'] == category][['idProduct'] + ceneje_prod_data_attrs],  # Products_ dataset
                     how='inner',
                     on='idProduct'
                 ).reset_index(drop=True)
@@ -132,13 +149,13 @@ def join_datasets(datasets: list, unsplitted=False, L3=None):
         return integrated_dataset
     return [
         # SellerProductsData_ dataset
-        datasets[i][0][['idSeller', 'idSellerProduct', 'brandSeller', 'nameSeller', 'descriptionSeller']]\
+        datasets[i][0][['idSeller', 'idSellerProduct'] + seller_prod_data_attrs]\
         .merge(
             right=datasets[i][1],  # SellerProductsMapping_ dataset
             how='inner',
             on=['idSellerProduct', 'idSeller']
         ).merge(
-            right=datasets[i][2][['idProduct']],  # Products_ dataset
+            right=datasets[i][2][['idProduct'] + ceneje_prod_data_attrs],  # Products_ dataset
             how='inner',
             on='idProduct'
         ).reset_index(drop=True)
@@ -208,13 +225,19 @@ if __name__ == '__main__':
     unsplitted = unsplitted_cfg['unsplitted_data']
     if unsplitted:
         files = read_files(
-            folder=DATA_DIR,
+            folder=UNSPLITTED_DATA_DIR,
             prefixes=default_cfg['prefixes'],
             contains=unsplitted_cfg['unsplitted_contains'],
             sep='\t',
             encoding='utf-8'
         )
-        integrated_unsplitted_data = join_datasets(files, unsplitted=unsplitted, L3=unsplitted_cfg['L3_ids'])
+        integrated_unsplitted_data = join_datasets(
+            files, 
+            default_cfg['seller_prod_data_attrs'], 
+            default_cfg['ceneje_prod_data_attrs'], 
+            unsplitted=unsplitted, 
+            L3=unsplitted_cfg['L3_ids']
+        )
     files = read_files(
         folder=DATA_DIR,
         prefixes=default_cfg['prefixes'],
@@ -222,17 +245,31 @@ if __name__ == '__main__':
         sep='\t',
         encoding='utf-8'
     )
+    integrated_data = join_datasets(
+        files,
+        default_cfg['seller_prod_data_attrs'], 
+        default_cfg['ceneje_prod_data_attrs']
+    )
     if unsplitted:
-        integrated_data = join_datasets(files) + integrated_unsplitted_data
-    else:
-        integrated_data = join_datasets(files)
+        integrated_data += integrated_unsplitted_data
     if default_cfg['integrated_data_to_csv']:
-        pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, default_cfg['integrated_data_name'] + '.csv')) 
+        name = default_cfg['integrated_data_name']
+        if default_cfg['add_time_to_name']:
+            name += '_' + time.strftime(default_cfg['time_format'])
+        pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, name + '.csv')) 
     
     # Get matching tuples
-    matching = get_matching(integrated_data, normalize=default_cfg['normalize'])
+    matching = get_matching(
+        integrated_data, 
+        normalize=default_cfg['normalize'], 
+        lower=deepmatcher_cfg['lower'], 
+        remove_brackets=deepmatcher_cfg['remove_brackets']
+    )
     if default_cfg['matching_data_to_csv']:
-        pandas.concat(matching).to_csv(path.join(DATA_DIR, default_cfg['matching_data_name'] + '.csv'))
+        name = default_cfg['matching_data_name']
+        if default_cfg['add_time_to_name']:
+            name += '_' + time.strftime(default_cfg['time_format'])
+        pandas.concat(matching).to_csv(path.join(DATA_DIR, name + '.csv'))
 
     # Create deepmatcher dataset
     deepdata = get_deepmatcher_data(
@@ -248,14 +285,35 @@ if __name__ == '__main__':
         similarity_attr=deepmatcher_cfg['similarity_attr'],
         similarity_thr=deepmatcher_cfg['similarity_thr']
     )
-    deepdata.to_csv(path.join(DEEPMATCH_DIR, deepmatcher_cfg['deepmatcher_data_name'] + '.csv'))
+    if deepmatcher_cfg['deepmatcher_data_to_csv']:
+        name = default_cfg['deepmatcher_data_name']
+        if default_cfg['add_time_to_name']:
+            name += '_' + time.strftime(default_cfg['time_format'])
+        deepdata.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
     print(time.time() - init)
     
     # Split into train, validation, test and unlabeled
-    train, val, test = train_val_test_split(deepdata, split_cfg['train_val_test'])
-    unlabeled_data = train[:math.ceil(len(train) * split_cfg['unlabeled'])]
-    train = train[math.ceil(len(train) * split_cfg['unlabeled']) + 1:]
-    train.to_csv(path.join(DEEPMATCH_DIR, split_cfg['train_data_name'] + '.csv'))
-    val.to_csv(path.join(DEEPMATCH_DIR, split_cfg['val_data_name'] + '.csv'))
-    test.to_csv(path.join(DEEPMATCH_DIR, split_cfg['test_data_name'] + '.csv'))
-    unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, split_cfg['unlabeled_data_name'] + '.csv'))
+    if split_cfg['split']:
+        train, val, test = train_val_test_split(deepdata, split_cfg['train_val_test'])
+        unlabeled_data = train[:math.ceil(len(train) * split_cfg['unlabeled'])]
+        train = train[math.ceil(len(train) * split_cfg['unlabeled']) + 1:]
+        
+        name = default_cfg['train_data_name']
+        if default_cfg['add_time_to_name']:
+            name += '_' + time.strftime(default_cfg['time_format'])
+        train.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
+
+        name = default_cfg['val_data_name']
+        if default_cfg['add_time_to_name']:
+            name += '_' + time.strftime(default_cfg['time_format'])
+        val.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
+
+        name = default_cfg['test_data_name']
+        if default_cfg['add_time_to_name']:
+            name += '_' + time.strftime(default_cfg['time_format'])
+        test.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
+
+        name = default_cfg['unlabeled_data_name']
+        if default_cfg['add_time_to_name']:
+            name += '_' + time.strftime(default_cfg['time_format'])
+        unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))

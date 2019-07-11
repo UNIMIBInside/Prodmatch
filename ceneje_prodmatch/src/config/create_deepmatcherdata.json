@@ -1,9 +1,14 @@
 {
     "default": {
         "prefixes": ["SellerProductsData", "SellerProductsMapping", "Products"],
-        "contains": ["WashingMachine"],
+        "contains": ["WashingMachine", "LedTv", "Monitor", "Refrigerator"],
+        "seller_prod_data_attrs": ["brandSeller", "nameSeller", "descriptionSeller"],
+        "ceneje_prod_data_attrs": [],
         "normalize": false,
+        "lower": true,
+        "remove_brackets": false,
         "add_time_to_name": true,
+        "time_format": "%Y%m%d%H%M",
         "integrated_data_to_csv": false,
         "integrated_data_name": "integrated",
         "matching_data_to_csv": false,
@@ -11,10 +16,11 @@
     },
     "unsplitted": {
         "unsplitted_data": false,
-        "unsplitted_contains": "NewCategories",
+        "unsplitted_contains": ["NewCategories"],
         "L3_ids": [873, 930, 931, 1666, 971, 1014, 174]
     },
     "deepmatcher": {
+        "deepmatcher_data_to_csv": false,
         "deepmatcher_data_name": "deepmatcher",
         "attributes": [
             "idProduct",
@@ -29,9 +35,9 @@
         "label_attr": "label",
         "left_attr": "left_",
         "right_attr": "right_",
-        "normalize": "False",
-        "create_nm": "True",
-        "create_nm_mode": "similarity",
+        "normalize": false,
+        "create_nm": true,
+        "create_nm_mode": "random",
         "similarity_attr": "nameSeller",
         "metric": "Jaccard()",
         "tokenizer": "WhitespaceTokenizer(return_set=True)",
@@ -40,6 +46,7 @@
         "similarity_thr": 0.6
     },
     "split": {
+        "split": true,
         "train_val_test": [0.6, 0.2, 0.2],
         "unlabeled": 0.2,
         "train_data_name": "train",

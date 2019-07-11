@@ -15,7 +15,7 @@ class DeepmatcherData(object):
         Deepmatcher needs data in a particular way, such as:  
         |Label|Left product attributes|Right product attributes|  
         where Label is 'Match' or 'Not match' and the same attributes for both products.  
-        I suppose that the data are all the matching tuples, in the sense that every idSellerProduct
+        I suppose that the data are all the matching tuples, in the sense that every (idSeller, idSellerProduct)
         is joined with the idProduct from ceneje, if so the algorithm works like this:  
         For creating the matching ('match', left prod, right prod) tuples, the original tuples will be grouped by
         group_cols (i think this would always be idProduct, but better be general), and for every group 
