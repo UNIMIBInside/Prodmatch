@@ -1,0 +1,12 @@
+{
+    "default": {
+        "cache_file_name": "cache",
+        "train_file_name": "train",
+        "val_file_name": "validation",
+        "test_file_name": "test",
+        "id_attr": "id",
+        "label_attr": "label",
+        "left_prefix": "left_",
+        "right_prefix": "right_"
+    }
+}

@@ -80,19 +80,28 @@ if __name__ == "__main__":
     columns = ['idProduct', 'idSellerProduct', 'idSeller']
     ignore_columns = ['left_' + col for col in columns]
     ignore_columns += ['right_' + col for col in columns]
-    ignore_columns += ['idProduct', 'similarity']
+    ignore_columns += ['similarity']
     train = pandas.read_csv(path.join(DEEPMATCH_DIR, 'train_new_cat_rand.csv'))
     pos_neg_ratio = get_pos_neg_ratio(train)
 
     # Run deepmatcher algorithm
 
     train, validation, test = dm.data.process(
-        path=DEEPMATCH_DIR, cache=path.join(
-            CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_rand_cache.pth'),
-        train='train_new_cat_rand.csv', validation='validation_new_cat_rand.csv', test='test_new_cat_rand.csv',
-        ignore_columns=ignore_columns, lowercase=False,
-        embeddings='fasttext.sl.bin', id_attr='id', label_attr='label',
-        left_prefix='left_', right_prefix='right_', pca=False, device=device)
+        path=DEEPMATCH_DIR, 
+        cache=path.join(CACHE_DIR, 'rnn_pos_neg_fasttext_jaccard_rand_cache.pth'),
+        train='train_new_cat_rand.csv', 
+        validation='validation_new_cat_rand.csv', 
+        test='test_new_cat_rand.csv',
+        ignore_columns=ignore_columns, 
+        lowercase=False,
+        embeddings='fasttext.sl.bin', 
+        id_attr='id', 
+        label_attr='label',
+        left_prefix='left_', 
+        right_prefix='right_', 
+        pca=False,
+        device=device
+    )
     model = dm.MatchingModel(
         attr_summarizer=dm.attr_summarizers.RNN(),
         attr_comparator='abs-diff'
@@ -110,9 +119,7 @@ if __name__ == "__main__":
     )
     model.run_eval(test, device=device)
     model.load_state(
-        path.join(
-            RESULTS_DIR, 'models',
-            'rnn_pos_neg_fasttext_jaccard_new_cat_rand_model.pth'),
+        path.join(RESULTS_DIR, 'models','rnn_pos_neg_fasttext_jaccard_new_cat_rand_model.pth'),
         device=device)
     candidate = dm.data.process_unlabeled(
         path.join(DEEPMATCH_DIR, 'unlabeled_new_cat_rand.csv'),
@@ -120,8 +127,8 @@ if __name__ == "__main__":
         ignore_columns=ignore_columns + ['label'])
     predictions = model.prediction(candidate, output_attributes=True, device=device)
     predictions.to_csv(
-        path.join(
-            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_new_cat_rand.csv'))
+        path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_new_cat_rand.csv')
+    )
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 

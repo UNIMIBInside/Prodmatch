@@ -24,9 +24,9 @@ class Similarity(object):
         ----------
         data (pandas.DataFrame): 
             dataset on which compute similarity scores for each tuple
-        left_attr (str): 
+        left_prefix (str): 
             string prefix for recognize the left product attributes
-        right_attr (str): 
+        right_prefix (str): 
             string prefix for recognize the left product attributes
         ignore_columns (list): 
             list of attributes to ignore in the similarity computation
@@ -37,24 +37,24 @@ class Similarity(object):
     def __init__(
         self,
         data: pandas.DataFrame,
-        left_attr='left_',
-        right_attr='right_',
+        left_prefix='left_',
+        right_prefix='right_',
         ignore_columns=[],
         na_value='',
     ):
         self.data = data
-        self.left_attr = left_attr
-        self.right_attr = right_attr
+        self.left_prefix = left_prefix
+        self.right_prefix = right_prefix
         self.ignore_columns = ignore_columns
         self.na_value = na_value
         self.left_prod_attrs = [
             col for col in data
-            if col.startswith(left_attr) and col not in ignore_columns
+            if col.startswith(left_prefix) and col not in ignore_columns
         ]
         assert(len(data[self.left_prod_attrs]) > 0)
         self.right_prod_attrs = [
             col for col in data
-            if col.startswith(right_attr) and col not in ignore_columns
+            if col.startswith(right_prefix) and col not in ignore_columns
         ]
         assert(len(data[self.right_prod_attrs]) > 0)
         assert(len(data[self.left_prod_attrs].keys()) ==
@@ -113,17 +113,17 @@ class Similarity(object):
                             row_left[i]), tokenizer.tokenize(row_right[i])))
             return sum([scores[i] * weights[i] for i in range(len(scores))]) / len(scores)
 
-        left_attrs_num = len(self.data[self.left_prod_attrs].keys())
-        right_attrs_num = len(self.data[self.right_prod_attrs].keys())
+        left_prefixs_num = len(self.data[self.left_prod_attrs].keys())
+        right_prefixs_num = len(self.data[self.right_prod_attrs].keys())
         if metric is None:
             metric = sm.Jaccard()
         # if tokenizer is None:
         #     tokenizer = sm.QgramTokenizer(return_set=True)
         if weights is None:
-            weights = [1] * left_attrs_num
+            weights = [1] * left_prefixs_num
         if undefined_scores is None:
-            undefined_scores = [1/2] * left_attrs_num
-        assert(left_attrs_num == right_attrs_num ==
+            undefined_scores = [1/2] * left_prefixs_num
+        assert(left_prefixs_num == right_prefixs_num ==
                len(weights) == len(undefined_scores))
 
         tqdm.pandas()
@@ -157,9 +157,9 @@ class SimilarityDataset(Dataset):
             which `py_stringmatching` tokenizer use to tokenize text
         label_attr (str):
             string for recognize the label attribute
-        left_attr (str): 
+        left_prefix (str): 
         string prefix for recognize the left product attributes
-        right_attr (str):
+        right_prefix (str):
             string prefix for recognize the left product attributes
         undefined_scores (list): 
             a list that contains, for each positions, the default scores to give to a pair of attributes if one of them contains `na_value`. 
@@ -176,8 +176,8 @@ class SimilarityDataset(Dataset):
         metric=sm.Jaccard(),
         tokenizer=sm.QgramTokenizer(),
         label_attr='label',
-        left_attr='left_',
-        right_attr='right_',
+        left_prefix='left_',
+        right_prefix='right_',
         undefined_scores=None,
         ignore_columns=[],
         na_value='',
@@ -186,18 +186,18 @@ class SimilarityDataset(Dataset):
         self.metric = metric
         self.tokenizer = tokenizer
         self.label_attr = label_attr
-        self.left_attr = left_attr
-        self.right_attr = right_attr
+        self.left_prefix = left_prefix
+        self.right_prefix = right_prefix
         self.ignore_columns = ignore_columns
         self.na_value = na_value
         self.left_prod_attrs = [
             col for col in data
-            if col.startswith(left_attr) and col not in ignore_columns
+            if col.startswith(left_prefix) and col not in ignore_columns
         ]
         assert(len(data[self.left_prod_attrs]) > 0)
         self.right_prod_attrs = [
             col for col in data
-            if col.startswith(right_attr) and col not in ignore_columns
+            if col.startswith(right_prefix) and col not in ignore_columns
         ]
         assert(len(self.right_prod_attrs) > 0)
         assert(len(self.left_prod_attrs) == len(self.right_prod_attrs))

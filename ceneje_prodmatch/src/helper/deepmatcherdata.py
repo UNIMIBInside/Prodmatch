@@ -69,8 +69,8 @@ class DeepmatcherData(object):
                  attributes: list,
                  id_attr='id',
                  label_attr='label',
-                 left_attr='left_',
-                 right_attr='right_',
+                 left_prefix='left_',
+                 right_prefix='right_',
                  normalize=False,
                  create_nm=True,
                  create_nm_mode='similarity',
@@ -105,7 +105,7 @@ class DeepmatcherData(object):
                     l_output_prefix='l_', r_output_prefix='r_')
         print(C1.head()) """
         self.deeplabels = [
-            left_attr + attr for attr in attributes] + [right_attr + attr for attr in attributes]
+            left_prefix + attr for attr in attributes] + [right_prefix + attr for attr in attributes]
         self.matching = self.getMatchingData(
             group_cols, label_attr)
         self.na_value = na_value
