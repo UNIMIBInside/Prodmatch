@@ -1,12 +1,12 @@
 {
     "default": {
         "prefixes": ["SellerProductsData", "SellerProductsMapping", "Products"],
-        "contains": ["WashingMachine", "LedTv", "Monitor", "Refrigerator"],
+        "contains": ["WashingMachine"],
         "seller_prod_data_attrs": ["brandSeller", "nameSeller", "descriptionSeller"],
         "ceneje_prod_data_attrs": [],
-        "normalize": false,
+        "normalize": true,
         "lower": true,
-        "remove_brackets": false,
+        "remove_brackets": true,
         "add_time_to_name": true,
         "time_format": "%Y%m%d%H%M",
         "integrated_data_to_csv": false,
@@ -15,12 +15,12 @@
         "matching_data_name": "matching"
     },
     "unsplitted": {
-        "unsplitted_data": false,
+        "unsplitted_data": true,
         "unsplitted_contains": ["NewCategories"],
         "L3_ids": [873, 930, 931, 1666, 971, 1014, 174]
     },
     "deepmatcher": {
-        "deepmatcher_data_to_csv": false,
+        "deepmatcher_data_to_csv": true,
         "deepmatcher_data_name": "deepmatcher",
         "attributes": [
             "idProduct",

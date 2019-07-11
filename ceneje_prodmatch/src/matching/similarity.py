@@ -250,7 +250,7 @@ class LogisticRegressionModel(nn.Module):
         out = self.log_softmax(out)
         return out
 
-    def run_train(self, *args, **kwargs):
+    def train(self, *args, **kwargs):
         """
         Train the LogisticRegressionModule model on the train_dataset; val_dataset is used
         to evaluate the module and save the best one based on one of the following statistics: 
@@ -307,7 +307,7 @@ class LogisticRegressionModel(nn.Module):
         """
         return Runner.train(*args, **kwargs)
 
-    def run_predict(self, *args, **kwargs):
+    def predict(self, *args, **kwargs):
         """
         Run model on a dataset, return the scores predictions
 

@@ -76,7 +76,8 @@ def get_pos_neg_ratio(dataset: pandas.DataFrame, label_attr='label'):
 
 
 if __name__ == "__main__":
-    """ columns = ['idProduct']
+
+    columns = ['idProduct', 'idSellerProduct', 'idSeller']
     ignore_columns = ['left_' + col for col in columns]
     ignore_columns += ['right_' + col for col in columns]
     ignore_columns += ['idProduct', 'similarity']
@@ -97,7 +98,7 @@ if __name__ == "__main__":
         attr_comparator='abs-diff'
     )
     model.initialize(train, device=device)
-    model.run_train(
+    model.train(
         train,
         validation,
         epochs=10,
@@ -117,10 +118,10 @@ if __name__ == "__main__":
         path.join(DEEPMATCH_DIR, 'unlabeled_new_cat_rand.csv'),
         trained_model=model,
         ignore_columns=ignore_columns + ['label'])
-    predictions = model.run_prediction(candidate, output_attributes=True, device=device)
+    predictions = model.prediction(candidate, output_attributes=True, device=device)
     predictions.to_csv(
         path.join(
-            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_new_cat_rand.csv')) """
+            RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_jaccard_new_cat_rand.csv'))
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 
@@ -149,7 +150,7 @@ if __name__ == "__main__":
     model = LogisticRegressionModel(input_dim=3)
 
     print(pos_neg_ratio)
-    model.run_train(
+    model.train(
         train_dataset,
         val_dataset,
         model,
@@ -158,7 +159,7 @@ if __name__ == "__main__":
         pos_neg_ratio=pos_neg_ratio,
         log_freq=16
     )
-    predictions = model.run_predict(test_dataset)
+    predictions = model.predict(test_dataset)
     unlabeled.insert(0, 'match_score', predictions)
     unlabeled.to_csv(path.join(RESULTS_DIR, 'predictions_logistic_desc.csv'))
     predictions = get_match_predictions(unlabeled)

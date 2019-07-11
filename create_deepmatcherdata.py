@@ -262,8 +262,8 @@ if __name__ == '__main__':
     matching = get_matching(
         integrated_data, 
         normalize=default_cfg['normalize'], 
-        lower=deepmatcher_cfg['lower'], 
-        remove_brackets=deepmatcher_cfg['remove_brackets']
+        lower=default_cfg['lower'], 
+        remove_brackets=default_cfg['remove_brackets']
     )
     if default_cfg['matching_data_to_csv']:
         name = default_cfg['matching_data_name']
@@ -286,7 +286,7 @@ if __name__ == '__main__':
         similarity_thr=deepmatcher_cfg['similarity_thr']
     )
     if deepmatcher_cfg['deepmatcher_data_to_csv']:
-        name = default_cfg['deepmatcher_data_name']
+        name = deepmatcher_cfg['deepmatcher_data_name']
         if default_cfg['add_time_to_name']:
             name += '_' + time.strftime(default_cfg['time_format'])
         deepdata.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
@@ -298,22 +298,22 @@ if __name__ == '__main__':
         unlabeled_data = train[:math.ceil(len(train) * split_cfg['unlabeled'])]
         train = train[math.ceil(len(train) * split_cfg['unlabeled']) + 1:]
         
-        name = default_cfg['train_data_name']
+        name = split_cfg['train_data_name']
         if default_cfg['add_time_to_name']:
             name += '_' + time.strftime(default_cfg['time_format'])
         train.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
 
-        name = default_cfg['val_data_name']
+        name = split_cfg['val_data_name']
         if default_cfg['add_time_to_name']:
             name += '_' + time.strftime(default_cfg['time_format'])
         val.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
 
-        name = default_cfg['test_data_name']
+        name = split_cfg['test_data_name']
         if default_cfg['add_time_to_name']:
             name += '_' + time.strftime(default_cfg['time_format'])
         test.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
 
-        name = default_cfg['unlabeled_data_name']
+        name = split_cfg['unlabeled_data_name']
         if default_cfg['add_time_to_name']:
             name += '_' + time.strftime(default_cfg['time_format'])
         unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, name + '.csv'))
