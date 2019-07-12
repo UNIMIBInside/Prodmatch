@@ -11,7 +11,8 @@
 1. `git clone git@bitbucket.org:ceneje/deepmatcher.git`
 2. Move to the project root and run `pipenv install`: this will create the virtual env and install all the needed packages
 3. `pipenv shell` to activate the env
-4. `python get_best_matching_prods.py`
+4. In order to use the deepmatcher model I trained, you have to download it from https://drive.google.com/file/d/1bAg_90ITxOn9GvauhH2LJ3Y31-NqLE60/view?usp=sharing and place it in `ceneje_prodmatch/results/models` folder
+5. `python get_best_matching_prods.py` will generate a json file in `ceneje_prodmatch/results/best_predictions.json` which contains, for every offer in a specific category the possible matching Ceneje products in that category (as we assume that the categorization step can be performed in some way: black magic). TODO: handle unsplitted data
 
 
 ## Tree structure:

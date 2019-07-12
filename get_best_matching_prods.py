@@ -23,9 +23,18 @@ def pairUp(row: namedtuple, data: pandas.DataFrame):
 if __name__ == "__main__":
 
     n_offers = 5
+    match_score_thr = 0.9
+    best_predictions_name = 'best_predictions'
+    seller_offers_data_name = 'SellerProductsData_Monitor_20190515'
+    ceneje_prod_data_name = 'Products_Monitor_20190515'
 
+    """
+    Reading and normalizing data. Here I rename all the columns as
+    the deepmatcher model I trained expect the columns it will process to be named
+    as those used to train it
+    """
     seller_offers = pandas.read_csv(
-        path.join(DATA_DIR, 'SellerProductsData_Monitor_20190515.csv'),
+        path.join(DATA_DIR, seller_offers_data_name + '.csv'),
         sep='\t',
         encoding='utf-8',
         dtype={'idProduct': object, 'idSeller': object,'idSellerProduct': object}
@@ -41,7 +50,7 @@ if __name__ == "__main__":
     # print(seller_offers)
 
     ceneje_products = pandas.read_csv(
-        path.join(DATA_DIR, 'Products_Monitor_20190515.csv'),
+        path.join(DATA_DIR, ceneje_prod_data_name + '.csv'),
         sep='\t',
         encoding='utf-8',
         dtype={'idProduct': object, 'idSeller': object,'idSellerProduct': object}
@@ -56,6 +65,13 @@ if __name__ == "__main__":
     ceneje_products.columns = ['right_idProduct'] + ['right_' + col for col in old_seller_offers_cols[2:]]
     # print(ceneje_products)
 
+    """
+    Create the data that will be process by deepmatcher.
+    Here I choose a subset of offers, namely the first n_offers, and couple each of them
+    with all the possible products in it category.
+    Unfortunately torchtext, the module deepmatcher is built upon, does not handle pandas dataframe,
+    so one have to write that dataset to csv and load it after!  
+    """
     unlabeled = pandas.DataFrame([
         chain.from_iterable([left_prod, right_prod])
         for row in seller_offers.iloc[:n_offers, :].itertuples(index=False)
@@ -80,7 +96,6 @@ if __name__ == "__main__":
     predictions = model.run_prediction(candidate, output_attributes=True, device=device)
     # predictions.to_csv(path.join(RESULTS_DIR, 'offers_preds.csv'))
 
-    match_score_thr = 0.9
     n_products = len(ceneje_products)
     best_prediction = dict()
 
@@ -104,6 +119,6 @@ if __name__ == "__main__":
     # print(best_prediction)
     import json
 
-    with open(path.join(RESULTS_DIR, 'best_predictions.json'), 'w') as fp:
+    with open(path.join(RESULTS_DIR, best_predictions_name + '.json'), 'w') as fp:
         json.dump(best_prediction, fp)
     
