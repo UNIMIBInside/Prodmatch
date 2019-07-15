@@ -56,12 +56,12 @@ if __name__ == "__main__":
         encoding='utf-8',
         dtype={'idProduct': object, 'idSeller': object,'idSellerProduct': object}
     )
+    """
+        Uncomment the following line if you want to use also the description
+        provided by Ceneje
+        ceneje_products[['idProduct', 'brand', 'nameProduct', 'descriptionProduct']]
+    """
     ceneje_products = preprocess.normalize(
-        """
-            Uncomment the following line if you want to use also the description
-            provided by Ceneje
-        """
-        # ceneje_products[['idProduct', 'brand', 'nameProduct', 'descriptionProduct']]
         ceneje_products[['idProduct', 'brand', 'nameProduct']],
         fillna=True,
         na_value='',
