@@ -80,12 +80,12 @@ def get_pos_neg_ratio(dataset: pandas.DataFrame, label_attr='label'):
 if __name__ == "__main__":
 
     # Import config
-    
+
     with open(os.path.join(CONFIG_DIR, 'config.json')) as f:
         cfg = json.load(f)
     deepmatcher_cfg = cfg['deepmatcher']
 
-    columns = deepmatcher_cfg['matching']['left_right_ignore_cols']
+    columns = deepmatcher_cfg['train']['left_right_ignore_cols']
     ignore_columns  = [deepmatcher_cfg['create']['left_prefix'] + col for col in columns]
     ignore_columns += [deepmatcher_cfg['create']['right_prefix'] + col for col in columns]
     if deepmatcher_cfg['create']['create_nm_mode'] == 'similarity':
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     train, validation, test = dm.data.process(
         path=DEEPMATCH_DIR, 
-        cache=path.join(CACHE_DIR, deepmatcher_cfg['matching']['cache_name'] + '.pth'),
+        cache=path.join(CACHE_DIR, deepmatcher_cfg['train']['cache_name'] + '.pth'),
         train=cfg['split']['train_data_name'] + '.csv', 
         validation=cfg['split']['val_data_name'] + '.csv', 
         test=cfg['split']['test_data_name'] + '.csv',
@@ -119,16 +119,16 @@ if __name__ == "__main__":
     model.run_train(
         train,
         validation,
-        epochs=deepmatcher_cfg['matching']['epochs'],
-        batch_size=deepmatcher_cfg['matching']['batch_size'],
+        epochs=deepmatcher_cfg['train']['epochs'],
+        batch_size=deepmatcher_cfg['train']['batch_size'],
         pos_neg_ratio=pos_neg_ratio,
         best_save_path=path.join(RESULTS_DIR, 'models',
-                                 deepmatcher_cfg['matching']['best_model_name'] + '.pth'),
+                                 deepmatcher_cfg['train']['best_model_name'] + '.pth'),
         device=device
     )
     model.run_eval(test, device=device)
     model.load_state(
-        path.join(RESULTS_DIR, 'models', deepmatcher_cfg['matching']['best_model_name'] + '.pth'),
+        path.join(RESULTS_DIR, 'models', deepmatcher_cfg['train']['best_model_name'] + '.pth'),
         device=device)
     candidate = dm.data.process_unlabeled(
         path.join(DEEPMATCH_DIR, cfg['split']['unlabeled_data_name'] + '.csv'),
@@ -136,7 +136,7 @@ if __name__ == "__main__":
         ignore_columns=ignore_columns + [deepmatcher_cfg['create']['label_attr']])
     predictions = model.run_prediction(candidate, output_attributes=True, device=device)
     predictions.to_csv(
-        path.join(RESULTS_DIR, deepmatcher_cfg['matching']['predictions_data_name'] + '.csv')
+        path.join(RESULTS_DIR, deepmatcher_cfg['train']['predictions_data_name'] + '.csv')
     )
 
     # Run a similarity matching algorithm based on manual weight of the attributes

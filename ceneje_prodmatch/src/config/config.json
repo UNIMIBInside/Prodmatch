@@ -46,7 +46,7 @@
             "non_match_ratio": 2,
             "similarity_thr": 0.6
         },
-        "matching": {
+        "train": {
             "left_right_ignore_cols": ["idProduct", "idSellerProduct", "idSeller"],
             "cache_name": "cache",
             "best_model_name": "best_model",
