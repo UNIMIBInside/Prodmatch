@@ -80,6 +80,7 @@ def get_pos_neg_ratio(dataset: pandas.DataFrame, label_attr='label'):
 if __name__ == "__main__":
 
     # Import config
+    
     with open(os.path.join(CONFIG_DIR, 'config.json')) as f:
         cfg = json.load(f)
     deepmatcher_cfg = cfg['deepmatcher']

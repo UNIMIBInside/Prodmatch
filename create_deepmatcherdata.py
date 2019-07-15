@@ -216,6 +216,7 @@ if __name__ == '__main__':
         cfg = json.load(f)
 
     default_cfg = cfg['default']
+    preprocess_cfg = cfg['preprocess']
     unsplitted_cfg = cfg['unsplitted']
     deepmatcher_cfg = cfg['deepmatcher']['create']
     split_cfg = cfg['split']
@@ -258,9 +259,9 @@ if __name__ == '__main__':
     # Get matching tuples
     matching = get_matching(
         integrated_data, 
-        normalize=default_cfg['normalize'], 
-        lower=default_cfg['lower'], 
-        remove_brackets=default_cfg['remove_brackets']
+        normalize=preprocess_cfg['normalize'], 
+        lower=preprocess_cfg['lower'], 
+        remove_brackets=preprocess_cfg['remove_brackets']
     )
     if default_cfg['matching_data_to_csv']:
         pandas.concat(matching).to_csv(path.join(DATA_DIR, default_cfg['matching_data_name'] + '.csv'))

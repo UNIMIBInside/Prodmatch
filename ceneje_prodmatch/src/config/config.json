@@ -4,13 +4,15 @@
         "contains": null,
         "seller_prod_data_attrs": ["brandSeller", "nameSeller", "descriptionSeller"],
         "ceneje_prod_data_attrs": [],
-        "normalize": true,
-        "lower": true,
-        "remove_brackets": true,
         "integrated_data_to_csv": false,
         "integrated_data_name": "integrated",
         "matching_data_to_csv": false,
         "matching_data_name": "matching"
+    },
+    "preprocess": {
+        "normalize": true,
+        "lower": true,
+        "remove_brackets": false
     },
     "unsplitted": {
         "unsplitted_data": true,
@@ -39,14 +41,14 @@
             "create_nm_mode": "random",
             "similarity_attr": "nameSeller",
             "metric": "Jaccard()",
-            "tokenizer": "WhitespaceTokenizer(return_set=True)",
+            "tokenizer": "QgramTokenizer(return_set=True)",
             "na_value": "",
             "non_match_ratio": 2,
             "similarity_thr": 0.6
         },
         "matching": {
             "left_right_ignore_cols": ["idProduct", "idSellerProduct", "idSeller"],
-            "cache_name": "rnn_pos_neg_fasttext_cache",
+            "cache_name": "cache",
             "best_model_name": "best_model",
             "predictions_data_name": "predictions",
             "epochs": 10,
@@ -61,5 +63,12 @@
         "val_data_name": "validation",
         "test_data_name": "test",
         "unlabeled_data_name": "unlabeled"
+    },
+    "offers_matching": {
+        "n_offers": 1,
+        "match_score_thr": 0.9,
+        "best_predictions_name": "best_predictions",
+        "seller_offers_data_name": "SellerProductsData_Monitor_20190515",
+        "ceneje_prod_data_name": "Products_Monitor_20190515"
     }
 }

@@ -22,11 +22,12 @@ def pairUp(row: namedtuple, data: pandas.DataFrame):
 
 if __name__ == "__main__":
 
-    n_offers = 5
-    match_score_thr = 0.9
-    best_predictions_name = 'best_predictions'
-    seller_offers_data_name = 'SellerProductsData_Monitor_20190515'
-    ceneje_prod_data_name = 'Products_Monitor_20190515'
+    # Import cfg
+    with open(os.path.join(CONFIG_DIR, 'config.json')) as f:
+        cfg = json.load(f)
+
+    default_cfg = cfg['default']
+    offers_matching_cfg = cfg['offers_matching']
 
     """
     Reading and normalizing data. Here I rename all the columns as
@@ -34,7 +35,7 @@ if __name__ == "__main__":
     as those used to train it
     """
     seller_offers = pandas.read_csv(
-        path.join(DATA_DIR, seller_offers_data_name + '.csv'),
+        path.join(DATA_DIR, offers_matching_cfg['seller_offers_data_name'] + '.csv'),
         sep='\t',
         encoding='utf-8',
         dtype={'idProduct': object, 'idSeller': object,'idSellerProduct': object}
@@ -50,17 +51,26 @@ if __name__ == "__main__":
     # print(seller_offers)
 
     ceneje_products = pandas.read_csv(
-        path.join(DATA_DIR, ceneje_prod_data_name + '.csv'),
+        path.join(DATA_DIR, offers_matching_cfg['ceneje_prod_data_name'] + '.csv'),
         sep='\t',
         encoding='utf-8',
         dtype={'idProduct': object, 'idSeller': object,'idSellerProduct': object}
     )
     ceneje_products = preprocess.normalize(
+        """
+            Uncomment the following line if you want to use also the description
+            provided by Ceneje
+        """
+        # ceneje_products[['idProduct', 'brand', 'nameProduct', 'descriptionProduct']]
         ceneje_products[['idProduct', 'brand', 'nameProduct']],
         fillna=True,
         na_value='',
         lower=True
     )
+    """
+        Comment the following line if you want to use also the description
+        provided by Ceneje
+    """
     ceneje_products['description'] = ''
     ceneje_products.columns = ['right_idProduct'] + ['right_' + col for col in old_seller_offers_cols[2:]]
     # print(ceneje_products)
@@ -74,7 +84,7 @@ if __name__ == "__main__":
     """
     unlabeled = pandas.DataFrame([
         chain.from_iterable([left_prod, right_prod])
-        for row in seller_offers.iloc[:n_offers, :].itertuples(index=False)
+        for row in seller_offers.iloc[:offers_matching_cfg['n_offers'], :].itertuples(index=False)
         for left_prod, right_prod in pairUp(row, ceneje_products)
     ], columns=seller_offers.columns.tolist() + ceneje_products.columns.tolist())\
         .reset_index(drop=True).rename_axis('id', axis=0, copy=False)
@@ -99,10 +109,10 @@ if __name__ == "__main__":
     n_products = len(ceneje_products)
     best_prediction = dict()
 
-    for offer in range(n_offers):
+    for offer in range(offers_matching_cfg['n_offers']):
         offer_products = predictions.iloc[n_products * offer:n_products * (offer + 1), :]
         offer_products.sort_values(by=['match_score'], ascending=False)
-        mask = offer_products['match_score'] >= match_score_thr
+        mask = offer_products['match_score'] >= offers_matching_cfg['match_score_thr']
         possible_matching_products = offer_products[mask]
         """ print('Offer n.' + str(offer))
         print('Name: ', seller_offers.loc[offer, 'left_nameSeller'])
@@ -119,6 +129,6 @@ if __name__ == "__main__":
     # print(best_prediction)
     import json
 
-    with open(path.join(RESULTS_DIR, best_predictions_name + '.json'), 'w') as fp:
+    with open(path.join(RESULTS_DIR, offers_matching_cfg['best_predictions_name'] + '.json'), 'w') as fp:
         json.dump(best_prediction, fp)
     

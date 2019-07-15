@@ -12,13 +12,21 @@
 2. Move to the project root and run `pipenv install`: this will create the virtual env and install all the needed packages
 3. `pipenv shell` to activate the env
 4. In order to use the deepmatcher model I trained, you have to download it from https://drive.google.com/file/d/1bAg_90ITxOn9GvauhH2LJ3Y31-NqLE60/view?usp=sharing and place it in `ceneje_prodmatch/results/models` folder
-5. `python get_best_matching_prods.py` will generate a json file in `ceneje_prodmatch/results/best_predictions.json` which contains, for every offer in a specific category the possible matching Ceneje products in that category (as we assume that the categorization step can be performed in some way: black magic). TODO: handle unsplitted data
+5. `python get_best_matching_prods.py` will generate a json file in `ceneje_prodmatch/results/best_predictions.json` which contains, for every offer in a specific category the possible matching Ceneje products in that category (as we assume that the categorization step can be performed in some way: black magic). **P.S.** If you also want to include the description into the matching process follow the instruction in `get_best_matching_prods.py` file
+
+## Config
+One can tune all the configurable parameters in `ceneje_prodmatch/src/config/config.json`. There're six top keys:
+* **default**: default configuration parameters for the deepmatcher data creation. See [ceneje_prodmatch/src/helper/preprocess.py](ceneje_prodmatch/src/helper/preprocess.py)
+* **preprocess**: configuration for the preprocess step. See [ceneje_prodmatch/src/helper/preprocess.py](ceneje_prodmatch/src/helper/preprocess.py)
+* **unsplitted**
+
+## Deepmatcher training
 
 
 ## Tree structure:
 ```bash 
 ├── ceneje_prodmatch
-│   ├── cache (Cached files by deepmatcher)
+│   ├── cache (CACHED FILES BY DEEPMATCHER)
 │   ├── ceneje_data
 │   │   ├── Products_LedTv_20190426.csv
 │   │   ├── Products_Monitor_20190515.csv
@@ -34,13 +42,19 @@
 │   │       ├── Products_NewCategories_20190605.csv
 │   │       ├── SellerProductsData_NewCategories_20190605.csv
 │   │       └── SellerProductsMapping_NewCategories_20190605.csv
-│   ├── deepmatcher_data (Datasets needed to train deepmatcher)
+│   ├── deepmatcher_data (DATASETS NEEDED TO TRAIN DEEPMATCHER)
+│   │   ├── deepmatcher.csv
+│   │   ├── test.csv
+│   │   ├── train.csv
+│   │   ├── unlabeled.csv
+│   │   └── validation.csv
 │   ├── __init__.py
-│   ├── results (Deepmacther predictions)
-│   │   ├── models (Deepmatcher best models)
+│   ├── results (DEEPMACTHER PREDICTIONS)
+│   │   ├── models (DEEPMATCHER BEST MODELS)
 │   │   │   └── rnn_pos_neg_fasttext_new_cat_rand_model.pth
+│   │   ├── best_predictions.json
 │   │   ├── offers.csv
-│   │   ├── offers_preds.csv
+│   │   └── offers_preds.csv
 │   └── src
 │       ├── config
 │       │   ├── config.example.json
@@ -51,7 +65,7 @@
 │       │   ├── __init__.py
 │       │   ├── preprocess.py
 │       ├── __init__.py
-│       ├── matching
+│       └── matching
 │           ├── __init__.py
 │           ├── runner.py
 │           └── similarity.py

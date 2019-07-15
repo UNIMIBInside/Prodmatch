@@ -4,13 +4,15 @@
         "contains": null,
         "seller_prod_data_attrs": ["brandSeller", "nameSeller", "descriptionSeller"],
         "ceneje_prod_data_attrs": [],
-        "normalize": true,
-        "lower": true,
-        "remove_brackets": false,
         "integrated_data_to_csv": false,
         "integrated_data_name": "integrated",
         "matching_data_to_csv": false,
         "matching_data_name": "matching"
+    },
+    "preprocess": {
+        "normalize": true,
+        "lower": true,
+        "remove_brackets": false
     },
     "unsplitted": {
         "unsplitted_data": true,
@@ -61,5 +63,12 @@
         "val_data_name": "validation",
         "test_data_name": "test",
         "unlabeled_data_name": "unlabeled"
+    },
+    "offers_matching": {
+        "n_offers": 3,
+        "match_score_thr": 0.9,
+        "best_predictions_name": "best_predictions",
+        "seller_offers_data_name": "SellerProductsData_Monitor_20190515",
+        "ceneje_prod_data_name": "Products_Monitor_20190515"
     }
 }
