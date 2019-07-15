@@ -15,6 +15,7 @@
 5. `python get_best_matching_prods.py` will generate a json file in `ceneje_prodmatch/results/best_predictions.json` which contains, for every offer in a specific category the possible matching Ceneje products in that category (as we assume that the categorization step can be performed in some way: black magic). **P.S.** If you also want to include the description into the matching process follow the instruction in [get_best_matching_prods.py](get_best_matching_prods.py) file
 
 ## Config
+
 One can tune all the configurable parameters in [ceneje_prodmatch/src/config/config.json](ceneje_prodmatch/src/config/config.json). There're six top keys:
 
 * **default**: default configuration parameters for the deepmatcher data creation. See [create_deepmatcherdata.py](create_deepmatcherdata.py)
@@ -26,7 +27,13 @@ One can tune all the configurable parameters in [ceneje_prodmatch/src/config/con
 * **split**: split the deepmatcher data into training, validation and test dataset
 * **offers_matching**: get the best matching Ceneje products for some offers
 
-## Tree structure:
+## Useful links
+
+* **deepmatcher**: since the deepmatcher framework is highly tunable, one may want have a look to its repository page at https://github.com/belerico/deepmatcher/tree/torch_1.0.1
+* **py_stringmatching**: string similarity and distance https://github.com/anhaidgroup/py_stringmatching/tree/rel_0_4_1
+
+## Tree structure
+
 ```bash 
 ├── ceneje_prodmatch
 │   ├── cache (CACHED FILES BY DEEPMATCHER)
