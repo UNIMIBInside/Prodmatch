@@ -1,7 +1,7 @@
 {
     "default": {
         "prefixes": ["SellerProductsData", "SellerProductsMapping", "Products"],
-        "contains": null,
+        "contains": ["WashingMachine"],
         "seller_prod_data_attrs": ["brandSeller", "nameSeller", "descriptionSeller"],
         "ceneje_prod_data_attrs": [],
         "integrated_data_to_csv": false,
@@ -15,7 +15,7 @@
         "remove_brackets": false
     },
     "unsplitted": {
-        "unsplitted_data": true,
+        "unsplitted_data": false,
         "unsplitted_contains": ["NewCategories"],
         "L3_ids": [873, 930, 931, 1666, 971, 1014, 174]
     },
@@ -68,7 +68,7 @@
         "n_offers": 3,
         "match_score_thr": 0.9,
         "best_predictions_name": "best_predictions",
-        "seller_offers_data_name": "SellerProductsData_Monitor_20190515",
-        "ceneje_prod_data_name": "Products_Monitor_20190515"
+        "seller_offers_data_name": "SellerProductsData_WashingMachine_20190515",
+        "ceneje_prod_data_name": "Products_WashingMachine_20190515"
     }
 }
