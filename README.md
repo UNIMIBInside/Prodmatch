@@ -22,8 +22,8 @@ One can tune all the configurable parameters in [ceneje_prodmatch/src/config/con
 * **preprocess**: configuration for the preprocess step. See [ceneje_prodmatch/src/helper/preprocess.py](ceneje_prodmatch/src/helper/preprocess.py)
 * **unsplitted**: whether to deal with unsplitted data or not. See [create_deepmatcherdata.py](create_deepmatcherdata.py)
 * **deepmatcher**: configuration for deepmatcher
-  * **creation**: creation of the datasets needed to train it. See also [ceneje_prodmatch/src/helper/deepmatcherdata.py](ceneje_prodmatch/src/helper/deepmatcherdata.py)
-  * **train**: parameters for the training phase. See also [train_deepmatcher.py](train_deepmatcher.py)
+    * **creation**: creation of the datasets needed to train it. See also [ceneje_prodmatch/src/helper/deepmatcherdata.py](ceneje_prodmatch/src/helper/deepmatcherdata.py)
+    * **train**: parameters for the training phase. See also [train_deepmatcher.py](train_deepmatcher.py)
 * **split**: split the deepmatcher data into training, validation and test dataset
 * **offers_matching**: get the best matching Ceneje products for some offers
 
