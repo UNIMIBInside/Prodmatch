@@ -1,0 +1,906 @@
+﻿idProduct	nameProduct	idBrand	brand	idL0	L0	idL1	L1	idL2	L2	L3	idL3	eansProducts	minPrice
+12981	GORENJE pralni stroj WA 63121	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942208720	NULL
+12983	GORENJE pralni stroj WS 43122	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+14460	GORENJE pralni stroj WA 64163	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942213533,3838942213533	NULL
+106992	GORENJE pralni stroj WT 52134	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942330155	NULL
+111737	ELECTROLUX pralni stroj EWF 12780 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+111738	ELECTROLUX pralni stroj EWF 14470 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+111739	ELECTROLUX pralni stroj EWF 12470 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+111740	ELECTROLUX pralni stroj EWF 10470 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+111742	ELECTROLUX pralni stroj EWF 12040 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8009279036903	NULL
+119963	GORENJE pralni stroj WA 74143	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942319907	NULL
+119964	GORENJE pralni stroj WA 74183	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942319846	NULL
+119965	GORENJE pralni stroj WA 74183AL	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942319860	NULL
+120807	ELECTROLUX pralni stroj EWF 16981 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8009279119859	NULL
+124297	ELECTROLUX pralni stroj EWT 13420 W TOP LOADER	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3599970011767	NULL
+133855	GORENJE pralni stroj WA 60.5	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942364730	NULL
+149617	GORENJE pralni stroj WA 63141	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942358272	NULL
+159914	MIELE pralni stroj W 4146 WPS	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4002514074399,4002514074399	NULL
+238299	MIELE pralni stroj W 1734 WPS	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4002514006802	NULL
+277435	BOSCH pralni stroj WBB 24751EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+277440	BOSCH pralni stroj WAE 20461BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+373390	INDESIT pralni stroj WITE 127	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842342826	NULL
+399737	SIEMENS pralni stroj WM 16S740	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003365762	NULL
+412569	CANDY pralni stroj GO 1480D	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361764583	NULL
+440792	ELECTROLUX pralni stroj EWN 14991 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8009279121845,8009279121845	NULL
+440794	BOSCH pralni stroj WAE 24361 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002455693	NULL
+456471	ELECTROLUX pralni stroj LAVAMAT 76850	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5907580672472	NULL
+459233	ELECTROLUX pralni stroj EWF 12670 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5907580671857	NULL
+459252	ZANUSSI pralni stroj ZWG 5125	140	ZANUSSI	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5907580673110	NULL
+459310	ZANUSSI pralni stroj ZWH 6125	140	ZANUSSI	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5907580673172	NULL
+488365	GORENJE pralni stroj WA 62135	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942421990	NULL
+533148	MIELE pralni stroj W604 WCS	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+533438	BOSCH pralni stroj WOT 20351 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+534923	MIELE pralni stroj W3841 ALLWATER	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+534924	MIELE pralni stroj W 3845 WPS	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4002514193564,4002514193564	NULL
+534926	MIELE pralni stroj W 3985 WPS	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4002514011837	NULL
+538648	GORENJE pralni stroj WA 73121	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942371653	NULL
+539989	CANDY pralni stroj CWB 100	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+560080	GORENJE pralni stroj WA 64143	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942214653,3838942214653	NULL
+560081	GORENJE pralni stroj WA 72125	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942411397	NULL
+561600	BOSCH pralni stroj WAS 287B0 EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+561733	BOSCH pralni stroj WOT 24541	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002470207	NULL
+566567	BOSCH pralni stroj WAA 20261BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002472225	NULL
+573327	WHIRLPOOL pralni stroj AWO/D 7700	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+575772	GORENJE pralni stroj WA 60139	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+578867	BOSCH pralni stroj WAE 2416E	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002416045,4242002416045	NULL
+578870	BOSCH pralni stroj WLX 24461 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002491240,4242002491240	NULL
+594766	ELECTROLUX pralni stroj EWT 13931W INSIGHT	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3599970013877	NULL
+596635	INDESIT pralni stroj WIXE 127 EX	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+612643	ARISTON pralni stroj AQXF 129 / HA	755	ARISTON	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+614666	CANDY pralni stroj GO 1460 DH	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361759879	NULL
+614993	CANDY pralni stroj GO 128	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361764552	NULL
+626989	HOOVER pralni stroj VHD 6163 D	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361759596	NULL
+652098	ELECTROLUX pralni stroj EWT 13741 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543015313	NULL
+653447	WHIRLPOOL pralni stroj AWO / D 6016	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+663005	BOSCH pralni stroj WAS 287B1 EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+663006	BOSCH pralni stroj WAS 28741	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002497044	NULL
+663007	BOSCH pralni stroj WAS 28441	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+663008	BOSCH pralni stroj WAS 24461 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002502144	NULL
+663009	BOSCH pralni stroj WAE 28442	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002500379,4242002500379	NULL
+663010	BOSCH pralni stroj WAE 24442 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002500430	NULL
+663011	BOSCH pralni stroj WAE2448KBY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002499901,4242002499901	NULL
+663012	BOSCH pralni stroj WAE 20463 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+674765	GORENJE pralni stroj WA72145BK	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942422478	NULL
+681411	CANDY pralni stroj C2 135	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+681421	BOSCH pralni stroj WAE 24492	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+681422	GORENJE prelni stroj WA 74123	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+696270	GORENJE pralni stroj WT63110	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942516054	NULL
+696304	CANDY pralni stroj GO 1480DH	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361764651	NULL
+709094	AEG pralni stroj L 86850 WS	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+713011	WHIRLPOOL pralni stroj AWO/D 7010	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+714644	GORENJE pralni stroj WT 63130	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+718395	BOSCH pralni stroj WAA 24162 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+720461	WHIRLPOOL pralni stroj AWO/D 7012	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+745827	ZANUSSI pralni stroj ZWF 185W	140	ZANUSSI	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+767607	WHIRLPOOL pralni stroj AWE 8527 / 1	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+793702	GORENJE pralni stroj WT63090	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+796019	ELECTROLUX pralni stroj EWFM 12470 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543049998,7332543049998	NULL
+796020	ELECTROLUX pralni stroj EWFM14480W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543025930	NULL
+797905	AEG pralni stroj L72550	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+797906	AEG pralni stroj L72850 M	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543053070	NULL
+797907	AEG pralni stroj L74950 A	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543119004	NULL
+800157	BOSCH pralni stroj WAS 28741BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+800159	BOSCH pralni stroj WOT 20352BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4719331304102	NULL
+819007	BEKO pralni stroj WML 15126 P	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842320828	NULL
+893908	BOSCH pralni stroj WOR 16152 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+913416	INDESIT pralni stroj WISE 127 EX	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+913436	INDESIT pralni stroj WIXE 147	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842545418	NULL
+913628	INDESIT pralni stroj WIDXE WIDXE 126	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+973866	BEKO pralni stroj WML 16086P	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+974057	CANDY pralni stroj AQUA 100 F	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361793286,8016361793286,8016361793286	NULL
+990211	CANDY pralni stroj 1100 DF	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361804012,8016361804012	NULL
+997966	CANDY pralni stroj GO128 DF	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361801288	NULL
+999327	BOSCH pralni stroj WAE20464BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002542416	NULL
+999330	BOSCH pralni stroj WAE20362BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1030877	BOSCH pralni stroj WAS24462BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002557199	NULL
+1030880	BOSCH pralni stroj WAA20262BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002554310	NULL
+1034179	GORENJE pralni stroj WA614SYB	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942611339	NULL
+1038963	CANDY pralni stroj GO 148 DF	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361801196	NULL
+1042215	BOSCH pralni stroj WAA 20162 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1047696	INDESIT pralni stroj IWD 7148 B (DE)	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842627183	NULL
+1047838	BOSCH pralni stroj WAS28442	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1053245	BOSCH pralni stroj WAE241SI	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1053251	BOSCH pralni stroj WAE 24413	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1054658	BOSCH pralni stroj WAE24343	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002536408	NULL
+1055277	ELECTROLUX pralni stroj EWTS 13420 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543052486	NULL
+1055283	ELECTROLUX pralni stroj EWTS 13741 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1060262	BOSCH pralni stroj WAE 2437 FBY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002553832	NULL
+1060264	CANDY pralni stroj CWB 1307	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361794337	NULL
+1111430	BOSCH pralni stroj WAE 244 P2	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1113318	pralni stroj CANDY GOF 146 ODKUP 180EUR	2311	PRALNI	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1116128	AEG pralni stroj L84950A	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543119028	NULL
+1118374	AEG pralni stroj L 72850 A	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1131552	CANDY pralni stroj GO 166 DF	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361804166	NULL
+1154373	CANDY pralni stroj GO4126DF	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361801356	NULL
+1258028	SAMSUNG pralni stroj WF8604GEV	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8808993459414	NULL
+1412052	ELECTROLUX pralni stroj EWS 12410W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1434983	CANDY pralni stroj CTDF1206	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361802230	NULL
+1523525	BEKO pralni stroj WMB 61031	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842347603	NULL
+1523528	BEKO pralni stroj WMB 51231	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842343797	NULL
+1523541	BEKO pralni stroj WMB 50811 F	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842343728,8690842363306	NULL
+1523810	BEKO pralni stroj WMB 61442	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842347689	NULL
+1523812	BEKO pralni stroj WMB 71432	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842344633,8690842851698,8690842344633,8690842851698	NULL
+1523813	BEKO pralni stroj WMB 61241	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842347825	NULL
+1545959	BEKO pralni stroj WMB61231PT	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842346958	NULL
+1588872	BOSCH pralni stroj WAS32798ME	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002639345,4242002639345	NULL
+1588874	BOSCH pralni stroj WAS24468ME	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002639239,4242002639239	NULL
+1588875	BOSCH pralni stroj WAQ28410	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002621166	NULL
+1610346	CANDY pralni stroj GO41274 L/1	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361811935	NULL
+1615186	CANDY pralni stroj GO4 107 DF	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361811911	NULL
+1616200	BOSCH pralni stroj WAS 28448 ME	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002639246	NULL
+1620325	HOOVER pralni stroj DYN9166PG	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361812017	NULL
+1737353	HOOVER pralni stroj DYN 8144 DHC	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361814288	NULL
+1746186	PANASONIC pralni stroj NA-168VX2	44	PANASONIC	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+1795842	CANDY pralni stroj GO4 127 DF	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361811805,8016361811805	NULL
+1949850	GORENJE pralni stroj WA 65205AL	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942213564	NULL
+1950268	CANDY pralni stroj GO 1482 DH	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361801219,8016361801219	NULL
+1951086	CANDY pralni stroj GOF 126	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361796614	NULL
+2017408	BEKO pralni stroj WMB 51021	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842343667	NULL
+2097475	HOOVER pralni stroj DST 8166 P	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361808560	NULL
+2109285	CANDY pralni stroj GO4 1264 L	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+2166794	SAMSUNG pralni stroj WF8604NGV	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+2217191	PANASONIC pralni stroj NA-140VG3WGN	44	PANASONIC	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+2222165	SIEMENS pralni stroj WM14S795ME	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003527788	NULL
+2233467	CANDY pralni stroj EVO 1072 D	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361829718,8016361829718	NULL
+2233468	CANDY pralni stroj EVO 1274 LW	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361833555,8016361833555	NULL
+2233469	CANDY pralni stroj EVO 1673 DW	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361829770,8016361829770	NULL
+2233470	CANDY pralni stroj EVO 1082 D	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361829794	NULL
+2233471	CANDY pralni stroj EVO 1283 DW	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361829824,8016361829824,8016361829824	NULL
+2233472	CANDY pralni stroj EVO 1484 LW	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361829862,8016361829862	NULL
+2233473	CANDY pralni stroj EVO 1684 LW	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361833524,8016361833524	NULL
+2234843	PANASONIC pralni stroj NA-148VG3WGN	44	PANASONIC	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5025232609703	NULL
+2264254	HOOVER DST 10166PG pralni stroj	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361808607	NULL
+2397812	ZANUSSI ZWH6120P pralni stroj (7 KG)	140	ZANUSSI	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543171590	NULL
+2399376	HOOVER pralni stroj DYNS 7216PG	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361828018	NULL
+2404559	MIELE pralni stroj W 5841 ECOCOMFORT	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4002514578521	NULL
+2515891	SAMSUNG pralni stroj WF8604FEV (WF8604FEV/XAG)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+2565324	SAMSUNG pralni stroj WF10614 (WF10614YKE/XEG)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806071384290	NULL
+2565327	SAMSUNG pralni stroj WF1614 (WF1614ABW/XEG)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806071671635	NULL
+2576854	HOOVER pralni stroj DYN 33 5124 D	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361840522	NULL
+2585909	CANDY pralni stroj EVO 1683 DH	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361838765	NULL
+2608108	BEKO pralni stroj WMB 91442	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690769381254	NULL
+2680430	EXQUISIT pralni stroj WA 6012	43079	EXQUISIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4008874126761	NULL
+2680443	EXQUISIT pralni stroj WA 6010	43079	EXQUISIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4016572007077	NULL
+2680447	EXQUISIT pralni stroj WA 6014	43079	EXQUISIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4016572008258	NULL
+2680486	AEG pralni stroj Lavamat 60260 SL	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543168743	NULL
+2693421	SIEMENS pralni stroj WM 14 Q 441	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003585023	NULL
+2693424	BLOMBERG pralni stroj WNF 5320 WE 20	1889	BLOMBERG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842363221	NULL
+2699576	BLOMBERG pralni stroj WNF 7462 WE 20	1889	BLOMBERG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842359965	NULL
+2699577	BLOMBERG pralni stroj WNF 7442 WE 20	1889	BLOMBERG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842359941	NULL
+2718166	BOSCH pralni stroj WAS32890EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002625126	NULL
+2722319	GORENJE pralni stroj W6222	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942751943,3838942926716,3838942825132,3838942751943,3838942926716,3838942825132,3838942751943,3838942926716,3838942825132,3838942751943,3838942926716,3838942825132,3838942751943,3838942926716,3838942825132	289.99
+2722322	GORENJE pralni stroj W7423	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942751868,3838942816871,3838942751868,3838942816871,3838942751868,3838942816871,3838942751868,3838942816871,3838942751868,3838942816871	NULL
+2722324	GORENJE pralni stroj W7623L 349234	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942751899,3838942816918,3838942751899,3838942816918	NULL
+2730592	BEKO pralni stroj WMB 71643 PTE	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842363535	NULL
+2740924	BOSCH pralni stroj WAY32890EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002708232,4242002688923,4242002708232,4242002688923	NULL
+2744702	BEKO pralni stroj WMB 61232 PTE	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842360329,8690842851711	NULL
+2744723	BLOMBERG pralni stroj WNF 74421 WE30	1889	BLOMBERG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690769380820	NULL
+2754734	BEKO pralni stroj WMB 71443 PTER bordo rdeč	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690769381780	NULL
+2754735	BEKO pralni stroj WMB 71443 PTEB črna	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690769384613	NULL
+2782805	GORENJE pralni stroj W6443	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942751974,3838942825033,3838942751974,3838942825033,3838942751974,3838942825033,3838942751974,3838942825033,3838942751974,3838942825033	419.90
+2782806	GORENJE W7443L pralni stroj ESSENTIAL LINE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942751820,3838942751820,3838942751820	0.00
+2796865	GORENJE pralni stroj W7643L (349239)	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942752100,3838942816895,3838942752100,3838942816895,3838942752100,3838942816895,3838942752100,3838942816895,3838942752100,3838942816895	NULL
+2811491	BEKO pralni stroj WMB 71443 PTE modr	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690769384620	NULL
+2826112	AEG pralni stroj L60270	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543169924	NULL
+2827426	BEKO pralni stroj WML 51431 E	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842360435	NULL
+2830454	BEKO pralni stroj WMB 71443 PTE bel	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842361791,8690769378179	NULL
+2878307	CANDY pralni stroj EVO 1272D	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361835832	NULL
+2879064	KORTING pralni stroj K6.1200N	32184	KORTING	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942603136,3838942919558	NULL
+2890983	SIEMENS pralni stroj WM16Y890EU	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003602034	NULL
+2898087	AEG pralni stroj Lavamat 60660 FL	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543139125	NULL
+2910556	HOTPOINT pralni stroj WMSD 723 B EU	43480	HOTPOINT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842785531	431.40
+2995132	ZANUSSI pralni stroj ZWG7120K	140	ZANUSSI	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543218356,7332543221233	NULL
+3016092	KOERTING pralni stroj WK5101	20707	KOERTING	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942765513,3838942765513	NULL
+3016619	AEG pralni stroj L60270FL	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	1354643541345,1354643541345	NULL
+3037551	CANDY pralni stroj EVOGT 14072 D	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361847095	NULL
+3039418	KÖRTING pralni stroj WK 5101 362880	24354	KÖRTING	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942765513,3838942765513	NULL
+3042529	BEKO pralni stroj WML 15106 NE	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690769375086	NULL
+3065340	GORENJE pralni stroj WA 7339 403298	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942831270	NULL
+3071708	BEKO pralni stroj WML 51231 E	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842360466	NULL
+3071795	SIEMENS pralni stroj WM14S840	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003591734	NULL
+3080248	GORENJE pralni stroj ONE WA743W	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942819681,3838942819681	NULL
+3095954	GORENJE pralni stroj W8424	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942825057,3838942825057	NULL
+3098516	GORENJE pralni stroj W8644H 399499	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942827808	NULL
+3098517	GORENJE pralni stroj W8665K 392261	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942819407,3838942819407,3838942819407	NULL
+3098518	GORENJE pralni stroj W8844I 399538	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942847714	NULL
+3098520	GORENJE pralni stroj W9845I 399549	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942830082,3838942830082,3838942830082,3838942830082,3838942830082,3838942830082	489.90
+3108944	BOSCH pralni stroj WAQ2447KBY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002717654,4242002717654,4242002717654	NULL
+3108945	BOSCH pralni stroj WAQ24441BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002717661,4242002717661	NULL
+3108946	BOSCH pralni stroj WAQ28461BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002717647	NULL
+3108949	BOSCH pralni stroj WOT24254BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002743110,4242002743110,4242002743110,4242002743110	519.00
+3110238	INDESIT pralni stroj IWD 61282 78731	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842626872	NULL
+3118461	ELECTROLUX pralni stroj EWT 1567VDW (6 KG) INVERTNI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543203024	NULL
+3123862	ELECTROLUX pralni stroj EWT1366HDW STEAM	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543203048	NULL
+3131306	GORENJE pralni stroj W9865E	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942819292,3838942764905,3838942819292,3838942764905	NULL
+3142250	GORENJE pralni stroj W7443LA ESSENTIAL LINE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942857225,3838942857225	NULL
+3142254	GORENJE pralni stroj W7443LB ESSENTIAL LINE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942857218,3838942857218	NULL
+3147891	ELECTROLUX pralni stroj EWP1464TDW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543209323	NULL
+3147909	HOOVER pralni stroj VT 714 D23	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361848047	NULL
+3149169	BAUKNECHT pralni stroj WA PLUS 624 TDi	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577458398	NULL
+3149171	BAUKNECHT pralni stroj WAT PLUS 522 Di	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577732641	NULL
+3149172	BAUKNECHT pralni stroj WAT PLUS 520 Di	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577732634	NULL
+3149173	BAUKNECHT pralni stroj WAT CARE 40 SD	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577732610	NULL
+3149175	BAUKNECHT pralni stroj TK UNIQ 83A GBW	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577709490	NULL
+3160852	WHIRLPOOL pralni stroj AWO 7666	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437447624	NULL
+3160857	AEG pralni stroj LAVAMAT L70360TL1	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543242108	NULL
+3165881	GORENJE pralni stroj ONE WS623W	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942819674,3838942819674	NULL
+3165999	HOOVER pralni stroj DYN 9146 P8	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361859616	NULL
+3168460	WHIRLPOOL pralni stroj AWE 5125	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437716904	NULL
+3177064	GORENJE pralni stroj WA6139	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942857119	NULL
+3180274	ELECTROLUX pralni stroj EWS31254EDU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543263561,7332543265268,7332543263561,7332543265268	NULL
+3180276	ELECTROLUX pralni stroj EWF1408WDL	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543215157	NULL
+3244520	BOSCH pralni stroj WAB20060BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002704852	NULL
+3245024	BRANDT pralni stroj BWT6412DSE	1559	BRANDT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3660767935778	NULL
+3262225	BOSCH pralni stroj WAE20365BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002655598	NULL
+3262226	BRANDT pralni stroj BWT6413E	1559	BRANDT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3660767935723	NULL
+3336175	AEG pralni stroj L 76285 FLE	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543274635	NULL
+3351067	BEKO pralni stroj WMB81466ST	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842848995	NULL
+3351069	BEKO pralni stroj WMB71243	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690769378186,8690842361784	NULL
+3353932	BEKO pralni stroj WMB 71443 LE	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842849602	NULL
+3353933	BEKO pralni stroj WMB 71632 PTEU	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842851728	NULL
+3353934	BEKO pralni stroj WMB 61432 PTEU	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842851735	NULL
+3353935	BLOMBERG pralni stroj WAF 5340 WE 10	1889	BLOMBERG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842366185	NULL
+3353946	BOSCH pralni stroj WAY2854D	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002743585	NULL
+3365396	BLOMBERG pralni stroj WNF 7462 WE 30	1889	BLOMBERG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842363528	NULL
+3365400	LG pralni stroj F 1447 TD01	35	LG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8808992178507	NULL
+3365401	BEKO pralni stroj WMB 51432 PTEU	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842856211	NULL
+3375425	AEG kompaktni pralni stroj LAVAMAT LC53500	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5907580671475,5907580671475	499.00
+3447644	BOSCH pralni stroj WAE24467BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002754468,4242002754468	NULL
+3464178	SIEMENS pralni stroj WM12E367BY	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003636060	NULL
+3470664	BEKO pralni stroj WMB 61632 PTEU	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842856266	NULL
+3470667	SAMSUNG pralni stroj WF 71184	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806071980805	NULL
+3470674	WHIRLPOOL pralni stroj AWS 6126 Slim	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437720819	NULL
+3470675	EXQUISIT pralni stroj WM 6810	43079	EXQUISIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4016572014815	NULL
+3470684	BAUKNECHT pralni stroj WAT PLUS 622 Di	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577732658	NULL
+3470685	BAUKNECHT pralni stroj WA PLUS 622 Slim	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577732856	NULL
+3470699	SIEMENS pralni stroj WT46B200	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003642467	NULL
+3484717	BOSCH pralni stroj Maxx 7 VarioPerfect WAE28467BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002754444,4242002754444	NULL
+3484718	BOSCH pralni stroj Maxx 7 VarioPerfect WAE24367BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002753867,4242002753867	NULL
+3484719	BOSCH pralni stroj Classixx 6 WAB24261BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002750378,4242002750378	NULL
+3529841	BOSCH pralni stroj WAE28346	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+3529842	BOSCH pralni stroj WAE28326	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002747835,4242002747835	NULL
+3529843	BOSCH pralni stroj WAE24345	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002749709	NULL
+3530731	SIEMENS pralni stroj WM14Q4D1	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003636497	NULL
+3558568	HOTPOINT vgradni pralni stroj BWMD 742 EU	43480	HOTPOINT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842786156	NULL
+3566049	CANDY pralni stroj GC 1471 D1	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361848658,8016361846739	NULL
+3569802	INDESIT pralni stroj IWTE 51251 ECO	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842771787	NULL
+3580416	BEKO pralni stroj WMB71232PTM	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842851742	NULL
+3597791	CANDY pralni stroj GO F 147	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+3599812	CANDY pralni stroj EVO4 1273 DW	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361829947	NULL
+3611376	PANASONIC pralni stroj NA-140VS4WDE	44	PANASONIC	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5025232673117	NULL
+3611377	PANASONIC pralni stroj NA-168VX4WDE	44	PANASONIC	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5025232673100	NULL
+3613167	BAUKNECHT pralni stroj WA PLUS 744	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577459296	NULL
+3613168	BAUKNECHT pralni stroj WA PLUS 844	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577459302	NULL
+3622630	KÖNIG pralni stroj KWM106A+	43534	KÖNIG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3830042537854	NULL
+3644101	BAUKNECHT pralni stroj WA UNIQ 844 DA	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577459272,8583098030101	NULL
+3644102	BAUKNECHT pralni stroj WA Black 744 DA	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577459333	NULL
+3644103	BAUKNECHT pralni stroj WA PLUS 744 BW	2997	BAUKNECHT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4011577459357	NULL
+3645335	AEG pralni stroj LAVAMAT L76275SL - 48cm Tief	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543235520	599.00
+3657195	CANDY pralni stroj aqua 1041 d1	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361860315	389.70
+3658574	BOMANN pralni stroj WA 5714	4529	BOMANN	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4004470757149	NULL
+3658575	BOMANN pralni stroj WA 5814	4529	BOMANN	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4004470758146	NULL
+3659960	CANDY pralni stroj AQUA 1142D1	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361860353,8016361860353,8016361860353	398.90
+3727627	BOSCH pralni stroj WAK 24268BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002760698,4242002760698,4242002760698,4242002760698,4242002760698,4242002760698,4242002760698,4242002760698,4242002760698,4242002760698	379.90
+3736746	ELECTROLUX pralni stroj EWF1476GDW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543294350,0733254329435	0.00
+3764105	GORENJE pralni stroj Simplicity WS62SY2W	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942950469,3838942950469,3838942950469	NULL
+3764106	GORENJE pralni stroj Simplicity WA72SY2W (431131)	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942950421,3838942950421,3838942950421,3838942950421,3838942950421,3838942950421,3838942950421,3838942950421	332.90
+3764107	GORENJE pralni stroj Simplicity WA72SY2B	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942950407,3838942950407,3838942950407,3838942950407,3838942950407,3838942950407,3838942950407,3838942950407	335.18
+3764600	CANDY pralni stroj CO1272D1	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361861909	NULL
+3771656	GORENJE pralni stroj W7203	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942816857,3838942816857,3838942816857,3838942816857,3838942816857	276.40
+3771658	GORENJE pralni stroj W7403	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942816864	NULL
+3771659	GORENJE pralni stroj W6202/S	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942817793,3838942766114,3838942817793,3838942766114	NULL
+3771660	GORENJE pralni stroj W6403/S	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942772016	NULL
+3771661	GORENJE pralni stroj W6623/S	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942765070,3838942765070	NULL
+3771662	GORENJE pralni stroj W6843T/S	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942817731,3838942766176,3838942817731,3838942766176,3838942817731,3838942766176	NULL
+3771663	GORENJE pralni stroj WT63111	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942929854	NULL
+3771664	GORENJE pralni stroj WT63134	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942931406	NULL
+3776675	GORENJE pralni stroj WS62SY2B	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942950476,3838942950476,3838942950476	365.89
+3825013	GORENJE pralni stroj W6423/S SLIM	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942817755,3838942765698,3838942825002,0383894282500,3838942817755,3838942765698,3838942825002,0383894282500,3838942817755,3838942765698,3838942825002,0383894282500,3838942817755,3838942765698,3838942825002,0383894282500	NULL
+3836805	GORENJE pralni stroj W6202 Primary Line	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942826344,3838942826344	NULL
+3839560	CANDY pralni stroj GC 1272 D3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361870048	NULL
+3848547	SAMSUNG PRALNI STR.SAMSUNG WF70F5E5W2W (WF70F5E5W2W/LE)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085408135,8806085408135	NULL
+3848549	SAMSUNG PRALNI STR.SAMSUNG WF60F4E2W2W (WF60F4E2W2W/LE)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085407732	NULL
+3848550	SAMSUNG PRALNI STR.SAMSUNG WF60F4E0N2W (WF60F4E0N2W/LE)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085407626	NULL
+3862620	SAMSUNG pralni stroj WF70F5E5U4X	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085408104,8806085408104	NULL
+3862621	SAMSUNG pralni stroj WF60F4E5W2X	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085407794	NULL
+3862622	SAMSUNG pralni stroj WF60F4E0W0W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085407664,3831079957196,8806085407572,8806085407664,3831079957196,8806085407572	NULL
+3886991	SAMSUNG pralni stroj WF1124XAC/YLE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806071540702	NULL
+3940268	KORTING pralni stroj K7.1100N	32184	KORTING	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+3944287	SAMSUNG pralni stroj WF70F5E5U4W (WF70F5E5U4W/LE)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085408081	NULL
+3994957	SAMSUNG pralni stroj WF70F5E0W4W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085407893,8806085444492,8806085490079,8806085407893,8806085444492,8806085490079,8806085407893,8806085444492,8806085490079	NULL
+4007317	BOSCH pralni stroj WAE24196	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002649757	NULL
+4054430	SIEMENS pralni stroj WM 14E469 BY	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003674284	NULL
+4054431	SIEMENS pralni stroj WM 12E369 BY	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003674277	NULL
+4054512	BOSCH vgradni pralni stroj WIS28141EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002802398,4242002802398,4242002802398	NULL
+4054519	BOSCH pralni stroj WLG24260BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002802176,4242002802176,4242002802176,4242002802176,4242002802176,4242002802176,4242002802176	424.15
+4054520	BOSCH pralni stroj WOT24445	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002781730	NULL
+4057702	BOSCH pralni stroj WAB24262BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395,4242002803395	316.99
+4066777	BOSCH pralni stroj WAE28469BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002810447,4242002828039,4242002810447,4242002828039,4242002810447,4242002828039,4242002810447,4242002828039	NULL
+4066778	BOSCH pralni stroj WAE24369BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002810423,4242002810423,4242002810423	NULL
+4097054	INDESIT pralni stroj IWD 81283 ECOEU 78804	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842788044	298.00
+4099467	BOSCH pralni stroj WLK24261BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002805436,4242002805436,4242002805436,4242002805436,4242002805436	549.99
+4099469	BOSCH pralni stroj WAE20469BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002810300	NULL
+4102551	MIELE pralni stroj W 667	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4002515383186	1349.00
+4105737	BOSCH pralni stroj WAE20169BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002810270	NULL
+4113526	CLATRONIC mini pralni stroj MWA3540	4526	CLATRONIC	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4006160716931	NULL
+4120300	SAMSUNG pralni stroj WF1802WFVS	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+4120301	SAMSUNG pralni stroj WF60F4E0N0W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085407565	NULL
+4120302	SAMSUNG pralni stroj WF60F4E0W2W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085407695	NULL
+4120303	SAMSUNG pralni stroj WF60F4ECW2W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+4120304	SAMSUNG pralni stroj WF70F5E0N2W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+4120305	SAMSUNG pralni stroj WF70F5EBU2W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+4120306	SAMSUNG pralni stroj WF70F5EBW2W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806086137126	NULL
+4120307	SAMSUNG pralni stroj WF80F5E0W2W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085408333	NULL
+4120308	SAMSUNG pralni stroj WF80F5E5W4W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085408548	NULL
+4120309	SAMSUNG pralni stroj WF80F5E5W4X	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085408562	NULL
+4125378	BOSCH pralni stroj WAE20369BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002810294	NULL
+4146473	BEKO pralni stroj WMY71283LMB2	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842996467,8690842080623,8690842996467,8690842080623,8690842996467,8690842080623,8690842996467,8690842080623,8690842996467,8690842080623,8690842996467,8690842080623,8690842996467,8690842080623,8690842996467,8690842080623,8690842996467,8690842080623,8690842996467,8690842080623	319.00
+4165675	INDESIT pralni stroj IWC 71251 C ECO EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842850109,8007842874914	329.00
+4167353	BEKO pralni stroj WMY91443LB1	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842996368,8690842996368	NULL
+4169993	BEKO pralni stroj WMY61232MB3	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842986710,8690842986710,8690842986710,8690842986710,8690842986710,8690842986710,8690842986710,8690842986710,8690842986710,8690842986710,8690842986710	235.00
+4169998	BOSCH pralni stroj WAE24363BY Serie 4 VarioPerfect	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002810416	NULL
+4172986	INDESIT pralni stroj IWUD 41252 C ECO EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842850819,8007842850819	299.90
+4174303	BEKO pralni stroj WMY71483LMB2	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842996474,8690842080616,8690842996474,8690842080616,8690842996474,8690842080616,8690842996474,8690842080616	419.90
+4183973	BEKO pralni stroj WMY81483LMB2	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842996436	NULL
+4203854	BEKO pralni stroj WMY61432MB3	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842986673	NULL
+4207480	BEKO pralni stroj WMY111444LB1	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842994654,8690842848933,8690842994654,8690842848933	NULL
+4207490	BEKO pralni stroj WMY81233LMB3	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842986840	NULL
+4207503	BEKO pralni stroj WMY61483MB3	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842997921,8690842997921,8690842997921,8690842997921,8690842997921,8690842997921,8690842997921,8690842997921	297.42
+4209925	WHIRLPOOL pralni stroj AWE66710 TOP LOADER	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437725005,8003437725005	269.90
+4211124	ELECTROLUX pralni stroj EWF1276GDW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543294336,7332543219148,7332543214914	NULL
+4237582	BEKO pralni stroj WMY61283MB3	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842996504	385.39
+4245035	BEKO pralni stroj WMB71444	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+4262724	BEKO pralni stroj WMY 51222 PTYB3	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842006920,8690842343667,8690842006920,8690842343667	NULL
+4304535	clearwhite Outdoor & Imprägnier-Mittel für Waschmaschine 2in1 2x200ml	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	9120035620750	24.90
+4307118	GORENJE pralni stroj WT62112	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942701795,3838942701795,3838942701795,3838942701795,3838942701795,3838942701795,3838942701795,3838942701795,3838942701795,3838942701795,3838942701795,3838942701795,3838942701795	342.90
+4318939	BEKO pralni stroj WMB51021UY	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842856129,8690842856129,8690842856129	NULL
+4329156	BOSCH pralni stroj WAW24460EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073,4242002798073	617.00
+4329157	BOSCH pralni stroj WAW28560EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224,4242002820224	645.15
+4329158	BOSCH pralni stroj WAW32540EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002820231,4242002820231,4242002820231,4242002820231,4242002820231,4242002820231,4242002820231,4242002820231,4242002820231,4242002820231,4242002820231,4242002820231,4242002820231	676.20
+4329159	BOSCH pralni stroj WAW32640EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231,4242002820248,4242002820231	930.25
+4357842	CANDY pralni stroj GV 157 D3/1	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361889965	NULL
+4405444	BOSCH pralni stroj WAT24460BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544,4242002814544	479.90
+4405445	BOSCH pralni stroj WAT24440BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456,4242002814568,0424200281456	514.99
+4405446	BOSCH pralni stroj WAT28460BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551,4242002814551	509.15
+4408445	SIEMENS pralni stroj WM14E497	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003683330	NULL
+4408446	SIEMENS pralni stroj WM14W540EU	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003680728,4242003664582,4242003680728,4242003664582,4242003680728,4242003664582,4242003680728,4242003664582,4242003680728,4242003664582	619.00
+4408447	SIEMENS pralni stroj WM16W640EU	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003680735,4242003680735	NULL
+4408453	SIEMENS pralni stroj WM12T460BY	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003677247	NULL
+4408454	SIEMENS pralni stroj WM14T440BY	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003677124,4242003677124	NULL
+4415303	BOSCH pralni stroj WAE28446	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002828039,4242002810447	NULL
+4417016	BOSCH pralni stroj WOR16154BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002743134	NULL
+4417047	BOSCH pralni stroj WAE20363BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002810287	NULL
+4470160	BOSCH pralni stroj WAY32891EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002838311,4242002838311,4242002838311,4242002838311,4242002838311,4242002838311,4242002838311,4242002838311,4242002838311,4242002838311,4242002838311,4242002838311,4242002838311,4242002838311	1074.90
+4488511	GORENJE pralni stroj W8543	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942270376,3838942270376,3838942270376	368.90
+4552521	SAMSUNG pralni stroj WF60F4E0W0W + pralni prašek	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3831079957196	NULL
+4565900	SIEMENS pralni stroj WM14E166 iQ300	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003689615,4242003758090	499.00
+4576513	BOSCH pralni stroj WAT 24360BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002814575,4242002814575	510.00
+4594087	GORENJE pralni stroj W8624H	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942819001	NULL
+4705184	ELECTROLUX pralni stroj EWT1062TDW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543213207,7332543213139,7332543204205	361.27
+4705188	ELECTROLUX pralni stroj EWS31074NU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543346585	NULL
+4705191	ELECTROLUX pralni stroj EWS31064NU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543371747,7332543371747,7332543371747	NULL
+4705192	ELECTROLUX pralni stroj EWS31276SU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543367139	0.00
+4705194	ELECTROLUX pralni stroj EWF1284BW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543401789,7332543401789	0.00
+4708989	GORENJE pralni stroj W7524N/I	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942048081,3838942048081	379.90
+4708990	GORENJE pralni stroj W6523/IS	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942047411,3838942047725,3838942047411,3838942047725,3838942047411,3838942047725,3838942047411,3838942047725	333.80
+4708991	GORENJE pralni stroj W8544 N/I	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942048098,3838942048098	NULL
+4713020	SIEMENS pralni stroj WM16Y891EU	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003691069,4242003691069	1339.00
+4787991	SIEMENS pralni stroj WM16W540 A+++ 8kg	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003664605	599.00
+4792813	BOSCH pralni stroj WAB24166SN	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002809342,4242002809342	NULL
+4816712	BOSCH pralni stroj WAQ 28411	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002804101	NULL
+4869551	SAMSUNG pralni stroj WW80J3283KW 123607	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806086638173,8806088507859	399.00
+4905372	WHIRLPOOL pralni stroj FSCR70414	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8592072100105,8003437260940	451.90
+4905414	WHIRLPOOL pralni stroj FSCR80423 (8 kg)	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437261190,8003437261190,8003437261190,8003437261190	474.90
+4983280	WHIRLPOOL pralni stroj AWS 71000	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437724749	NULL
+4983478	WHIRLPOOL pralni stroj AWE 55611	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437724909	NULL
+5003053	PHILCO pralni stroj PLD 1273 Crown	68264	PHILCO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8590669163380	NULL
+5008657	SIEMENS pralni stroj WT47W5W0	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003699638	659.00
+5018927	BOSCH pralni stroj WLT24440BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002821290,4242002821290,4242002821290,4242002821290,4242002821290,4242002821290,4242002821290,4242002821290,4242002821290,4242002821290,4242002821290	570.00
+5058698	AEG pralni stroj L 89495 FL2	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543426034	NULL
+5064495	SIEMENS pralni stroj WM14B222	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003722268	359.00
+5064497	SIEMENS pralni stroj WS12T440	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003682418	479.00
+5077365	ELECTROLUX pralni stroj EWF1284BR	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543413430,7332543413430	0.00
+5144268	PLD 1061 M pralni stroj PHILCO	68264	PHILCO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8590669163427	NULL
+5158601	GORENJE pralni stroj WT62122	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942707070	NULL
+5209796	SMEG pralni stroj LST147	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1101.00
+5210827	SMEG vgradni pralni stroj LSTA127	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1238.67
+5229881	SMEG vgradni pralni stroj LSTA147S	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1375.64
+5229882	SMEG vgradni pralni stroj LST127	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1012.00
+5229883	SMEG vgradni pralni stroj LST107	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		926.00
+5229884	SMEG pralni stroj LBA10B	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		926.00
+5229885	SMEG vgradni pralni stroj LBA10N	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		926.00
+5238254	INDESIT pralni stroj EWE 71483 W DE 90009	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842900095,8007842900095	269.90
+5253455	GORENJE pralni stroj WA74SY2W 431034	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942950391	318.80
+5287094	BEKO pralni stroj WMY81443STB1	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842010958,8690842996436	NULL
+5287108	BEKO pralni stroj WMY71443LB2	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112,8690842009112	369.00
+5331617	Bosch WAB28222 Waschmaschine	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002877341,4242002877341,4242002877341	359.99
+5373073	BOSCH pralni stroj WAN241616BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002898650,4242002898650	408.90
+5378334	BOSCH pralni stroj WAN20060BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002898605	360.00
+5383253	BOSCH pralni stroj WAN24260BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002901435,4242002710129,4242002901435,4242002710129,4242002901435,4242002710129,4242002901435,4242002710129,4242002901435,4242002710129,4242002901435,4242002710129	399.99
+5383412	KÖRTING pralni stroj WK5102	32184	KORTING	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942077883,3838942077883	194.90
+5384037	GORENJE pralni stroj W98F65/I	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942092336,3838942092336	NULL
+5384112	GORENJE pralni stroj W85F44P/I	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942092329,3838942092329	NULL
+5416347	BOSCH pralni stroj WAN24060BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002880860,4242002880860,4242002880860,4242002880860,4242002880860,4242002880860,4242002880860,4242002880860,4242002880860,4242002880860	353.00
+5435987	BOSCH pralni stroj WAT28660BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002865119,4242002865119,4242002865119,4242002865119,4242002865119,4242002865119,4242002865119,4242002865119,4242002865119	565.70
+5441228	BOSCH pralni stroj WOT24457BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002880532	569.00
+5452974	BOSCH pralni stroj WAN 28260 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002898667,4242002898667,4242002898667,4242002898667,4242002898667,4242002898667,4242002898667,4242002898667,4242002898667,4242002898667,4242002898667,4242002898667,4242002898667	409.00
+5452975	BOSCH pralni stroj WAN28261BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442,4242002901442	399.00
+5452976	BOSCH pralni stroj WAN 24261 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002898674,4242002898674,4242002898674,4242002898674,4242002898674,4242002898674,4242002898674,4242002898674,4242002898674,4242002898674,4242002898674,4242002898674,4242002898674,4242002898674	393.00
+5462928	SIEMENS pralni stroj WM 14T640 BY	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003724590	929.00
+5473183	BOSCH pralni stroj WAT28410	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002878959	628.06
+5481246	ELECTROLUX pralni stroj EWF1408WDL2	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543446148,7332543446148,7332543446148,7332543446148	747.12
+5484947	GORENJE pralni stroj W7543LR 517142, rdeč	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942079146	455.01
+5535407	BOSCH pralni stroj WAN20261BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002898636	390.00
+5535895	BOSCH pralni stroj WAN20260BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002898629,4242002898629	410.00
+5572006	Constructa CWF14E44 Waschmaschine	59449	CONSTRUCTA	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242004171935	396.00
+5594256	ELECTROLUX pralni stroj EWT 1266 ELW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543441389,7332543441389,7332543441389,7332543441389,7332543441389,7332543441389,7332543441389,7332543441389	379.90
+5599698	ELECTROLUX pralni stroj EWF1287HDW2	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543446155	490.00
+5647573	KORTING pralni stroj WK6122	32184	KORTING	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942077876,3838942077890,3838942077876,3838942077890,3838942077876,3838942077890,3838942077876,3838942077890	220.00
+5659327	SMEG vgradni pralni stroj LSTA146S	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1372.54
+5659329	SAMSUNG pralni stroj WF70F5E0W2W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806085407879,8806085407817	NULL
+5698474	BOSCH pralni stroj WAW28740EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002901022,4242002901022,4242002901022,4242002901022,4242002901022,4242002901022,4242002901022,4242002901022,4242002901022,4242002901022,4242002901022,4242002901022,4242002901022	869.00
+5703201	ELECTROLUX pralni stroj EWT1066ESW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543449149,7332543449149,7332543449149,7332543449149,7332543449149,7332543449149,7332543449149	367.90
+5729217	ONECONCEPT mini pralni stroj SG003	60305	ONECONCEPT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4260365799117,4260365799117	74.00
+5845864	SAMSUNG pralni stroj WW80J6413EW (WW80J6413EW/LE)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806086638265	NULL
+5935703	SAMSUNG pralni stroj WW70K5410UW	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088194592,8806088194592,8806088194592,8806088194592,8806088194592,8806088194592,8806088194592,8806088194592,8806088194592,8806088194592,8806088194592,8806088194592,8806088194592	464.90
+5935704	SAMSUNG pralni stroj WW80K5210UW (WW80K5210UW/LE)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088194349,8806088194349,8806088194349	469.99
+5935705	SAMSUNG pralni stroj WW90K5410WW (WW90K5410WW/LE)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088194226,8806088194370,8806088194226,8806088194370,8806088194226,8806088194370,8806088194226,8806088194370,8806088194226,8806088194370,8806088194226,8806088194370,8806088194226,8806088194370,8806088194226,8806088194370,8806088194226,8806088194370	554.90
+5956558	SAMSUNG pralni stroj WW70K5210UX	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088194103,8806088194103,8806088194103,8806088194103,8806088194103,8806088194103	449.90
+6188173	BOSCH pralni stroj WAT28661ME	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002864426,4242002864426,4242002864426,4242002864426	739.00
+6199766	SIEMENS pralni stroj WM14W740EU	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003732496	1039.00
+6242848	BEKO pralni stroj WTV 8634 XS0	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842036224,8690842996344,8690842036224,8690842996344,8690842036224,8690842996344	400.00
+6266367	SAMSUNG pralni stroj WW80K6414QW	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088193670,8806088193670,8806088193670,8806088193670,8806088193670,8806088193670,8806088193670,8806088193670,8806088193670,8806088193670,8806088193670	569.90
+6266833	SAMSUNG pralni stroj WW80K7415OW	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088197890	NULL
+6306449	BEKO pralni stroj WTV9734XS0	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842062599,8690842062599,8690842062599,8690842062599,8690842062599,8690842062599,8690842062599	464.89
+6332064	SAMSUNG pralni stroj WW70K5210WW/LE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088194264,8806088194264	466.65
+6332065	SAMSUNG pralni stroj WW80K5410UW/LE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088194363,8806088194363,8806088194363,8806088194363,8806088194363,8806088194363,8806088194363,8806088194363,8806088194363	519.90
+6482089	BEKO pralni stroj WTV8734XS0	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842026362,8690842026362	497.89
+6482092	BEKO pralni stroj WTV9632X0	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842052026,8690842052026	329.90
+6604221	BEKO pralni stroj WTE11735XCST	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842994654,8690842063206,8690842994654,8690842063206,8690842994654,8690842063206,8690842994654,8690842063206,8690842994654,8690842063206,8690842994654,8690842063206,8690842994654,8690842063206,8690842994654,8690842063206	774.00
+6698568	CANDY pralni stroj CS 1472 D3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361914810	NULL
+6775173	BEKO pralni stroj WTE5502B0	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842058233	249.90
+6872108	Bosch WAN280ECO Waschmachine A+++, 6kg	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002898551,4242002898551,4242002898551	399.00
+6894719	SIEMENS pralni stroj WM14T360BY	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003677131,4242003664629	890.00
+6915588	BEKO pralni stroj WTV 9734 XSO	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		599.99
+6923132	CANDY pralni stroj CS4 1372 D3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361924642	NULL
+6923134	CANDY pralni stroj CS4 1262 D3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361914971,8016361914971,8016361914971,8016361914971,8016361914971,8016361914971	299.90
+6926922	WHIRLPOOL pralni stroj TDLR 60230	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437726873,8003437726873,8003437726873	418.70
+6926923	WHIRLPOOL pralni stroj TDLR 70220	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437726910,8003437726910,8003437726910	408.70
+6926933	Whirlpool pralni stroj TDLR 60110	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437727351	279.90
+7186283	Bosch WAB28270 A+++, 6kg	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002877389	359.00
+7216569	WHIRLPOOL pralni stroj z zgornjim polnjenjem TDLR 65210	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437727207,8003437727207,8003437727207	369.99
+7222077	BEKO pralni stroj WTV8734XC0M	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		434.00
+7290604	Siemens WM16W541 Waschmaschine A+++ 8kg	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003743638	629.00
+7306189	GORENJE pralni stroj W6723/S	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782004926	299.90
+7324735	WHIRLPOOL pralni stroj z zgornjim polnjenjem TDLR 70230	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437726774,8003437726774	427.50
+7329595	Siemens WP12T227 Toplader Waschmaschine Toplader 7kg, A+++	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003735824	499.00
+7404253	CANDY pralni stroj CS 1272D3/1-S	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361914827,8016361923454	313.30
+7405438	Bosch WAW28740 Waschmaschine 8kg, A+++	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002899398	749.00
+7405440	Bosch WAYH87W0 Waschmaschine 8kg, A+++	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002880969	829.00
+7417213	AEG pralni stroj L6FBI48S	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543501595,7332543501595,7332543501595,7332543501595,7332543501595,7332543501595,7332543501595,7332543501595,7332543501595,7332543501595,7332543501595,7332543501595,7332543501595	459.94
+7417214	AEG pralni stroj L7FEE49S STEAM	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543500277,7332543500277,7332543500277,7332543500277,7332543500277,7332543500277,7332543500277,7332543500277,7332543500277,7332543500277,7332543500277,7332543500277,7332543500277	579.00
+7420158	SAMSUNG pralni stroj WW80K44305W/LE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088504933,8806088504933,8806088504933,8806088504933,8806088504933,8806088504933,8806088504933	374.90
+7491588	AEG pralni stroj L7FBE48S	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543508167,7332543508167,7332543508167,7332543508167,7332543508167,7332543508167,7332543508167,7332543508167	611.99
+7524480	pralni stroj SAMSUNG WW90K6414QW/LE (WW90K6414QW/LE)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088193878	769.00
+7557531	AEG pralni stroj L7FEC41S	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543496259,7332543496259,7332543496259,7332543496259,7332543496259,7332543496259,7332543496259,7332543496259,7332543496259	669.90
+7557553	AEG pralni stroj L7FEC48S	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543508419,7332543508419,7332543508419,7332543508419,7332543508419,7332543508419,7332543508419,7332543508419,7332543508419	599.99
+7557554	AEG pralni stroj L7FEE48S	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543503407,7332543503407,7332543503407,7332543503407,7332543503407,7332543503407,7332543503407	619.99
+7557555	AEG pralni stroj L9FEC49S	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543530885,7332543530885,7332543530885,7332543530885,7332543530885,7332543530885	795.00
+7563747	AEG pralni stroj L6FBG49W	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543503605,7332543503803,7332543574568,7332543503605,7332543503803,7332543574568	493.90
+7578398	SAMSUNG pralni stroj WW70K44305W 131386	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088504926,8806088504926,8806088504926,8806088504926,8806088504926,8806088504926,8806088504926,8806088504926,8806088504926,8806088504926	379.00
+7593506	SAMSUNG pralni stroj WW90K44305W/LE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088504940,0880608850494,8806088504940,0880608850494,8806088504940,0880608850494,8806088504940,0880608850494,8806088504940,0880608850494,8806088504940,0880608850494,8806088504940,0880608850494,8806088504940,0880608850494,8806088504940,0880608850494,8806088504940,0880608850494,8806088504940,0880608850494	464.90
+7604567	ONECONCEPT mini pralni stroj Ecowash-Pico (380W), črn	60305	ONECONCEPT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4260486151672,4260486151672	74.00
+7608418	ONECONCEPT mini pralni stroj Ecowash-Pico (380W), moder	60305	ONECONCEPT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4260486151689,4260486151689	86.00
+7615186	GORENJE pralni stroj W7223	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8050751793357,3838942826399,8050751793357,3838942826399	NULL
+7632899	ONECONCEPT mini pralni stroj ECOWASH-PICO (380W), zelen	60305	ONECONCEPT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4260486151665,4260486151665	78.00
+7735831	WHIRLPOOL TDLR 60111 pralni stroj polnjenje zgoraj (6 kg)	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437727313,8003437727313	359.20
+7735832	WHIRLPOOL pralni stroj TDLR 60220	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437726996,8003437726996	344.00
+7739728	Siemens WM14E220 Waschmaschine iQ300, 7kg, A+++	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003766088	399.00
+7739730	Siemens WM14W740 sensoFresh Waschmaschine, 8kg, A+++	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003731994	699.00
+7749031	GORENJE pralni stroj W8723/I	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782027079	370.00
+7783753	AEG pralni stroj L6FBG48S	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543573721,7332543503605,7332543573721,7332543503605,7332543573721,7332543503605,7332543573721,7332543503605,7332543573721,7332543503605	529.90
+7795189	ELECTROLUX pralni stroj EWT1376HGW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543511105,7332543511105,7332543511105,7332543511105,7332543511105,7332543511105,7332543511105,7332543511105	539.00
+7803894	GORENJE pralni stroj WA74SY2B	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942950438	405.87
+7804161	HOOVER pralni stroj DXOA69AHC3	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361930537,8016361930537,8016361930537,8016361930537,8016361930537	474.90
+7810554	Bosch WOR20156 Waschmaschine Toplader 6kg, A++	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002906560	459.00
+7810555	Bosch WOT24227 Waschmaschine Toplader 7kg, A+++	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002906577	539.00
+7858151	BOSCH pralni stroj WAN24160BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002898643	449.00
+7865655	Bosch WAN28020 Waschmaschine 6kg, A+++	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002897899,4242002897899,4242002897899	399.99
+7865657	Bosch WAK28227 Waschmaschine 7kg, A+++	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002942469	469.00
+7865658	Bosch WLT24440 Waschmaschine 6,5kg, A+++ slim 45 cm tiefe	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002822846	499.00
+7865660	Bosch WAW28540 Waschmaschine 8kg, A+++	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002797649	629.00
+7870919	GORENJE pralni stroj W9765	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942905711	550.00
+7916816	CANDY pralni stroj GVS4137TWHC3/2	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361889804,8016361889804,8016361889804,8016361889804,8016361889804,8016361889804,8016361889804	399.99
+7934248	CANDY pralni stroj GVS44138TWHC/2	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361930995,8016361930995,8016361930995,8016361930995,8016361930995	369.90
+7942912	HOOVER pralni stroj DXOA4438AHC3	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361930582,8016361930582,8016361930582,8016361930582,8016361930582	479.99
+7942914	HOOVER pralni stroj DWOT 413AHC3	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361930575,8016361930575,8016361930575,8016361930575,8016361930575,8016361930575	599.90
+7961738	WHIRLPOOL pralni stroj AWO/C 6304	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437720659	NULL
+7972424	AMICA pralni stroj PPF61002W	43078	AMICA	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5906006402839,5906006402839	243.00
+8083613	BOSCH vgradni pralni stroj WIW28540EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002958699,4242002958699,4242002958699,4242002958699,4242002958699,4242002958699,4242002958699,4242002958699,4242002958699,4242002958699,4242002958699	730.00
+8152616	GRUNDIG pralni stroj GWN48440C	86	GRUNDIG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842857997,4013833006763,8690842857997,4013833006763	516.90
+8156697	CANDY pralni stroj GVF4137LWHC3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361931015	449.90
+8177865	ONECONCEPT mini-pralni stroj SG002	60305	ONECONCEPT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4260275624493,4260275624493	83.00
+8269559	Samsung WW8AK44205W  Waschmaschine 8k A+++ AddWash	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088482606	519.00
+8287858	WHIRLPOOL pralni stroj FDRL 80250 BL	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437728112	NULL
+8297704	SIEMENS pralni stroj WM14W4C1	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003664629	890.00
+8370548	pralni stroj SMEG LBB14WH-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229535	1429.21
+8370549	pralni stroj SMEG LBB14CR-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229528	1429.21
+8391383	INDESIT pralni stroj EWE 81283 W EU	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		269.00
+8407337	BOSCH pralni stroj WAN280A1	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+8444514	vgradni pralni stroj SMEG LST107-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229597	963.04
+8444515	vgradni pralni stroj SMEG LBA10B-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229542	963.04
+8444516	vgradni pralni stroj SMEG LBA10N-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229573	963.04
+8444517	vgradni pralni stroj SMEG LST127-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229665	1054.63
+8444518	vgradni pralni stroj SMEG LST147-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229092,8017709229092	930.00
+8446342	AEG pralni stroj Lavamat L7FE86604	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		779.00
+8446343	AEG pralni stroj Lavamat L9FE86495	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543501533	819.00
+8446703	CANDY pralni stroj CVST G372DM-S	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		346.90
+8446767	ELECTROLUX pralni stroj EWT1264ILW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543532001,7332543532001,7332543532001,7332543532001,7332543532001,7332543532001,7332543532001	381.09
+8447937	ONECONCEPT pralni stroj ECOWASH XL, 4.2kg	60305	ONECONCEPT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4260435914419,4260435914419	133.00
+8447986	ONECONCEPT pralni stroj ECOWASH XXL	60305	ONECONCEPT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4260435914426,4260435914426	146.00
+8457290	AEG Lavamat L6FB54470 Waschmaschine A+++ 7kg	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543503735	499.00
+8457295	AEG Lavamat L6FB67400 Waschmaschine A+++ 10 kg	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543493180	649.00
+8457297	AEG pralni stroj Lavamat L8FE74485	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543484652	649.00
+8457298	AEG Lavamat L8FE76495 Waschmaschine A+++, 9 kg	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543501052	709.00
+8457300	AEG Lavamat L8FE76695 Waschmaschine A+++ 9 kg	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543480036	769.00
+8458777	AEG pralni stroj Lavamat L7WB64474	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543532889	719.00
+8459161	pralni stroj SMEG WHT610EIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709199005	432.00
+8459162	pralni stroj SMEG WHT710ECIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709224721	459.90
+8459163	pralni stroj SMEG WHT710EIT-1	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709216351	480.00
+8459164	pralni stroj SMEG WHT812EIT-1	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709216368	513.00
+8459165	pralni stroj SMEG WHT712LIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709199029	522.00
+8459166	pralni stroj SMEG WHT812LIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709199036	555.00
+8459167	pralni stroj SMEG WHT712LCIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709224738	559.00
+8459168	pralni stroj SMEG WHT912EIT-1	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709216382	580.00
+8459169	pralni stroj SMEG WHT812LSIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709199043	574.90
+8459170	pralni stroj SMEG SLB127-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229603	643.00
+8459172	pralni stroj SMEG SLB147-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229658	707.00
+8459175	pralni stroj SMEG WHT914LSIT-1	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709216399	689.90
+8459176	pralni stroj SMEG WHT814LSIT-1	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709216375	758.00
+8459178	SMEG pralni stroj WHT1114LSIT-1	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709216405	828.90
+8459184	SMEG pralni stroj SLB147X-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229672	1204.00
+8462132	pralni stroj SMEG LBW508CIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709212643	357.00
+8462134	pralni stroj SMEG LBW610IT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709212612	378.00
+8462135	pralni stroj SMEG LBW510CIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709212667	389.00
+8462137	pralni stroj SMEG LBW710IT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709212605	419.00
+8462138	pralni stroj SMEG LBW610CIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709212650	419.00
+8462139	pralni stroj SMEG LBW410CIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709212674	419.00
+8462142	pralni stroj SMEG LBW810IT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709212599	484.00
+8483183	ADLER mini pralni stroj AD 8051	38678	ADLER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5908256835788	47.30
+8519586	AEG Lavamat L7FE76695 Waschmaschine A+++, 9 kg	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		799.00
+8529066	VOX pralni stroj WM 1052	33372	VOX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8606106512342,8606106512342,8606106512342,8606106512342,8606106512342	200.80
+8603507	CANDY pralni stroj CVFT G384 TMH	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361931435,8016361931428,8016361931435,8016361931428	382.42
+8603979	CANDY pralni stroj CVSTG372DM	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361931411,8016361931411,8016361931411	343.90
+8610328	GORENJE pralni stroj WT72122	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782061110,3838782061110,3838782061110,3838782061110,3838782061110,3838782061110,3838782061110,3838782061110,3838782061110	389.41
+8622391	WHIRLPOOL pralni stroj FWG71284W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437209376,8003437209376	356.02
+8663359	ELECTROLUX pralni stroj EWT1276ELW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543511341,7332543511341,7332543511341,7332543511341,7332543511341,7332543511341,7332543511341,7332543511341,7332543511341,7332543511341,7332543511341,7332543511341,7332543511341	399.90
+8692332	ELECTROLUX pralni stroj EW6F428B	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543578245,7332543578245,7332543578245,7332543578245,7332543578245,7332543578245	413.59
+8692339	ELECTROLUX pralni stroj EW6F448BU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543575848,7332543575848,7332543575848,7332543575848,7332543575848,7332543575848,7332543575848,7332543575848	439.00
+8692353	ELECTROLUX pralni stroj EW6F429B	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543578184,7332543578184,7332543578184,7332543578184,7332543578184,7332543578184,7332543578184	465.88
+8698042	ELECTROLUX pralni stroj EW6F428W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543576838,7332543576838,7332543576838,7332543576838,7332543576838,7332543576838,7332543576838,7332543576838	446.43
+8714718	HYUNDAI mini pralni stroj WM 300	154	HYUNDAI	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8592417052465,8592417052465	54.99
+8720542	BEKO pralni stroj WTE6611B0	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842129872,8690842129872,8690842129872,8690842129872,8690842129872,8690842129872	249.99
+8731623	AEG Lavamat L8FB74484W Waschmaschine A+++, 8 kg	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543521876	629.00
+8735109	AEG pralni stroj L 6FBI27 W	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543556205,7332543556205,7332543556205,7332543556205,7332543556205,7332543556205,7332543556205,7332543556205,7332543556205,7332543556205,7332543556205	468.25
+8735159	ELECTROLUX pralni stroj EW6F328W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543582846,7332543570065,7332543582846,7332543570065,7332543582846,7332543570065,7332543582846,7332543570065,7332543582846,7332543570065,7332543582846,7332543570065,7332543582846,7332543570065	419.90
+8735165	ELECTROLUX pralni stroj EW8F228S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543570997,7332543600137,7332543570997,7332543600137,7332543570997,7332543600137,7332543570997,7332543600137,7332543570997,7332543600137,7332543570997,7332543600137,7332543570997,7332543600137	505.08
+8743270	CANDY pralni stroj Bianca BWM148PH7	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361947825,8016361947825,8016361947825,8016361947825,8016361947825,8016361947825	448.98
+8749359	BOSCH pralni stroj WAW32541	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		609.00
+8755011	WHIRLPOOL pralni stroj z zgornjim polnjenjem TDLR 60112	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437727238	373.90
+8755012	WHIRLPOOL pralni stroj z zgornjim polnjenjem TDLR 65230	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437726835	498.90
+8755054	WHIRLPOOL pralni stroj FSCR70415	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437262425	507.90
+8803597	CANDY pralni stroj BIANCA BWM 149 PH7	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361947832,8016361947832,8016361947832,8016361947832,8016361947832,8016361947832,8016361947832,8016361947832	459.80
+8806902	CANDY pralni stroj GVS149THN3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361943414	399.99
+8809043	CANDY pralni stroj CS 1271 D3/1	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361914841	249.90
+8809115	SAMSUNG pralni stroj WW7AJ5536FW	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088736754	399.00
+8809117	SAMSUNG pralni stroj DV8AM50101W	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088777177	549.00
+8809175	CANDY pralni stroj globina CS34 1262 D3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361936126,8016361936126	309.90
+8809584	ELECTROLUX pralni stroj EWS31274NA	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543544134	439.00
+8812498	CANDY pralni stroj BIANCA BWM4 137PH6/1-S	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361947801,8016361947801,8016361947801,8016361947801,8016361947801,8016361947801	409.90
+8812507	CANDY pralni stroj Bianca BWM 1410PH7R, siv	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361947900	599.99
+8812508	CANDY pralni stroj Bianca BWM 1410PH7B, črn	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361947894,8016361947894,8016361947894,8016361947894	549.90
+8812667	BOSCH pralni stroj WAT 28761 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005053377,4242005053377,4242005053377,4242005053377	730.15
+8844279	ELECTROLUX pralni stroj EW6F408WU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543578221,7332543578221,7332543578221,7332543578221,7332543578221,7332543578221,7332543578221,7332543578221	369.57
+8844284	ELECTROLUX pralni stroj EEWT1376HGW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		560.42
+8846063	ELECTROLUX pralni stroj EW6F341S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543570737,7332543583522,7332543570737,7332543583522,7332543570737,7332543583522,7332543570737,7332543583522	568.65
+8863708	SAMSUNG pralni stroj WW70k5210UW	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	2000001241523,8806088194561,2000001241523,8806088194561,2000001241523,8806088194561,2000001241523,8806088194561	479.00
+8894383	Siemens WM14N2S3AT Waschmaschine A+++, 8kg	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003819708	529.00
+8896368	ELECTROLUX pralni stroj EW6F421B	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543578887,7332543578887,7332543578887,7332543578887	523.56
+8907940	BOSCH pralni stroj WAT 28490BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005070923,4242005070923,4242005070923,4242005070923,4242005070923,4242005070923,4242005070923,4242005070923	549.98
+8959419	MIELE mehčalec WA SO 1502 L, 1.5l	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		9.90
+8959422	MIELE kartuša UltraPhase 2 (WA UP2 1501 L), 1.5l	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		12.90
+8959425	MIELE pralno sredstvo za občutljivo perilo WoolCare (WA WC 1502 L), 1.5l	1800	MIELE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		14.90
+8964923	BOSCH pralni stroj WAN24290BY EXCLUSIV	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005070305,4242005070305,4242005070305,4242005070305,4242005070305,4242005070305,4242005070305	407.15
+8972069	pralni stroj SMEG LBW362PCIT	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709247935	399.00
+9021105	BOSCH pralni stroj WAN28290BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005070312,4242005070312,4242005070312,4242005070312,4242005070312	509.90
+9021106	BOSCH pralni stroj WAW28590BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005070824,4242005070824,4242005070824,4242005070824,4242005070824	760.00
+9021108	BOSCH pralni stroj WAW32690BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005070831,4242005070831,4242005070831,4242005070831,4242005070831	938.99
+9039493	BOSCH pralni stroj WAT28411	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002985855,4242002985855,4242002985855,4242002985855,4242002985855,4242002985855,4242002985855,4242002985855,4242002985855,4242002985855,4242002985855,4242002985855	569.00
+9050538	INDESIT pralni stroj EWD 71682 B DE	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842901191,8007842901191,8007842901191	269.99
+9063241	BOSCH pralni stroj WAT28690BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005072958,4242005072958,4242005072958,4242005072958,4242005072958	820.00
+9064205	BEKO pralni stroj WTE7612BS	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842114472,8690842114472,8690842114472,8690842114472,8690842114472,8690842114472,8690842114472,8690842114472	274.90
+9070470	AEG pralni stroj Lavamat L7WB65680	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543594948	849.00
+9092977	WDD031 EcoPlus Comfort pralni stroj W1 Classic za polnjenje od spredaj	42011	COMFORT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		979.00
+9099873	WHIRLPOOL pralni stroj FWSF61053W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437728358,8003437728358	251.10
+9099874	WHIRLPOOL pralni stroj FWG91484W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437208683	443.90
+9099875	WHIRLPOOL pralni stroj FWL61252W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437728372	269.90
+9099876	WHIRLPOOL pralni stroj FWL71052W EU Fresh Care	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437728525	305.90
+9099877	WHIRLPOOL pralni stroj FWSG71253W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437728631,8003437728631	307.40
+9099878	WHIRLPOOL pralni stroj FWG81284W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437208546,8592420100108,8003437208546,8592420100108	376.80
+9099929	WHIRLPOOL pralni stroj FWF71483W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437209451,8003437209451,8003437209451	337.40
+9101723	WHIRLPOOL pralni stroj FWL71252W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437728471,8003437728471	328.90
+9112264	CANDY pralni stroj CST 372L-S SMART TOUCH	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361931350	295.00
+9116154	LG pralni stroj F2J7HY1W	35	LG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806084779397,8806084779397	599.99
+9179014	BOSCH pralni stroj WAN282ECO2	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005063253,4242005063253	390.15
+9200149	WCE670 WCS TDos Wifi pralni stroj W1 za polnjenje od spredaj	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1099.00
+9200150	WCE660 WPS TDos Wifi pralni stroj W1 za polnjenje od spredaj	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1129.00
+9200151	WCI670 WPS TDos XL Wifi pralni stroj W1 za polnjenje od spredaj	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1449.00
+9232899	BEKO pralni stroj WMP8744XD	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842130922,8690842130922,8690842130922	559.99
+9238805	Samsung WW8AM642OQW/EG Waschmaschine, 8kg, A+++	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801643158262	890.00
+9238807	Samsung WW1AM86INOA/EG Waschmaschine, 10kg, A+++	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801643135713	1719.00
+9367450	SAMSUNG pralni stroj WW70M644OPW/LE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		639.90
+9367451	SAMSUNG pralni stroj WW80M644OPW/LE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801643135799,8806088504933,8801643135799,8806088504933,8801643135799,8806088504933,8801643135799,8806088504933,8801643135799,8806088504933,8801643135799,8806088504933,8801643135799,8806088504933,8801643135799,8806088504933,8801643135799,8806088504933,8801643135799,8806088504933,8801643135799,8806088504933	649.90
+9382837	BOSCH pralni stroj WLL24260BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005111305,4242005111305,4242005111305,4242005111305,4242005111305,4242005111305,4242005111305,4242005111305,4242005111305,4242005111305	509.90
+9383416	vidaXL Mini pralni stroj 2,6 kg	67771	VIDAXL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8718475559894	59.99
+9383564	VOX pralni stroj WM 1082-Y	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8606108649992,8606108649992,8606108649992,8606108649992	235.20
+9394507	ELECTROLUX pralni stroj EWT1262IFW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543625284,7332543625284,7332543625284,7332543625284,7332543625284,7332543625284,7332543625284,7332543625284,7332543625284	369.00
+9408023	Siemens WM14T421 A+++-30% Waschmaschine, 7kg	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003788127	509.00
+9408864	BEKO pralni stroj WTV 8734 XCOM	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		519.99
+9425565	SAMSUNG pralni stroj WD8AK5A00OW	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801643114794	799.00
+9439492	WCE330 WCS PWash 2.0 pralni stroj W1 za polnjenje od spredaj	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1099.00
+9439493	WCI330 WPS PWash2.0 XL pralni stroj W1 za polnjenje od spredaj	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1449.00
+9439717	CANDY pralni stroj CSS 1482 D3-S SMART TOUCH	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361958623,8016361958623,8016361958623	329.90
+9442498	INDESIT pralni stroj BWE 81683X WSSS DE	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8050147538272,8050147538241,8050147010655,8050147538272,8050147538241,8050147010655,8050147538272,8050147538241,8050147010655	279.90
+9442507	SIEMENS pralni stroj WM14W570	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003743355	629.00
+9444816	BOSCH WLL 24260 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		599.00
+9445429	AEG pralni stroj LTX6G261E	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543593729,7332543593729,7332543593729	439.99
+9445438	CANDY pralni stroj CSS1492D3-S	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361958654,8016361958654	329.90
+9445465	GORENJE pralni stroj WP60S3	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782066726,3838782078248,3838782066726,3838782078248,3838782066726,3838782078248,3838782066726,3838782078248,3838782066726,3838782078248,3838782066726,3838782078248,3838782066726,3838782078248,3838782066726,3838782078248	275.01
+9445496	SAMSUNG pralni stroj WW90M741NOA/LE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801643158408,8801643158408,8801643158408,8801643158408,8801643158408,8801643158408,8801643158408,8801643158408,8801643158408,8801643158408,8801643158408,8801643158408	784.90
+9445504	VOX pralni stroj WM 1264-Y	33372	VOX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8606108649954,8606108649954,8606108649954,8606108649954	229.99
+9447203	pralni stroj  SMEG LSTA147	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709199982	1334.54
+9565299	pralni stroj SMEG LBB14PK-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8017709229566	1429.21
+9568379	ELECTROLUX pralni stroj EW7F348W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543587087	551.08
+9568481	GORENJE pralni stroj WE64S3 WaveActive	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782068157	319.90
+9576827	BOSCH pralni stroj WAW28570	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002916408	599.00
+9579030	CANDY pralni stroj CSS4 1372 D3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361958449,8016361958449,8016361958449	299.90
+9586052	LG pralni stroj F2J5QN3W	35	LG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801031709502,8801031709502	399.00
+9586054	LG pralni stroj F4J8VS2W	35	LG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806084779373,8806084779373	699.00
+9586058	LG pralni stroj F4J7TY0W	35	LG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806087759136,8806087759136	599.00
+9592571	GORENJE pralni stroj WP62S3	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782067709,3838782067709,3838782067709,3838782067709	299.00
+9592572	GORENJE pralni stroj WA744 WAVEACTIVE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782076442,3838782076442,3838782076442,3838782076442,3838782076442,3838782076442,3838782076442,3838782076442,3838782076442,3838782076442,3838782076442,3838782076442	467.68
+9602893	GORENJE pralni stroj WE62S3 WAVEACTIVE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782068140,3838782068140,3838782068140,3838782068140,3838782068140,3838782068140,3838782068140,3838782068140,3838782068140,3838782068140,3838782068140,3838782068140,3838782068140	280.42
+9605899	GORENJE pralni stroj WEI843 WAVEACTIVE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782075988,3838782075988,3838782075988,3838782075988,3838782075988,3838782075988,3838782075988,3838782075988,3838782075988,3838782075988,3838782075988	399.90
+9629792	ELECTROLUX pralni stroj EW6F428WU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543575008,7332543569298	449.65
+9629793	ELECTROLUX pralni stroj EW8F328S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543600151,7332543600151	585.65
+9632913	BOSCH pralni stroj WAN28121	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005055876,4242005055876,4242005055876,4242005055876	383.60
+9633868	VOX pralni stroj WM 1274-Y	33372	VOX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8606019600006,8606108251904,8606019600006,8606108251904	309.99
+9634322	pralni stroj Electrolux EWS31064NU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+9634440	GORENJE pralni stroj WS947LN	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782077135,3838782106422,3838782077135,3838782106422,3838782077135,3838782106422,3838782077135,3838782106422,3838782077135,3838782106422,3838782077135,3838782106422,3838782077135,3838782106422,3838782077135,3838782106422,3838782077135,3838782106422	577.92
+9634480	GORENJE pralni stroj WP723 WAVEACTIVE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782068133,3838782068133,3838782068133,3838782068133,3838782068133,3838782068133,3838782068133,3838782068133,3838782068133,3838782068133,3838782068133,3838782068133,3838782068133	318.23
+9634483	GORENJE pralni stroj WEI72S3 WAVEACTIVE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782068218,3838782068218,3838782068218,3838782068218,3838782068218,3838782068218,3838782068218,3838782068218,3838782068218,3838782068218,3838782068218,3838782068218,3838782068218,3838782068218	369.99
+9634484	GORENJE pralni stroj WEI 723	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232,3838782068232	338.14
+9641705	GORENJE pralni stroj WA866	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782127083,3838782127083,3838782127083,3838782127083,3838782127083,3838782127083,3838782127083,3838782127083,3838782127083,3838782127083,3838782127083	499.00
+9651010	ELECTROLUX pralni stroj EWT 1062 IFW	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543625185,7332543630356,7332543625185,7332543630356,7332543625185,7332543630356,7332543625185,7332543630356,7332543625185,7332543630356,7332543625185,7332543630356,7332543625185,7332543630356	330.29
+9651011	ELECTROLUX pralni stroj EW6F528W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543640355,7332543640355,7332543640355,7332543640355,7332543640355	427.66
+9661027	AEG pralni stroj LTX7E272E	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543604227,7332543604227,7332543604227,7332543604227,7332543604227,7332543604227	499.99
+9661029	AEG pralni stroj LTX7C373E	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543605392	689.90
+9662396	ELECTROLUX pralni stroj EW7F248S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543618392,7332543618392,7332543618392	579.00
+9665019	ELECTROLUX vgradni pralni stroj EW7F348SI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543635771,7332543635771,7332543635771,7332543635771,7332543635771,7332543635771,7332543635771	594.90
+9665043	LG pralni stroj F4J5TN3W	35	LG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801031702725,8801031702725	499.99
+9665083	BEKO pralni stroj z inverter motorjem WTV8744XWST	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842129018,8690842129018,8690842129018,8690842129018,8690842129018,8690842129018	499.99
+9665136	GORENJE pralni stroj WA844T WAVEACTIVE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091,3838782085383,3838782076091	428.96
+9665137	GORENJE pralni stroj WA946 WAVEACTIVE	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782076480,3838782106415,3838782076480,3838782106415,3838782076480,3838782106415,3838782076480,3838782106415,3838782076480,3838782106415,3838782076480,3838782106415,3838782076480,3838782106415,3838782076480,3838782106415,3838782076480,3838782106415	515.51
+9678574	AEG L6TB61370 Toplader Waschmaschine 7kg A+++ 913123603	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543592845	549.00
+9678575	AEG L6FB50470 Waschmaschine 7kg A+++ 914913422	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543536320	499.00
+9678576	AEG L7TE74275 Toplader Waschmaschine 7kg A+++ 913123603	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543590049	659.00
+9680362	GORENJE pralni stroj WS168LNST	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782079399,3838782079399,3838782079399,3838782079399,3838782079399,3838782079399,3838782079399,3838782079399,3838782079399	686.93
+9684558	AEG pralni stroj LTX7C562E	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543604234,7332543604234	636.65
+9710093	Siemens WM14T7S3AT Waschmaschine A+++	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003822982	1009.00
+9718158	INDESIT pralni stroj BWA 71483X W EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		269.00
+9718678	GORENJE pralni stroj WE723	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782075254,3838782075254	342.33
+9788428	pralni stroj SMEG LBB14PB-2	34644	SMEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1429.21
+9816206	pralni stroj INDESIT BTW D 61253 EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8050147535059,8050147535059,8050147535059	269.00
+9837222	pralni stroj GORENJE WE 743	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782068225,3838782068225	359.90
+9853562	pralni stroj GORENJE WS 846 LN	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446,3838782077142,3838782106446	584.00
+9867272	pralni stroj LORD LORD W1	12447	LORD	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5060475870169	419.90
+9868832	BEKO WTC 6634 XSO	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842068775	487.06
+9869632	pralni stroj Gorenje W5202/S	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942266584	299.90
+9960286	VOX pralni stroj WM 1072-Y	33372	VOX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8606108649961,8606108649961,8606108649961,8606108649961,8606108649961	218.10
+9969360	INDESIT pralni stroj EWE 71483 W DE	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		269.00
+10007187	pralni stroj Bosch WAY32891EU + sušilni stroj Bosch WTY887W6	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		2219.99
+10011134	CANDY pralni stroj CST G382D-S	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361933170	359.99
+10014859	ELECTROLUX pralni stroj EW8F248B	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543588817,7332543588817,7332543588817	690.40
+10021138	CANDY pralni stroj CST G372 D	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361931381	499.90
+10021164	CANDY pralni stroj CSS4 1382 D3-S	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361958487	299.90
+10082000	pralni stroj Bosch WAN280A1	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002972732,4242002972732	449.00
+10090530	ELECTROLUX pralni stroj EW7F249S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543618415,7332543618415,7332543618415,7332543618415,7332543618415	582.61
+10091081	ELECTROLUX EW 7F249 S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		649.00
+10100728	BOSCH pralni stroj s sprednjim polnjenjem WAE28220	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002952567	NULL
+10119579	GORENJE pralni stroj WE823	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782078231,3838782078231,3838782078231	359.90
+10122036	pralni stroj GORENJE WA 74S3	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782076039	373.92
+10122048	CANDY pralni stroj GVS 159 TWHC3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361930810,8016361930810	399.90
+10141642	AEG pralni stroj L6FEG49S	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543639601	532.53
+10155947	CANDY pralni stroj HGB 129 THB7 STEAM	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361963764	349.00
+10180050	BOSCH pralni stroj WAT28661BY i-Dos	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005040650,4242005040650,4242005040650,4242005040650,4242005040650,4242005040650,4242005040650	709.00
+10184378	WDB330 WCS SpeedCare 1400 pralni stroj W1 Classic za polnjenje od spredaj	22542	CLASSIC	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		979.00
+10185867	Samsung WW80J5436DW Waschmaschine 8kg, A+++	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088752228	549.00
+10185868	Samsung WW7AM642OQW/EG QuickDrive Waschmaschine, 7kg, A+++	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801643158095	699.00
+10196874	WHIRLPOOL pralni stroj FWF71253W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437208720,8592430100105,8003437208720,8592430100105	311.00
+10221689	WCR860 WPS PWash2.0 TDos XL WiFi pralni stroj W1 za polnjenje od spredaj	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1629.00
+10221690	WCR870 WPS PWash2.0 TDos XL WiFi pralni stroj W1 za polnjenje od spredaj	124	--UNKNOWN--	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1629.00
+10221693	WWV980 WPS Passion pralni stroj W1 za polnjenje od spredaj	58991	PASSION	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		2549.00
+10225064	pralni stroj Gorenje WE843	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782078248,3838782078248,3838782078248,3838782078248,3838782078248,3838782078248,3838782078248	377.12
+10225105	GORENJE pralni stroj WE72S3	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782068195,3838782068195,3838782068195,3838782068195,3838782068195,3838782068195	344.24
+10228729	GORENJE WE 72 S3	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		459.90
+10228731	GORENJE WEI 843 A	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		589.00
+10228732	GORENJE WEI 843 B	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		589.00
+10250713	GORENJE pralni stroj WEI843B	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782107283,3838782158568,3838782107283,3838782158568,3838782107283,3838782158568,3838782107283,3838782158568,3838782107283,3838782158568,3838782107283,3838782158568,3838782107283,3838782158568	489.22
+10273261	VOX pralni stroj WM 1284-Y	33372	VOX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8606019600013,8606019600013,8606019600013,8606019600013	278.30
+10281961	ELECTROLUX pralni stroj EW6S226SI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651726,7332543624171,7332543651726,7332543624171	389.99
+10337820	CANDY pralni stroj CSTG362D	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361931367,8016361931367,8016361931367	299.99
+10337891	CANDY pralni stroj CSS41272D3/1	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361958432,8016361958432	279.90
+10337920	GORENJE pralni stroj WA72S3	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782077111,3838782077111,3838782077111	417.75
+10337964	CANDY pralni stroj GVS4137THN3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361943421,8016361943421	339.90
+10357222	LORD pralni stroj LORD W1	12447	LORD	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		395.90
+10360819	pralni stroj GORENJE W7523	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942816888	NULL
+10412801	pralni stroj WE60S3	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782066757	307.37
+10412802	GORENJE pralni stroj WEI823	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782075995,3838782075995	390.36
+10412803	pralni stroj WEI62S3	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782068164	348.43
+10431640	HOOVER pralni stroj AWMPD49LH7/1	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361960039,8016361960039,8016361960039,8016361960039,8016361960039	599.90
+10585417	Igrača pralni stroj Miele, KLEIN	24694	KLEIN	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		64.00
+10587844	BEKO pralni stroj WTV9633XS0	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842074851,8690842074851,8690842074851,8690842074851	576.86
+10588157	BEKO pralni stroj WTV7634XS0	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842078569,8690842078569,8690842078569,8690842078569	326.50
+10610268	WS967LN Pralni sroj	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782110160	549.00
+10631855	AEG pralni stroj L8FBE48SI	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543635795	772.65
+10633314	ELECTROLUX pralni stroj EW6S426W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543623242,7332543651863,7332543623242,7332543651863,7332543623242,7332543651863,7332543623242,7332543651863,7332543623242,7332543651863,7332543623242,7332543651863	358.89
+10647213	BEKO pralni stroj WTV8633XS0	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842074820,8690842074820,8690842074820,8690842074820,8690842074820,8690842074820	339.92
+10709520	VOX pralni stroj WM 1062-Y	33372	VOX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8606019601089,8606108649022,8606108649947,8606019601089,8606108649022,8606108649947,8606019601089,8606108649022,8606108649947,8606019601089,8606108649022,8606108649947,8606019601089,8606108649022,8606108649947	211.50
+10715583	pralni stroj CANDY CVST G382DM	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361933187,8016361933187	314.42
+10723395	ELECTROLUX EW 6S427 BI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543631674,7332543631674,7332543631674,7332543631674,7332543631674,7332543631674	394.00
+10723398	ELECTROLUX EW 6S426 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		409.00
+10723399	ELECTROLUX EW 6S406 BX	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		459.00
+10723401	ELECTROLUX EW 6S226 CX	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		549.00
+10729305	CANDY pralni stroj CSP 1272 TWS3	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361971431	269.90
+10749970	Exquisit WA7014-3.1 Waschmaschine 7kg A+++ 0720106	43079	EXQUISIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4016572023336	339.00
+10750195	Camry prenosni pralno-ožemalni stroj CR8052	57735	CAMRY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	5908256835795	73.40
+10766119	pralni stroj ELECTROLUX EW6S427W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651900,7332543624355,7332543651900,7332543624355	398.65
+10766120	pralni stroj ELECTROLUX EW8F148B	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543634125,7332543634125	699.99
+10776313	BEKO pralni stroj WTV8636XS	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842213977,8690842213977,8690842213977,8690842213977,8690842213977,8690842213977,8690842213977	364.90
+10855223	ELECTROLUX pralni stroj EW6F528WV	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543640416	449.65
+10855229	ELECTROLUX pralni stroj EW6F328WU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543583355,7332543583355,7332543583355,7332543583355	422.40
+10858381	pralni stroj BOSCH WAT28461ME	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002955797,4242002955797	579.00
+10858382	pralni stroj CANDY BWM 149 PH7-Bianca	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+10858383	pralni stroj CANDY CS4 1172 D3/1	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+10858384	pralni stroj GORENJE W2A946T	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+10858385	pralni stroj GORENJE W6EI843P	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+10858388	pralni stroj GORENJE WA72SY2	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+10871469	pralni stroj CANDY CS4 1262 D3/2-S	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		299.90
+10890582	GORENJE pralni stroj W11EI743P	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782141904	379.90
+10935113	GORENJE pralni stroj WEI743	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782068249	399.00
+10947987	ELECTROLUX pralni stroj EW6F527W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543640348,7332543640348,7332543640348,7332543640348,7332543640348,7332543640348,7332543640348	409.90
+10947988	ELECTROLUX pralni stroj EW6F528S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543640362,7332543640362	410.80
+10947990	ELECTROLUX pralni stroj EW6S347S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543623235,7332543623235	424.15
+10947994	ELECTROLUX pralni stroj EW6S227C	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651733,7332543651733	429.90
+10947995	ELECTROLUX pralni stroj EW6S226CX	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651719,7332543651719,7332543651719,7332543651719	459.99
+10947996	ELECTROLUX pralni stroj EW6S406BX	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543622672,7332543622672,7332543622672,7332543622672,7332543622672	359.99
+10952777	GORENJE pralni stroj WEI843A	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782158551,3838782158551,3838782158551,3838782158551,3838782158551,3838782158551	389.90
+10955001	AEG pralni stroj LTX8C373E	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543655939	721.65
+11002898	GORENJE Pralni stroj WE74S3	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		399.00
+11026683	pralni stroj Electrolux EW6S406W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651856,7332543651856,7332543651856,7332543651856,7332543651856,7332543651856,7332543651856,7332543651856,7332543651856,7332543651856	299.99
+11031154	Beko WMXM 81014 Waschmaschine 8kg, A+++	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		349.00
+11055026	pralni stroj SAMSUNG WW10M86INOA/LE Q drive 10kg	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801643183615,8801643183615,8801643183615,8801643183615,8801643183615,8801643183615	1159.90
+11087207	Hoover pralni stroj AWMPD413 LH7R/1	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361960190	699.99
+11088881	pralni stroj Samsung WW70M644OPW/LE Q drive	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8801643158040,8801643158040,8801643158040	679.15
+11121652	pralni stroj HOOVER HNOT S382 DA	1802	HOOVER	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+11170207	Siemens WM14N121 Waschmaschine A+++	148	SIEMENS	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003814758	425.00
+11175909	BOSCH pralni stroj WAW326H0EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005038237,4242005038237	1133.10
+11191600	BOSCH WAW 32690 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1069.00
+11191601	BOSCH WAW 28590 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		869.00
+11191604	BOSCH WAN 28290 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		549.00
+11191607	BOSCH WAT 28690 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		929.00
+11191608	BOSCH WAN 24290 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		539.00
+11232494	pralni stroj BOSCH WAN24163BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005171880,4242005171880,4242005171880,4242005171880,4242005171880,4242005171880	423.10
+11236923	Indesit EWC 61081 W DE Waschmaschine A+	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842887273	269.00
+11247023	INDESIT pralni stroj BWE 81484X WSSS EU 153451	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8050147534519,8050147534519,8050147534519	418.90
+11247027	INDESIT pralni stroj BWE 71253X WSSS EU 153454	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8050147534540	296.10
+11256568	VOX pralni stroj WM 1062-Y SLIM	33372	VOX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8606108649947,8606108649947,8606108649947	238.00
+11259364	INDESIT pralni stroj IWC 60851 C ECO EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842874877,8007842874877	218.90
+11259365	INDESIT pralni stroj IWSE 61253 C ECO EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		318.90
+11259366	INDESIT pralni stroj EWSD 60851 W EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8007842893687,8007842893687	218.90
+11259367	INDESIT pralni stroj EWSD 61051 W EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		228.90
+11259571	WTV8744XD pralni stroj BEKO	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8690842203824,8690842203824,8690842203824,8690842203824	642.20
+11259576	WAT28561BY pralni stroj BOSCH	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005051571	739.00
+11268892	INDESIT BTW D71253 (EU) pralni stroj z zgornjim polnjenjem	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8050147535035	298.90
+11268899	WHIRLPOOL FWSG61253W EU pralni stroj	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437728594	328.90
+11268900	WHIRLPOOL FWSG71283W EU pralni stroj	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437209284	369.90
+11268901	WHIRLPOOL FWSG61053W EU pralni stroj	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437728365	321.90
+11268902	INDESIT BTW D61053 (EU) pralni stroj - polnjenje zgoraj	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8050147535073,8050147535073	358.90
+11268922	CANDY CBWM 712 D vgradni pralni stroj	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361931275	419.90
+11268954	CANDY GVS 158 TWC3 pralni stroj	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8016361958159	519.90
+11269045	INDESIT IWCN 61051X9 EU pralni stroj	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		229.90
+11269046	INDESIT EWD 61052 W EU/1 pralni stroj	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8050147033289	311.90
+11269048	INDESIT IWC 71253 ECO EU pralni stroj	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		329.90
+11269049	INDESIT BWA 71252X W EU pralni stroj	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		339.90
+11269053	INDESIT EWE 81283 W EU/1 pralni stroj	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		283.90
+11269054	INDESIT BWE 91284X WSSS EU pralni stroj z inverter motorjem	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		449.90
+11269055	INDESIT BTW A51052 (EU) pralni stroj-polnjenje zgoraj	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		329.90
+11276322	BEKO pralni stroj WTV8633XSO	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		397.90
+11276324	BEKO pralni stroj WTE6611BO	82	BEKO	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		248.79
+11350833	Dišava za perilo Dr. Beckmann	109608	Dr. Beckmann	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+11941295	pralni stroj Candy BWM 148PH7/1-S + parna postaja Tefal GV7810E0	139	CANDY	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		643.99
+12509792	INDESIT pralni stroj BWE 71683X W EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		279.90
+12509794	INDESIT pralni stroj BWE 81683X WSSS EU	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		279.00
+12509796	pralni stroj INDESIT EWE 71483 W DE A+++	137	INDESIT	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		289.99
+12529980	BOSCH WAX 32EH0 EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1339.00
+12529988	BOSCH WAW 326H0 EU	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1189.00
+12530001	BOSCH WAV 28L90 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1109.00
+12572031	pralni stroj Bosch WAE24260BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005121274	369.99
+12586630	ELECTROLUX pralni stroj EW2F672S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543684472,7332543684472,7332543684472	390.15
+12586631	ELECTROLUX pralni stroj EW2F727W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543684458,7332543684458,7332543684458	390.15
+12586632	ELECTROLUX pralni stroj EW8F169SA	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543698622,7332543698622	849.15
+12586637	AEG pralni stroj L6FBG48S	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543573721,7332543573721	568.65
+12586638	AEG pralni stroj L7FBE69SA	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543657612	934.15
+12586639	AEG pralni stroj L8FBC69SA	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543657636	1061.65
+12612584	Gorenje WE64S3P Waschmaschine Slim 6 kg A+++	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782141836	369.00
+12614963	VOX pralni stroj WM 1274-Y	33372	VOX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8606019600006	282.53
+12714983	ELECTROLUX EW 2F672 S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		459.00
+12714986	ELECTROLUX EW 8F169 SA	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		999.00
+12714997	AEG L 7FBE69 SA	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1049.00
+12714999	ELECTROLUX EW 2F727 W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		459.00
+12763515	ELECTROLUX pralni stroj EW6S306S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651740,7332543651740,7332543651740	343.10
+12763516	ELECTROLUX pralni stroj EW6S406BI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543623327,7332543623327,7332543623327	376.90
+12763517	ELECTROLUX pralni stroj EW6S307SI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651771,7332543651771,7332543651771,7332543651771	382.00
+12764204	ELECTROLUX EW6S306S pralni stroj	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		322.86
+12764205	ELECTROLUX EW6S406BI pralni stroj	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		332.34
+12764206	ELECTROLUX EW6S307SI pralni stroj	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		360.55
+12764699	ELECTROLUX EW 6S306 S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		409.00
+12764700	ELECTROLUX EW 6S307 SI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		439.00
+12764701	ELECTROLUX EW 6S406 BI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		419.00
+12779577	pralni stroj AEG L7FBE69SA	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		965.90
+12779578	pralni stroj AEG L8FBC69SA	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		1099.00
+12779866	pralni stroj SHARP ES-GFB7143W3EE	45	SHARP	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+12779893	pralni stroj SAMSUNG WW90M644OPX/LE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+12779901	pralni stroj SHARP ES-HFH814AW3-EE	45	SHARP	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+12815162	ELECTROLUX pralni stroj EW6S426BI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543624324	398.65
+12816146	pralni stroj ELECTROLUX EW6S426BI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+12858389	WDD 035 WCS 8kg Series 120 pralni stroj W1 Classic za polnjenje od spredaj	22542	CLASSIC	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		849.00
+12895524	Samsung pralni stroj WW90J5446EW/LE	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088705552	399.90
+12901194	pralni stroj ELECTROLUX EW6S306S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651740,7332543651740	345.00
+12917764	Bosch pralni stroj WAN24163BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		413.08
+12921727	PRALNI STROJ GORENJE W6222/S	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838942958113	279.99
+12953362	Samsung WW70K4420YW/EG Waschmaschine 7kg, A+++ AddWash	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088482576	449.00
+12969715	BOSCH WAN 24163 BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		479.00
+12970255	(WW70K5210UX/LE)	29	SAMSUNG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8806088194103	449.90
+12980656	BOSCH pralni stroj WAN24162BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005171873,4242005171873	449.00
+12999304	Pralni stroj FINLUX FW-FWA21051SL	59066	FINLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+13059164	GORENJE pralni stroj W75F23/IS1	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782332012	349.99
+13084320	AEG L6FBA684 Frontlader Waschmaschine 8kg A+++	1554	AEG	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543638376	499.00
+13085863	Pralni stroj FINLUX FW-FWD31071SL	59066	FINLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji		NULL
+13098529	Siemens WM14N190 Extraklasse iQ500 Waschmaschine	70148	SIEMENS EXTRAKLASSE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242003772300	699.00
+13113413	ELECTROLUX Pralni stroj EW6S406BI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543623327	381.65
+13113414	ELECTROLUX Pralni stroj EW6S406BX	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543622672	390.15
+13113415	ELECTROLUX Pralni stroj EW6S426W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543623242	364.65
+13113416	ELECTROLUX Pralni stroj EW6S426BI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543624324	398.65
+13113417	ELECTROLUX Pralni stroj EW6S427W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651900	398.65
+13113418	ELECTROLUX Pralni stroj EW6S307SI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651771	415.65
+13113419	ELECTROLUX Pralni stroj EW6S427BI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543631674	415.65
+13113420	ELECTROLUX Pralni stroj EW6S347S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543623235	424.15
+13113421	ELECTROLUX Pralni stroj EW6S226SI	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543624171	415.65
+13113422	ELECTROLUX Pralni stroj EW6S227C	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651733	458.15
+13113423	ELECTROLUX Pralni stroj EW6S226CX	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543651719	466.65
+13113425	ELECTROLUX Pralni stroj EW2F672S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543684472	390.15
+13113426	ELECTROLUX Pralni stroj EW2F727W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543684458	390.15
+13113427	ELECTROLUX Pralni stroj EW6F527W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543640348	432.65
+13113428	ELECTROLUX Pralni stroj EW6F528W	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543640355	432.65
+13113429	ELECTROLUX Pralni stroj EW6F528S	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543640362	432.65
+13113430	ELECTROLUX Pralni stroj EW6F408WU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543578221	449.65
+13113431	ELECTROLUX Pralni stroj EW6F428WU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543575008	449.65
+13119149	Whirlpool pralno-sušilni stroj FWDG96148WS EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437232589	633.70
+13119150	Whirlpool pralno-sušilni stroj FWDG86148W EU	147	WHIRLPOOL	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	8003437232572	611.00
+13121455	Gorenje WP72S3P Waschmaschine 7kg, A+++	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782107542	349.00
+13122148	GORENJE Pralni stroj W6723/IS Slim inverter	138	GORENJE	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	3838782004933	329.90
+13137285	ELECTROLUX Pralni stroj EW6F328WU	141	ELECTROLUX	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	7332543583355	475.15
+13138808	Pralni stroj BOSCH WAN24061BY	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242005171897	469.00
+13138810	Pralni stroj BOSCH WAT28481ME	145	BOSCH	4	Dom & Vrt	42	Bela tehnika	37	Pranje in sušenje	225	Pralni stroji	4242002965802	599.00
