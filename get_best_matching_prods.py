@@ -78,7 +78,7 @@ if __name__ == "__main__":
     """
     Create the data that will be process by deepmatcher.
     Here I choose a subset of offers, namely the first n_offers, and couple each of them
-    with all the possible products in it category.
+    with all the possible products in its category.
     Unfortunately torchtext, the module deepmatcher is built upon, does not handle pandas dataframe,
     so one have to write that dataset to csv and load it after!  
     """
@@ -126,8 +126,6 @@ if __name__ == "__main__":
             'brand': seller_offers.loc[offer, 'left_brandSeller'],
             'possible_matching_products': possible_matching_products[['match_score', 'right_idProduct', 'right_nameSeller', 'right_brandSeller']].sort_values(by=['match_score'], ascending=False).values.tolist()
         }
-    # print(best_prediction)
-    import json
 
     with open(path.join(RESULTS_DIR, offers_matching_cfg['best_predictions_name'] + '.json'), 'w') as fp:
         json.dump(best_prediction, fp)

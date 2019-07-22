@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     # Run deepmatcher algorithm
 
-    train, validation, test = dm.data.process(
+    """ train, validation, test = dm.data.process(
         path=DEEPMATCH_DIR, 
         cache=path.join(CACHE_DIR, deepmatcher_cfg['train']['cache_name'] + '.pth'),
         train=cfg['split']['train_data_name'] + '.csv', 
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     predictions = model.run_prediction(candidate, output_attributes=True, device=device)
     predictions.to_csv(
         path.join(RESULTS_DIR, deepmatcher_cfg['train']['predictions_data_name'] + '.csv')
-    )
+    ) """
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 
@@ -151,9 +151,9 @@ if __name__ == "__main__":
 
     # Run a similarity matching algorithm based on simple logistic regression
 
-    """ train = pandas.read_csv(path.join(DEEPMATCH_DIR, 'train_desc.csv'))
-    val = pandas.read_csv(path.join(DEEPMATCH_DIR, 'validation_desc.csv'))
-    unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, 'unlabeled_desc.csv'))
+    train = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['train_data_name'] + '.csv'))
+    val = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['val_data_name'] + '.csv'))
+    unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['unlabeled_data_name'] + '.csv'))
 
     train_dataset = SimilarityDataset(train, ignore_columns=ignore_columns)
     val_dataset = SimilarityDataset(val, ignore_columns=ignore_columns)
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     model = LogisticRegressionModel(input_dim=3)
 
     print(pos_neg_ratio)
-    model.train(
+    model.run_train(
         train_dataset,
         val_dataset,
         model,
@@ -175,13 +175,13 @@ if __name__ == "__main__":
         pos_neg_ratio=pos_neg_ratio,
         log_freq=16
     )
-    predictions = model.predict(test_dataset)
+    predictions = model.run_predict(test_dataset)
     unlabeled.insert(0, 'match_score', predictions)
-    unlabeled.to_csv(path.join(RESULTS_DIR, 'predictions_logistic_desc.csv'))
+    # unlabeled.to_csv(path.join(RESULTS_DIR, 'predictions_logistic_desc.csv'))
     predictions = get_match_predictions(unlabeled)
 
-    print(get_statistics(predictions)) """
-
-    # predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_new_cat_rand.csv'))
-    predictions = get_match_predictions(predictions)
     print(get_statistics(predictions))
+
+    """ # predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_new_cat_rand.csv'))
+    predictions = get_match_predictions(predictions)
+    print(get_statistics(predictions)) """
