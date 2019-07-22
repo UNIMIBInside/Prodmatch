@@ -6,6 +6,13 @@
 * **Pipenv** for the management of the virtual env. One can install it with `pip install pipenv` or `pip3 install pipenv`
 * All test were performed using **Ubuntu 18.04** or **19.04**
 
+## Docker setup
+
+1. `git clone git@bitbucket.org:ceneje/deepmatcher.git`
+2. Move to the project root
+3. `docker build --rm -f "dockerfile" -t deepmatcher:latest .`
+4. Since deepmatcher needs the fasttext vectors to run properly, if you have already installed those vectors in `~/.vector_cache`, then you can run `docker run -v ~/.vector_cache:/root/.vector_cache --rm -it deepmatcher:latest`; otherwise try to run `docker run --rm -it deepmatcher:latest`
+
 ## Setup
 
 1. `git clone git@bitbucket.org:ceneje/deepmatcher.git`

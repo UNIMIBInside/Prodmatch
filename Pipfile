@@ -14,4 +14,4 @@ py-stringmatching = "*"
 deepmatcher = {editable = true,git = "https://github.com/belerico/deepmatcher.git",ref = "torch_1.0.1"}
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
