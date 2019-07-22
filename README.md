@@ -19,7 +19,7 @@
 2. Change in `Pipfile` the python version
 3. Move to the project root and run `pipenv install --ignore-pipfile`: this will create the virtual env and install all the needed packages
 4. `pipenv shell` to activate the env
-5. `python -m nltk.downloader -d /usr/local/share/nltk_data punkt`
+5. `python -m nltk.downloader punkt`
 6. In order to use the deepmatcher model I trained, you have to download it from https://drive.google.com/file/d/1bAg_90ITxOn9GvauhH2LJ3Y31-NqLE60/view?usp=sharing and place it in `ceneje_prodmatch/results/models` folder.  This model has been trained on the following 11 categories: 
     * Led tv
     * Washing machine
