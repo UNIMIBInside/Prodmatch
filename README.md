@@ -17,9 +17,10 @@
 
 1. `git clone git@bitbucket.org:ceneje/deepmatcher.git`
 2. Change in `Pipfile` the python version
-3. Move to the project root and run `pipenv install`: this will create the virtual env and install all the needed packages
+3. Move to the project root and run `pipenv install --ignore-pipfile`: this will create the virtual env and install all the needed packages
 4. `pipenv shell` to activate the env
-5. In order to use the deepmatcher model I trained, you have to download it from https://drive.google.com/file/d/1bAg_90ITxOn9GvauhH2LJ3Y31-NqLE60/view?usp=sharing and place it in `ceneje_prodmatch/results/models` folder.  This model has been trained on the following 11 categories: 
+5. `python -m nltk.downloader -d /usr/local/share/nltk_data punkt`
+6. In order to use the deepmatcher model I trained, you have to download it from https://drive.google.com/file/d/1bAg_90ITxOn9GvauhH2LJ3Y31-NqLE60/view?usp=sharing and place it in `ceneje_prodmatch/results/models` folder.  This model has been trained on the following 11 categories: 
     * Led tv
     * Washing machine
     * Refrigerator
@@ -30,7 +31,7 @@
     * Laptops
     * Men sneakers
     * Cartridges
-6. `python get_best_matching_prods.py` will generate a json file in `ceneje_prodmatch/results/best_predictions.json` which contains, for every offer in a specific category the possible matching Ceneje products in that category (as we assume that the categorization step can be performed in some way: black magic). **P.S.** If you also want to include the description into the matching process follow the instruction in [get_best_matching_prods.py](get_best_matching_prods.py) file
+7. `python get_best_matching_prods.py` will generate a json file in `ceneje_prodmatch/results/best_predictions.json` which contains, for every offer in a specific category the possible matching Ceneje products in that category (as we assume that the categorization step can be performed in some way: black magic). **P.S.** If you also want to include the description into the matching process follow the instruction in [get_best_matching_prods.py](get_best_matching_prods.py) file
 
 ## Config
 
