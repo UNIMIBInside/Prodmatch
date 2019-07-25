@@ -9,7 +9,7 @@ lxml = "*"
 numpy = "*"
 sklearn = "*"
 requests = "*"
-deepmatcher = {git = "https://github.com/belerico/deepmatcher.git",ref = "torch_1.0.1"}
+deepmatcher = {editable = true,git = "https://github.com/belerico/deepmatcher.git",ref = "torch_1.0.1"}
 py-stringmatching = "*"
 
 [requires]
