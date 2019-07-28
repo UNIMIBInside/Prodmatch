@@ -135,13 +135,13 @@ def join_datasets(
         for category in L3:
             integrated_dataset.append(
                 # SellerProductsData_ dataset
-                datasets[0][0][['idSeller', 'idSellerProduct'] + seller_prod_data_attrs]\
+                datasets[0][0].loc[:, ['idSeller', 'idSellerProduct'] + seller_prod_data_attrs]\
                 .merge(
                     right=datasets[0][1],  # SellerProductsMapping_ dataset
                     how='inner',
                     on=['idSellerProduct', 'idSeller']
                 ).merge(
-                    right=datasets[0][2][datasets[0][2]['L3'] == category][['idProduct'] + ceneje_prod_data_attrs],  # Products_ dataset
+                    right=(datasets[0][2].loc[datasets[0][2]['L3'] == category]).loc[:, ['idProduct'] + ceneje_prod_data_attrs],  # Products_ dataset
                     how='inner',
                     on='idProduct'
                 ).reset_index(drop=True)
@@ -149,13 +149,13 @@ def join_datasets(
         return integrated_dataset
     return [
         # SellerProductsData_ dataset
-        datasets[i][0][['idSeller', 'idSellerProduct'] + seller_prod_data_attrs]\
+        datasets[i][0].loc[:, ['idSeller', 'idSellerProduct'] + seller_prod_data_attrs]\
         .merge(
             right=datasets[i][1],  # SellerProductsMapping_ dataset
             how='inner',
             on=['idSellerProduct', 'idSeller']
         ).merge(
-            right=datasets[i][2][['idProduct'] + ceneje_prod_data_attrs],  # Products_ dataset
+            right=datasets[i][2].loc[:, ['idProduct'] + ceneje_prod_data_attrs],  # Products_ dataset
             how='inner',
             on='idProduct'
         ).reset_index(drop=True)
@@ -170,13 +170,13 @@ def get_matching(integrated_data: list, normalize=True, **kwargs):
     return [
         preprocess.normalize(
             # For every integrated dataset, keep only those products that are duplicates (matching)
-            integrated_data[i][integrated_data[i].duplicated(
-                subset='idProduct', keep=False)],
+            integrated_data[i].loc[integrated_data[i].duplicated(
+                subset='idProduct', keep=False), :],
             **kwargs
         )
         if normalize
-        else integrated_data[i][integrated_data[i].duplicated(
-                subset='idProduct', keep=False)]
+        else integrated_data[i].loc[integrated_data[i].duplicated(
+                subset='idProduct', keep=False), :]
         for i in range(len(integrated_data))
     ]
 

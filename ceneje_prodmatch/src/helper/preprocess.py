@@ -49,11 +49,8 @@ def strip(df: pandas.DataFrame, fillna=True, na_value=''):
     if df_obj_cols == []:
         return df
     if fillna:
-        df[df_obj_cols] = df[df_obj_cols].fillna(na_value)
-    # Apply to all object columns col_strip_clean function
-    # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colStrip(col, not(fillna), na_value), axis=1)
-    # This version speed up performance using numpy.vectorize
-    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda x: ' '.join(x.split())))
+        df = df.loc[:, df_obj_cols].fillna(na_value)
+    df = df.loc[:, df_obj_cols].apply(numpy.vectorize(lambda x: ' '.join(x.split())))
     return df
 
 
@@ -119,11 +116,8 @@ def tolower(df: pandas.DataFrame, fillna=True, na_value=''):
     if df_obj_cols == []:
         return df
     if fillna:
-        df[df_obj_cols] = df[df_obj_cols].fillna(na_value)
-    # Apply to all object columns col_strip_clean function
-    # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colStrip(col, not(fillna), na_value), axis=1)
-    # This version speed up performance using numpy.vectorize
-    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(str.lower))
+        df = df.loc[:, df_obj_cols].fillna(na_value)
+    df = df.loc[:, df_obj_cols].apply(numpy.vectorize(str.lower))
     return df
 
 def remove_brackets_col(col: pandas.Series, fillna=True, na_value=''):
@@ -168,12 +162,8 @@ def remove_brackets(df: pandas.DataFrame, fillna=True, na_value=''):
     if df_obj_cols == []:
         return df
     if fillna:
-        df[df_obj_cols] = df[df_obj_cols].fillna(na_value)
-    # Apply to all object columns col_strip_clean function
-    # df[df_obj_cols] = df[df_obj_cols].apply(lambda col: colStrip(col, not(fillna), na_value), axis=1)
-    # This version speed up performance using numpy.vectorize
-    # df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda s: re.sub(r'\((.*?)\)', ' ', s)))
-    df[df_obj_cols] = df[df_obj_cols].apply(numpy.vectorize(lambda s: remove_brackets_regex.sub(' ', s)))
+        df = df.loc[:, df_obj_cols].fillna(na_value)
+    df = df.loc[:, df_obj_cols].apply(numpy.vectorize(lambda s: remove_brackets_regex.sub(' ', s)))
     return df
 
 
@@ -269,12 +259,22 @@ def normalize(
     fillna (bool): wheter or not call pandas.Series.fillna(na_value)\n
     na_value (str): value to replace na\n
     lower (bool): whether or not lower the case\n
-    remove_brackets (bool): whether or not remove brackets and what's inside them
+    remove_brackets (bool): whether or not remove brackets and what's inside them\n
 
     Returns
     -------
     pandas.DataFrame: DataFrame with all object columns cleaned
     """
+    # Get the columns containing object values (strings)
+    df_obj_cols = df.dtypes[df.dtypes == 'object'].index.tolist()
+    if df_obj_cols == []:
+        return df
+    if fillna:
+        df = df.loc[:, df_obj_cols].fillna(na_value)
+    print('Normalizing data...')
+    df = df.loc[:, df_obj_cols].apply(numpy.vectorize(lambda x: __normalize(x, **kwargs)))
+    print('Finished')
+    return df
     # Get the columns containing object values (strings)
     df_obj_cols = df.dtypes[df.dtypes == 'object'].index.tolist()
     if df_obj_cols == []:
