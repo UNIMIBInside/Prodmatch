@@ -2,6 +2,7 @@
 
 ## Requirements
 
+* g++ compiler 4.7.2 or newer: `sudo apt install g++` or `sudo apt install build-essential`
 * At least **python 3.6**. I didn't run test with prior versions
 * **Pipenv** for the management of the virtual env. One can install it with `pip install pipenv` or `pip3 install pipenv`
 * All test were performed using **Ubuntu 18.04** or **19.04**

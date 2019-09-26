@@ -73,7 +73,7 @@ if __name__ == "__main__":
     """
     ceneje_products['description'] = ''
     ceneje_products.columns = ['right_idProduct'] + ['right_' + col for col in old_seller_offers_cols[2:]]
-    # print(ceneje_products)
+    print(ceneje_products.columns)
 
     """
     Create the data that will be process by deepmatcher.
@@ -89,8 +89,7 @@ if __name__ == "__main__":
     ], columns=seller_offers.columns.tolist() + ceneje_products.columns.tolist())\
         .reset_index(drop=True).rename_axis('id', axis=0, copy=False)
     unlabeled.to_csv(path.join(RESULTS_DIR, 'offers.csv'))
-
-    # print(unlabeled)
+    print(unlabeled.columns)
 
     model = dm.MatchingModel(
         attr_summarizer=dm.attr_summarizers.RNN(),

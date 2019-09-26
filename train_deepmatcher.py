@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     # Run deepmatcher algorithm
 
-    """ train, validation, test = dm.data.process(
+    train, validation, test = dm.data.process(
         path=DEEPMATCH_DIR, 
         cache=path.join(CACHE_DIR, deepmatcher_cfg['train']['cache_name'] + '.pth'),
         train=cfg['split']['train_data_name'] + '.csv', 
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     predictions = model.run_prediction(candidate, output_attributes=True, device=device)
     predictions.to_csv(
         path.join(RESULTS_DIR, deepmatcher_cfg['train']['predictions_data_name'] + '.csv')
-    ) """
+    )
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 
@@ -151,7 +151,7 @@ if __name__ == "__main__":
 
     # Run a similarity matching algorithm based on simple logistic regression
 
-    train = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['train_data_name'] + '.csv'))
+    """ train = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['train_data_name'] + '.csv'))
     val = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['val_data_name'] + '.csv'))
     unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['unlabeled_data_name'] + '.csv'))
 
@@ -180,8 +180,8 @@ if __name__ == "__main__":
     # unlabeled.to_csv(path.join(RESULTS_DIR, 'predictions_logistic_desc.csv'))
     predictions = get_match_predictions(unlabeled)
 
-    print(get_statistics(predictions))
-
-    """ # predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_new_cat_rand.csv'))
-    predictions = get_match_predictions(predictions)
     print(get_statistics(predictions)) """
+
+    # predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_new_cat_rand.csv'))
+    predictions = get_match_predictions(predictions)
+    print(get_statistics(predictions))
