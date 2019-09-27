@@ -68,7 +68,7 @@ def get_statistics(
             'recall': recall,
             'accuracy': accurcy,
             'F1': F1,
-            'wrong': results.iloc[wrong_preds]}
+            'wrong': results.loc[wrong_preds]}
 
 
 def get_pos_neg_ratio(dataset: pandas.DataFrame, label_attr='label'):
@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 
-    """ unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, 'unlabeled_rand.csv'))
+    """ unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['unlabeled_data_name'] + '.csv'))
     simil = Similarity(data=unlabeled, ignore_columns=ignore_columns, na_value='')
     predictions = simil.get_scores(tokenizer=sm.QgramTokenizer(qval=5))
     # predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_no_name_prod_hybrid.csv'))
@@ -182,6 +182,6 @@ if __name__ == "__main__":
 
     print(get_statistics(predictions)) """
 
-    # predictions = pandas.read_csv(path.join(RESULTS_DIR, 'predictions_rnn_pos_neg_fasttext_new_cat_rand.csv'))
+    # predictions = pandas.read_csv(path.join(RESULTS_DIR, deepmatcher_cfg['train']['predictions_data_name'] + '.csv'))
     predictions = get_match_predictions(predictions)
     print(get_statistics(predictions))
