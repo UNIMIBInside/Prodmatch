@@ -112,7 +112,7 @@ if __name__ == "__main__":
         device=device
     )
     model = dm.MatchingModel(
-        attr_summarizer=dm.attr_summarizers.RNN(),
+        attr_summarizer=dm.attr_summarizers.Attention(),
         attr_comparator='abs-diff'
     )
     model.initialize(train, device=device)

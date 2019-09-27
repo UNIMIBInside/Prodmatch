@@ -96,7 +96,7 @@ if __name__ == "__main__":
         attr_comparator='abs-diff'
     )
     model.load_state(
-        path.join(RESULTS_DIR, 'models', 'rnn_pos_neg_fasttext_new_cat_rand_model.pth'),
+        path.join(RESULTS_DIR, 'models', cfg['deepmatcher']['train']['best_model_name'] + '.pth'),
         device=device)
     candidate = dm.data.process_unlabeled(
         path.join(RESULTS_DIR, 'offers.csv'),

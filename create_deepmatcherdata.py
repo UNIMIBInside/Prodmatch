@@ -39,7 +39,7 @@ def read_files_start_with(folder: str, prefix: str, contains=None, **kwargs):
     List of pandas.DataFrame object, sorted by filename
     """
 
-    if contains is None:
+    if contains is None or contains == []:
         prefixed = sorted([
             filename for filename in os.listdir(
             folder) if filename.startswith(prefix)
