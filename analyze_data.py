@@ -48,10 +48,36 @@ def get_attr_avg_var_len(dataset: pandas.DataFrame, col: str):
     return numpy.nanmean(lengths), numpy.nanvar(lengths)
 
 def get_most_frequent_words(dataset: pandas.DataFrame, col: str, top_n=10):
-    return pandas.DataFrame(   
-        pandas.Series(' '.join(dataset['descriptionSeller']).split()).value_counts(),
-        columns=['Count']
-    ).rename_axis('Word').iloc[:top_n, :]
+    """
+        Get the most frequent word in the specified column
+
+        Parameters
+        ----------
+
+        dataset (pandas.DataFrame): the dataset to search in
+        col (str): a string specifing the column
+        top_n (int or str): get at most `top_n` results.
+            If top_n is `all` then all the words will be returned
+
+        Returns
+        -------
+
+        The top_n frequent words
+    """
+    if isinstance(top_n, int) and top_n > 0:
+        return pandas.DataFrame(   
+            pandas.Series(' '.join(dataset[col]).split()).value_counts(),
+            columns=['Count']
+        ).rename_axis('Word').iloc[:top_n, :]
+    elif isinstance(top_n, str) and top_n == 'all':
+       return pandas.DataFrame(   
+            pandas.Series(' '.join(dataset[col]).split()).value_counts(),
+            columns=['Count']
+        ).rename_axis('Word')
+    else:
+        raise Exception('top_n must be an integer greater than 0 or a the string \'all\'') 
+
+
 
 if __name__ == '__main__':
     dataset = pandas.read_csv(
