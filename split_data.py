@@ -1,18 +1,7 @@
 import os
-import numpy
 import pandas
 from os import path
 from ceneje_prodmatch import DATA_DIR, UNSPLITTED_DATA_DIR, DEEPMATCH_DIR, CONFIG_DIR
-
-categories = {
-    873: "Digital_camera",
-    930: "Summer_tires",
-    931: "Winter_tires",
-    1666: "Accumulator_drillers",
-    971: "Laptops",
-    1014: "Men_sneakers",
-    174: "Cartridges"
-}
 
 def split_data(
     unsplitted_prods_filename: str,
@@ -42,6 +31,7 @@ def split_data(
         **kwargs
     )
     prods_len = 0
+    sellers_len = 0
     if not path.exists(path.join(DATA_DIR, 'splitted')):
         os.makedirs(path.join(DATA_DIR, 'splitted'))
     for key, value in categories.items():
@@ -52,8 +42,19 @@ def split_data(
         maps.to_csv(path.join(DATA_DIR, 'splitted', 'SellerProductsMapping_' + value + '.csv'), sep='\t', encoding='utf-8')
         sellers.to_csv(path.join(DATA_DIR, 'splitted', 'SellerProductsData_' + value + '.csv'), sep='\t', encoding='utf-8')
         prods_len += len(prods)
+        sellers_len += len(sellers)
+    print(sellers_len, len(unsplitted_sellers))
 
 if __name__ == '__main__':
+    categories = {
+        873: "Digital_camera",
+        930: "Summer_tires",
+        931: "Winter_tires",
+        1666: "Accumulator_drillers",
+        971: "Laptops",
+        1014: "Men_sneakers",
+        174: "Cartridges"
+    }
     unsplitted_prods_filename = 'Products_NewCategories_20190605.csv'
     unsplitted_maps_filename = 'SellerProductsMapping_NewCategories_20190605.csv'
     unsplitted_sellers_filename = 'SellerProductsData_NewCategories_20190605.csv'
