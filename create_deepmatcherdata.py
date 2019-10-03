@@ -240,7 +240,7 @@ if __name__ == '__main__':
             L3=unsplitted_cfg['L3_ids']
         )
     files = read_files(
-        folder=DATA_DIR,
+        folder=path.join(DATA_DIR, 'splitted'),
         prefixes=default_cfg['prefixes'],
         contains=default_cfg['contains'],
         sep='\t',
@@ -271,6 +271,7 @@ if __name__ == '__main__':
         matching,
         group_cols=deepmatcher_cfg['group_cols'],
         attributes=deepmatcher_cfg['attributes'],
+        combine_attrs=deepmatcher_cfg['combine_attrs'],
         id_attr=deepmatcher_cfg['id_attr'],
         left_prefix=deepmatcher_cfg['left_prefix'],
         right_prefix=deepmatcher_cfg['right_prefix'],

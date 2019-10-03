@@ -31,6 +31,7 @@
                 "nameSeller",
                 "descriptionSeller"
             ],
+            "combine_attrs": ["descriptionSeller", "brandSeller", "nameSeller"],
             "group_cols": ["idProduct"],
             "id_attr": "id",
             "label_attr": "label",

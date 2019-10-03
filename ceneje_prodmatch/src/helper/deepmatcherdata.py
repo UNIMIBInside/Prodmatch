@@ -32,6 +32,9 @@ class DeepmatcherData(object):
             column(s) to group by on  
         attributes: 
             list with attributes name to include in the output data  
+        combine_attrs (list):
+            list of attributes to combine, e.g. concatenate attributes values in one single attribute.  
+            It's assumed that combined_attrs is contained in or equal to attributes
         (id|label|left|right)_attr (str): 
             string that will be used to name columns
         normalize: 
@@ -67,6 +70,7 @@ class DeepmatcherData(object):
                  matching_tuples: pandas.DataFrame,
                  group_cols,
                  attributes: list,
+                 combine_attrs=None,
                  id_attr='id',
                  label_attr='label',
                  left_prefix='left_',
@@ -86,6 +90,14 @@ class DeepmatcherData(object):
                 'group_cols must be a string or list indicating by which cols the data will be grouped by')
         if attributes == [] or attributes is None:
             attributes = matching_tuples.keys().values
+        if combine_attrs != [] and combine_attrs is not None:
+            attributes_set = set(attributes)
+            combine_attrs_set = set(combine_attrs)
+            assert(attributes_set.issuperset(combine_attrs_set))
+            combined_attrs_name = 'combined_' + '_'.join(combine_attrs_set)
+            attributes = list((attributes_set - combine_attrs_set)) + [combined_attrs_name]
+            matching_tuples[combined_attrs_name] = matching_tuples.loc[:, combine_attrs_set].apply(lambda x: ' '.join(x), axis=1)  # Combine attributes
+            matching_tuples = matching_tuples.drop(combine_attrs, axis=1)  # Drop columns
         if non_match_ratio <= 0:
             raise Exception('Percentage must be positive')
         if normalize:
