@@ -3,7 +3,9 @@ import math
 import json
 import numpy
 import time
+import itertools
 from os import path
+from sklearn.utils import shuffle
 from pandas import pandas
 from ceneje_prodmatch import DATA_DIR, UNSPLITTED_DATA_DIR, DEEPMATCH_DIR, CONFIG_DIR
 from ceneje_prodmatch.src.helper import preprocess
@@ -199,14 +201,23 @@ def get_deepmatcher_data(matching_datasets: list, *args, **kwargs):
     pandas.Dataframe containing the data to be processed by Deepmatcher
     """
     
-    return pandas.concat([
+    # return pandas.concat([
+    #     DeepmatcherData(
+    #         matching,
+    #         *args,
+    #         **kwargs
+    #     ).deepdata
+    #     for matching in matching_datasets
+    # ]).reset_index(drop=True).rename_axis('id', axis=0, copy=False)
+    
+    return [
         DeepmatcherData(
             matching,
             *args,
             **kwargs
-        ).deepdata
+        )
         for matching in matching_datasets
-    ]).reset_index(drop=True).rename_axis('id', axis=0, copy=False)
+    ]
 
 
 if __name__ == '__main__':
@@ -240,7 +251,7 @@ if __name__ == '__main__':
             L3=unsplitted_cfg['L3_ids']
         )
     files = read_files(
-        folder=path.join(DATA_DIR, 'splitted'),
+        folder=path.join(DATA_DIR),
         prefixes=default_cfg['prefixes'],
         contains=default_cfg['contains'],
         sep='\t',
@@ -267,7 +278,7 @@ if __name__ == '__main__':
         pandas.concat(matching).to_csv(path.join(DATA_DIR, default_cfg['matching_data_name'] + '.csv'))
 
     # Create deepmatcher dataset
-    deepdata = get_deepmatcher_data(
+    deepdata_match = get_deepmatcher_data(
         matching,
         group_cols=deepmatcher_cfg['group_cols'],
         attributes=deepmatcher_cfg['attributes'],
@@ -279,19 +290,40 @@ if __name__ == '__main__':
         non_match_ratio=deepmatcher_cfg['non_match_ratio'],
         create_nm_mode=deepmatcher_cfg['create_nm_mode'],
         similarity_attr=deepmatcher_cfg['similarity_attr'],
-        similarity_thr=deepmatcher_cfg['similarity_thr']
-    )
-    if deepmatcher_cfg['deepmatcher_data_to_csv']:
-        deepdata.to_csv(path.join(DEEPMATCH_DIR, deepmatcher_cfg['deepmatcher_data_name'] + '.csv'))
-    print(time.time() - init)
+        similarity_thr=deepmatcher_cfg['similarity_thr'],
+        create_nm=False
+    )[0]
+
+    # if deepmatcher_cfg['deepmatcher_data_to_csv']:
+    #     deepdata.to_csv(path.join(DEEPMATCH_DIR, deepmatcher_cfg['deepmatcher_data_name'] + '.csv'))
+    # print(time.time() - init)
     
     # Split into train, validation, test and unlabeled
     if split_cfg['split']:
-        train, val, test = train_val_test_split(deepdata, split_cfg['train_val_test'])
+        train, val, test = train_val_test_split(deepdata_match.deepdata, split_cfg['train_val_test'])
         unlabeled_data = train[:math.ceil(len(train) * split_cfg['unlabeled'])]
-        train = train[math.ceil(len(train) * split_cfg['unlabeled']) + 1:]
+        train = train[math.ceil(len(train) * split_cfg['unlabeled']):]
         
-        train.to_csv(path.join(DEEPMATCH_DIR, split_cfg['train_data_name'] + '.csv'))
-        val.to_csv(path.join(DEEPMATCH_DIR, split_cfg['val_data_name'] + '.csv'))
-        test.to_csv(path.join(DEEPMATCH_DIR, split_cfg['test_data_name'] + '.csv'))
-        unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, split_cfg['unlabeled_data_name'] + '.csv'))
+        # train.to_csv(path.join(DEEPMATCH_DIR, split_cfg['train_data_name'] + '.csv'))
+        # val.to_csv(path.join(DEEPMATCH_DIR, split_cfg['val_data_name'] + '.csv'))
+        # test.to_csv(path.join(DEEPMATCH_DIR, split_cfg['test_data_name'] + '.csv'))
+        # unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, split_cfg['unlabeled_data_name'] + '.csv'))
+    
+    idProds_to_remove = list(itertools.chain(*test.loc[:, ['left_idProduct']].values))
+    # idProds_to_remove.extend(list(itertools.chain(*test.loc[:, ['right_idProduct']].values)))
+    idProds_to_remove.extend(list(itertools.chain(*unlabeled_data.loc[:, ['left_idProduct']].values)))
+    # idProds_to_remove.extend(list(itertools.chain(*unlabeled_data.loc[:, ['right_idProduct']].values)))
+    idProds_to_remove = set(idProds_to_remove)
+    deepdata_match.data = deepdata_match.data[~deepdata_match.data['idProduct'].isin(idProds_to_remove)]
+
+    deepdata_match.matching = deepdata_match.getMatchingData(deepmatcher_cfg['group_cols'], deepmatcher_cfg['label_attr'])
+    deepdata_match.non_matching = deepdata_match.getNonMatchingData(deepmatcher_cfg['label_attr'])
+    deepdata_match.deepdata = deepdata_match.getDeepdata(deepmatcher_cfg['id_attr'])
+    deepdata_match.deepdata = shuffle(deepdata_match.deepdata, random_state=42)
+    train = deepdata_match.deepdata[:int(.8 * len(deepdata_match.deepdata))]
+    validation = deepdata_match.deepdata[int(.8 * len(deepdata_match.deepdata)):]
+    
+    train.to_csv(path.join(DEEPMATCH_DIR, split_cfg['train_data_name'] + '.csv'))
+    val.to_csv(path.join(DEEPMATCH_DIR, split_cfg['val_data_name'] + '.csv'))
+    test.to_csv(path.join(DEEPMATCH_DIR, split_cfg['test_data_name'] + '.csv'))
+    unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, split_cfg['unlabeled_data_name'] + '.csv'))

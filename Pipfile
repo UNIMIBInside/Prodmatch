@@ -11,6 +11,7 @@ sklearn = "*"
 requests = "*"
 deepmatcher = {editable = true,git = "https://github.com/belerico/deepmatcher.git",ref = "torch_1.0.1"}
 py-stringmatching = "*"
+pandas-profiling = "*"
 
 [requires]
 python_version = "3.7"
