@@ -112,7 +112,8 @@ class Runner(object):
             optimizer=None,
             train=True,
             return_predictions=False,
-            log_freq=4):
+            log_freq=4,
+            device=None):
 
         datatime = 0
         runtime = 0
@@ -140,7 +141,8 @@ class Runner(object):
             for batch_idx, (data, labels) in enumerate(loader):
                 batch_start = time.time()
                 datatime += batch_start - batch_end
-
+                data = data.to(device)
+                labels = labels.to(device)
                 output = model(data)
                 loss = float('NaN')
                 if criterion:
@@ -248,6 +250,7 @@ class Runner(object):
                 criterion,
                 optimizer,
                 train=True,
+                device=device,
                 **kwargs
             )
             stats = Runner.__run(
@@ -257,6 +260,7 @@ class Runner(object):
                 criterion,
                 optimizer,
                 train=False,
+                device=device,
                 **kwargs
             )
             if getattr(stats, best_save_on)() > best:
@@ -304,6 +308,7 @@ class Runner(object):
             model=model,
             loader=loader,
             train=False,
+            device=device,
             return_predictions=True,
             **kwargs
         )
