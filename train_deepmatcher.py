@@ -127,17 +127,21 @@ if __name__ == "__main__":
         device=device
     )
     model.run_eval(test, device=device)
+    model = dm.MatchingModel(
+        attr_summarizer=dm.attr_summarizers.RNN(),
+        attr_comparator='abs-diff',
+    )
     model.load_state(
-        path.join(RESULTS_DIR, 'models', deepmatcher_cfg['train']['best_model_name'] + '.pth'),
+        path.join(RESULTS_DIR, 'models', cfg['deepmatcher']['train']['best_model_name'] + '.pth'),
         device=device)
     candidate = dm.data.process_unlabeled(
         path.join(DEEPMATCH_DIR, cfg['split']['unlabeled_data_name'] + '.csv'),
         trained_model=model,
         ignore_columns=ignore_columns + [deepmatcher_cfg['create']['label_attr']])
     predictions = model.run_prediction(candidate, output_attributes=True, device=device)
-    predictions.to_csv(
+    """ predictions.to_csv(
         path.join(RESULTS_DIR, deepmatcher_cfg['train']['predictions_data_name'] + '.csv')
-    )
+    ) """
 
     # Run a similarity matching algorithm based on manual weight of the attributes
 

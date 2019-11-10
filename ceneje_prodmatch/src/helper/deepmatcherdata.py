@@ -185,22 +185,27 @@ class DeepmatcherData(object):
                 self.similarity_attr]].apply(compute_sim_score, axis=1)
             non_match = non_match.sort_values(
                 by=['similarity'], ascending=False)
-            mask = non_match['similarity'] >= self.similarity_thr
-            simil = non_match[mask]
-            not_simil = non_match[~mask]
-            how_many_left = how_many - len(simil)
+            # take at least half of most similar products
+            how_many_left = how_many - int(how_many / 2)
+            simil = non_match.iloc[: int(how_many / 2), :]
+            others = non_match.sample(how_many_left)
+            return product([row], pandas.concat([simil, others]).values.tolist())
+            # mask = non_match['similarity'] >= self.similarity_thr
+            # simil = non_match[mask]
+            # not_simil = non_match[~mask]
+            # how_many_left = how_many - len(simil)
 
-            if how_many_left > 0:
-                return product(
-                    [row],
-                    pandas.concat(
-                        [not_simil.iloc[: how_many_left, :],
-                         simil]).values.tolist())
-            else:
-                return product(
-                    [row],
-                    simil.iloc[:how_many, :].values.tolist()
-                )
+            # if how_many_left > 0:
+            #     return product(
+            #         [row],
+            #         pandas.concat(
+            #             [not_simil.iloc[: how_many_left, :],
+            #              simil]).values.tolist())
+            # else:
+            #     return product(
+            #         [row],
+            #         simil.iloc[:how_many, :].values.tolist()
+            #     )
         else:
             non_match = self.data.loc[self.data['idProduct'] != getattr(
                 row, 'idProduct'), self.attributes]

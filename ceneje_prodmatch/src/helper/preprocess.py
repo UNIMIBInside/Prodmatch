@@ -11,12 +11,13 @@ from ceneje_prodmatch import DATA_DIR
 
 
 with open(path.join(DATA_DIR, 'slovenian-stopwords.txt'), 'r') as f:
-    stop_words = f.read().split()
+    stop_words = f.read().lower().split()
 
 # Rules to remove punctuation
 rules = str.maketrans('', '', string.punctuation)
 
 # Compiled regex
+remove_non_alphanum_regex = re.compile(r'\W+')
 insert_hashtag_regex = re.compile(r'(&)(\d+)')
 remove_brackets_regex = re.compile(r'\((.*?)\)')
 
@@ -190,11 +191,18 @@ def __normalize(s: str, **kwargs):
     # I don't know why it has to be called two times
     s = html.unescape(html.unescape(s))
     # s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
+    # s = ' '.join(
+    #     [
+    #         word for word in BeautifulSoup(s, 'lxml')\
+    #                             .get_text(separator=u' ')\
+    #                             .translate(rules)\
+    #                             .split()
+    #         if not word in stop_words
+    #     ]
+    # )
     s = ' '.join(
         [
-            word for word in BeautifulSoup(s, 'lxml')\
-                                .get_text(separator=u' ')\
-                                .translate(rules)\
+            word for word in remove_non_alphanum_regex.sub(' ', BeautifulSoup(s, 'lxml').get_text(separator=u' '))\
                                 .split()
             if not word in stop_words
         ]
