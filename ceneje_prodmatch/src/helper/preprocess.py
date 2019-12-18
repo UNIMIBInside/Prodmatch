@@ -7,6 +7,7 @@ from tqdm import tqdm
 from os import path
 from pandas import pandas
 from bs4 import BeautifulSoup
+from collections import OrderedDict
 from ceneje_prodmatch import DATA_DIR
 
 
@@ -14,7 +15,7 @@ with open(path.join(DATA_DIR, 'slovenian-stopwords.txt'), 'r') as f:
     stop_words = f.read().lower().split()
 
 # Rules to remove punctuation
-rules = str.maketrans('', '', string.punctuation)
+rules = str.maketrans(' ', ' ', string.punctuation)
 
 # Compiled regex
 remove_non_alphanum_regex = re.compile(r'\W+')
@@ -191,22 +192,27 @@ def __normalize(s: str, **kwargs):
     # I don't know why it has to be called two times
     s = html.unescape(html.unescape(s))
     # s = ' '.join(BeautifulSoup(s, 'lxml').get_text(separator=u' ').split())
+    s = [
+            word for word in BeautifulSoup(s, 'lxml')\
+                                .get_text(separator=u' ')\
+                                .strip()\
+                                .split()
+            if not word in stop_words
+        ]
+    s = ' '.join([
+            ''.join([char for char in word if char.isalpha() or char.isdigit()])
+            for word in s
+    ])
+    s = ' '.join(s.split())
+    if kwargs.get('remove_duplicated_words'):
+        s = ' '.join(OrderedDict.fromkeys(s.split()))
     # s = ' '.join(
     #     [
-    #         word for word in BeautifulSoup(s, 'lxml')\
-    #                             .get_text(separator=u' ')\
-    #                             .translate(rules)\
+    #         word for word in remove_non_alphanum_regex.sub(' ', BeautifulSoup(s, 'lxml').get_text(separator=u' '))\
     #                             .split()
     #         if not word in stop_words
     #     ]
     # )
-    s = ' '.join(
-        [
-            word for word in remove_non_alphanum_regex.sub(' ', BeautifulSoup(s, 'lxml').get_text(separator=u' '))\
-                                .split()
-            if not word in stop_words
-        ]
-    )
     return s
 
 def normalize_col(
