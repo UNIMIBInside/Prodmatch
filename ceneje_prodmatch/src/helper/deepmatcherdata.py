@@ -1,10 +1,12 @@
+import re
 import math
 import numpy
+import random
 import py_stringmatching as sm
 from pandas import pandas
 from tqdm import tqdm
 from scipy.special import comb
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 from itertools import combinations, chain, product
 from ceneje_prodmatch.src.helper import preprocess
 
@@ -40,6 +42,8 @@ class DeepmatcherData(object):
         normalize: 
             whether or not preprocess matching tuples data. It would be better if the preprocess
             takes place before creating data for deepmatcher, since data will grow on both rows and columns
+        shuffle_words (bool):
+            whether to shuffle words when creating positive examples
         create_nm (bool): 
             whether or not create non matching tuples  
         create_nm_mode (str): 
@@ -76,6 +80,7 @@ class DeepmatcherData(object):
                  left_prefix='left_',
                  right_prefix='right_',
                  normalize=False,
+                 shuffle_words=False,
                  create_nm=True,
                  create_nm_mode='similarity',
                  similarity_attr='similarity',
@@ -97,11 +102,13 @@ class DeepmatcherData(object):
             combined_attrs_name = 'combined_' + '_'.join(combine_attrs_set)
             attributes = list((attributes_set - combine_attrs_set)) + [combined_attrs_name]
             matching_tuples[combined_attrs_name] = matching_tuples.loc[:, combine_attrs_set].apply(lambda x: ' '.join(x), axis=1)  # Combine attributes
+            matching_tuples[combined_attrs_name] = matching_tuples.loc[:, combined_attrs_name].apply(lambda x: ' '.join(list(OrderedDict.fromkeys(x.split()))), axis=1)
             matching_tuples = matching_tuples.drop(combine_attrs, axis=1)  # Drop columns
         if non_match_ratio <= 0:
             raise Exception('Percentage must be positive')
         if normalize:
             self.data = preprocess.normalize(matching_tuples)
+        self.modelWordsRegex1 = re.compile(r'(?=\w*[a-zA-Z,.:;/\"\'])(?=\w*(?:[0-9]|\-))[\w\-,.:;/\"\']+')
         self.data = matching_tuples
         self.attributes = attributes
         """ 
@@ -119,7 +126,7 @@ class DeepmatcherData(object):
         self.deeplabels = [
             left_prefix + attr for attr in attributes] + [right_prefix + attr for attr in attributes]
         self.matching = self.getMatchingData(
-            group_cols, label_attr)
+            group_cols, label_attr, shuffle_words=shuffle_words)
         self.na_value = na_value
         self.non_match_ratio = non_match_ratio
         assert(create_nm_mode is not None)
@@ -150,7 +157,7 @@ class DeepmatcherData(object):
             self.non_matching = self.getNonMatchingData(label_attr)
         self.deepdata = self.getDeepdata(id_attr)
 
-    def __pairUp(self, row: namedtuple):
+    def __pairUpNegatives(self, row: namedtuple):
         def compute_sim_score(r):
             return self.metric.get_sim_score(
                 self.tokenizer.tokenize(r[self.similarity_attr]),
@@ -181,15 +188,18 @@ class DeepmatcherData(object):
             # Retrieve all products not matching with the one in getattr(row, 'idProduct')
             non_match = self.data.loc[(self.data['idProduct'] != getattr(row, 'idProduct')) & (
                 self.data[self.similarity_attr] != self.na_value), self.attributes]
-            non_match['similarity'] = non_match.loc[:, [
-                self.similarity_attr]].apply(compute_sim_score, axis=1)
-            non_match = non_match.sort_values(
-                by=['similarity'], ascending=False)
-            # take at least half of most similar products
-            how_many_left = how_many - int(how_many / 2)
-            simil = non_match.iloc[: int(how_many / 2), :]
-            others = non_match.sample(how_many_left)
-            return product([row], pandas.concat([simil, others]).values.tolist())
+            if how_many > len(non_match):
+                return product([row], non_match.values.tolist())
+            else :
+                non_match['similarity'] = non_match.loc[:, [
+                    self.similarity_attr]].apply(compute_sim_score, axis=1)
+                non_match = non_match.sort_values(
+                    by=['similarity'], ascending=False)
+                # take at least half of most similar products
+                how_many_left = how_many - math.ceil(how_many / 2)
+                simil = non_match.iloc[: math.ceil(how_many / 2), :]
+                others = non_match.iloc[math.ceil(how_many / 2):, :].sample(how_many_left)
+                return product([row], pandas.concat([simil, others]).values.tolist())
             # mask = non_match['similarity'] >= self.similarity_thr
             # simil = non_match[mask]
             # not_simil = non_match[~mask]
@@ -233,7 +243,7 @@ class DeepmatcherData(object):
         non_match = pandas.DataFrame([
             chain.from_iterable([left_prod, right_prod])
             for row in self.data[self.attributes].itertuples(index=False)
-            for left_prod, right_prod in self.__pairUp(row)
+            for left_prod, right_prod in self.__pairUpNegatives(row)
         ], columns=out_columns)
         # non_match = pandas.DataFrame([
         #     chain.from_iterable([left_prod, right_prod])
@@ -245,11 +255,54 @@ class DeepmatcherData(object):
         print('Finished')
         return non_match
 
-    def getMatchingData(self, group_cols, label_attr: str):
-        """
-        To create matching tuples i group the dataframe by idProduct, and for every group
-        i pair up products two by two (combinations)
-        """
+    def __pairUpPositives(self, group_values, shuffle_words):
+        # Get random products from the matching ones
+        # if random_spaces:
+        #     # Get random products from the matching ones
+        #     # In this case take exactly half of them
+        #     random_idx = random.sample(range(len(group_values)), int(len(group_values) / 2))
+        #     random_groups = list(map(group_values.__getitem__, random_idx))
+        #     random_spaces_sample = numpy.empty((0, len(group_values[0])))
+        #     # For every random products 
+        #     for random_group in random_groups:
+        #         # Take the names
+        #         # TODO: get attribute from parameters
+        #         name = random_group[3]
+        #         # Check if it contains a model (hf-100 for example)
+        #         if self.modelWordsRegex1.search(name):
+        #             # Replace all captured models with the same model with ramdom spaces in it
+        #             name = self.modelWordsRegex1.sub(lambda x: ''.join(map(lambda y: y + ' ' * random.randint(0, 1), x.group())), name)
+        #             # random_spaces_sample = numpy.concatenate(
+        #             #     (random_spaces_sample, [
+        #             #         numpy.hstack([random_group[:3], [name.strip()]])
+        #             #     ]))
+        #         # If no model, place random spaces in the name
+        #         random_spaces_sample = numpy.concatenate(
+        #             (random_spaces_sample, [
+        #                 numpy.hstack([random_group[:3], [' '.join(''.join(map(lambda x: x + ' ' * random.randint(0, 1), name)).split())]])
+        #             ]))
+        #     group_values = numpy.append(group_values, random_spaces_sample, axis=0)
+        if shuffle_words:
+            # Create random products shuffling the words in the name
+            random_idx = random.sample(range(len(group_values)), math.ceil(len(group_values) / 2))
+            random_groups = list(map(group_values.__getitem__, random_idx))
+            random_shuffle_sample = numpy.empty((0,len(group_values[0])))
+            for random_group in random_groups:
+                name = random_group[3]
+                splitted_name = name.split()
+                random.shuffle(splitted_name)
+                random_shuffle_sample = numpy.concatenate(
+                    (random_shuffle_sample, [
+                        numpy.hstack([random_group[:3], ' '.join(splitted_name)]),
+                    ]))
+            group_values = numpy.append(group_values, random_shuffle_sample, axis=0)
+        return combinations(group_values, 2)
+
+    def getMatchingData(self, group_cols, label_attr: str, shuffle_words=True):
+
+        # To create matching tuples i group the dataframe by idProduct, and for every group
+        # i pair up products two by two (combinations)
+
         print('Create matching data...')
         # match = self.data.groupby(group_cols)[attributes].apply(lambda x : combinations(x.values, 2))\
         #             .apply(pandas.Series)\
@@ -257,18 +310,26 @@ class DeepmatcherData(object):
         #             .apply(lambda x: list(chain.from_iterable(x)))\
         #             .apply(pandas.Series)\
         #             .set_axis(labels=self.deeplabels, axis=1, inplace=False)
-        match = pandas.DataFrame([
-            chain.from_iterable([left_prod, right_prod])
-            for idProduct, group in self.data[self.attributes].groupby(group_cols)
-            for left_prod, right_prod in combinations(group.values, 2)
-        ], columns=self.deeplabels)
+        if shuffle_words:
+            match = pandas.DataFrame([
+                chain.from_iterable([left_prod, right_prod])
+                for idProduct, group in self.data[self.attributes].groupby(group_cols)
+                for left_prod, right_prod in self.__pairUpPositives(group.values, shuffle_words)
+            ], columns=self.deeplabels)
+        else:
+            match = pandas.DataFrame([
+                chain.from_iterable([left_prod, right_prod])
+                for idProduct, group in self.data[self.attributes].groupby(group_cols)
+                for left_prod, right_prod in combinations(group.values, 2)
+            ], columns=self.deeplabels)
         match[label_attr] = 1
         print('Finished')
         return match
 
+
     def getDeepdata(self, id_attr):
         if self.create_nm_mode == 'similarity':
-            self.matching.insert(len(self.non_matching.columns) - 1, 'similarity', 0)
+            self.matching.insert(len(self.matching.columns) - 1, 'similarity', 0)
         return pandas.concat([self.matching, self.non_matching])\
             .reset_index(drop=True)\
             .rename_axis(id_attr, axis=0, copy=False)
