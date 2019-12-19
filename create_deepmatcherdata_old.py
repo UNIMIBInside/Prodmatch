@@ -51,6 +51,7 @@ def read_files_start_with(folder: str, prefix: str, contains=None, **kwargs):
             if filename.startswith(prefix) and
             any(product for product in contains if product in filename)
         ])
+    print(prefixed)
     return [
         pandas.read_csv(
             path.join(folder, prefixed[i]),
@@ -163,23 +164,32 @@ def join_datasets(
         for i in range(len(datasets))
     ]
 
-def get_matching(integrated_data: list, normalize=True, **kwargs):
+def get_matching(integrated_data: list, normalize=True, normalize_attributes=None, **kwargs):
     """
     kwargs: 
         keyword arguments to pass to normalize function
     """
-    return [
-        preprocess.normalize(
-            # For every integrated dataset, keep only those products that are duplicates (matching)
-            integrated_data[i].loc[integrated_data[i].duplicated(
-                subset='idProduct', keep=False), :],
-            **kwargs
-        )
-        if normalize
-        else integrated_data[i].loc[integrated_data[i].duplicated(
-                subset='idProduct', keep=False), :]
-        for i in range(len(integrated_data))
-    ]
+    # return [
+    #     preprocess.normalize(
+    #         # For every integrated dataset, keep only those products that are duplicates (matching)
+    #         integrated_data[i].loc[integrated_data[i].duplicated(
+    #             subset='idProduct', keep=False), :],
+    #         **kwargs
+    #     )
+    #     if normalize
+    #     else integrated_data[i].loc[integrated_data[i].duplicated(
+    #             subset='idProduct', keep=False), :]
+    #     for i in range(len(integrated_data))
+    # ]
+    matching = []
+    for i in range(len(integrated_data)):
+        duplicated_data = integrated_data[i].loc[integrated_data[i].duplicated(subset='idProduct', keep=False), :]
+        if normalize:
+            duplicated_data.loc[:, normalize_attributes] = preprocess.normalize(
+                duplicated_data.loc[:, normalize_attributes], **kwargs
+            )
+        matching.append(duplicated_data)
+    return matching
 
 
 def get_deepmatcher_data(matching_datasets: list, *args, drop_duplicates=False, drop_attributes=None, **kwargs):
@@ -264,12 +274,13 @@ if __name__ == '__main__':
     if unsplitted:
         integrated_data += integrated_unsplitted_data
     if default_cfg['integrated_data_to_csv']:
-        pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, default_cfg['integrated_data_name'] + '.csv')) 
+        pandas.concat(integrated_data).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', default_cfg['integrated_data_name'] + '.csv')) 
     
     # Get matching tuples
     matching = get_matching(
         integrated_data, 
         normalize=preprocess_cfg['normalize'], 
+        normalize_attributes=default_cfg['seller_prod_data_attrs'],
         lower=preprocess_cfg['lower'], 
         remove_brackets=preprocess_cfg['remove_brackets'],
         remove_duplicated_words=True
