@@ -3,9 +3,8 @@ import math
 import json
 import numpy
 import time
-import itertools
+import deepmatcher as dm
 from os import path
-from sklearn.utils import shuffle
 from pandas import pandas
 from ceneje_prodmatch import DATA_DIR, UNSPLITTED_DATA_DIR, DEEPMATCH_DIR, CONFIG_DIR
 from ceneje_prodmatch.src.helper import preprocess
@@ -52,6 +51,7 @@ def read_files_start_with(folder: str, prefix: str, contains=None, **kwargs):
             if filename.startswith(prefix) and
             any(product for product in contains if product in filename)
         ])
+    print(prefixed)
     return [
         pandas.read_csv(
             path.join(folder, prefixed[i]),
@@ -164,26 +164,37 @@ def join_datasets(
         for i in range(len(datasets))
     ]
 
-def get_matching(integrated_data: list, normalize=True, **kwargs):
+def get_matching(integrated_data: list, normalize=True, normalize_attributes=None, **kwargs):
     """
     kwargs: 
         keyword arguments to pass to normalize function
     """
-    return [
-        preprocess.normalize(
-            # For every integrated dataset, keep only those products that are duplicates (matching)
-            integrated_data[i].loc[integrated_data[i].duplicated(
-                subset='idProduct', keep=False), :],
-            **kwargs
-        )
-        if normalize
-        else integrated_data[i].loc[integrated_data[i].duplicated(
-                subset='idProduct', keep=False), :]
-        for i in range(len(integrated_data))
-    ]
+    # return [
+    #     preprocess.normalize(
+    #         # For every integrated dataset, keep only those products that are duplicates (matching)
+    #         integrated_data[i].loc[integrated_data[i].duplicated(
+    #             subset='idProduct', keep=False), :],
+    #         **kwargs
+    #     )
+    #     if normalize
+    #     else integrated_data[i].loc[integrated_data[i].duplicated(
+    #             subset='idProduct', keep=False), :]
+    #     for i in range(len(integrated_data))
+    # ]
+    matching = []
+    for i in range(len(integrated_data)):
+        # The following line is needed because deepmatcher expects tuple to be
+        # <left_p, right_p, label>, so I need at least two matching products to create a pair
+        duplicated_data = integrated_data[i].loc[integrated_data[i].duplicated(subset='idProduct', keep=False), :]
+        if normalize:
+            duplicated_data.loc[:, normalize_attributes] = preprocess.normalize(
+                duplicated_data.loc[:, normalize_attributes], **kwargs
+            )
+        matching.append(duplicated_data)
+    return matching
 
 
-def get_deepmatcher_data(matching_datasets: list, *args, **kwargs):
+def get_deepmatcher_data(matching_datasets: list, *args, drop_duplicates=False, drop_attributes=None, **kwargs):
     """
     Get the final deepmatcher data, ready to be processed by Deepmatcher framework
 
@@ -200,24 +211,24 @@ def get_deepmatcher_data(matching_datasets: list, *args, **kwargs):
     --------
     pandas.Dataframe containing the data to be processed by Deepmatcher
     """
-    
-    # return pandas.concat([
-    #     DeepmatcherData(
-    #         matching,
-    #         *args,
-    #         **kwargs
-    #     ).deepdata
-    #     for matching in matching_datasets
-    # ]).reset_index(drop=True).rename_axis('id', axis=0, copy=False)
-    
-    return [
-        DeepmatcherData(
-            matching,
-            *args,
-            **kwargs
-        )
-        for matching in matching_datasets
-    ]
+    if not drop_duplicates:
+        return pandas.concat([
+            DeepmatcherData(
+                matching,
+                *args,
+                **kwargs
+            ).deepdata
+            for matching in matching_datasets
+        ]).reset_index(drop=True).rename_axis('id', axis=0, copy=False)
+    else:
+        return pandas.concat([
+            DeepmatcherData(
+                matching.drop_duplicates(subset=drop_attributes),
+                *args,
+                **kwargs
+            ).deepdata
+            for matching in matching_datasets
+        ]).reset_index(drop=True).rename_axis('id', axis=0, copy=False)
 
 
 if __name__ == '__main__':
@@ -251,7 +262,7 @@ if __name__ == '__main__':
             L3=unsplitted_cfg['L3_ids']
         )
     files = read_files(
-        folder=path.join(DATA_DIR),
+        folder=path.join(DATA_DIR, 'splitted'),
         prefixes=default_cfg['prefixes'],
         contains=default_cfg['contains'],
         sep='\t',
@@ -265,65 +276,79 @@ if __name__ == '__main__':
     if unsplitted:
         integrated_data += integrated_unsplitted_data
     if default_cfg['integrated_data_to_csv']:
-        pandas.concat(integrated_data).to_csv(path.join(DATA_DIR, default_cfg['integrated_data_name'] + '.csv')) 
+        pandas.concat(integrated_data).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', default_cfg['integrated_data_name'] + '.csv')) 
     
+    # Create random unlabeled dataset from unique offers (10% of all offers that has a match)
+    # TODO: create unlabeled for multiple categories
+    unique_prods = integrated_data[0].drop_duplicates(subset=['idProduct'])
+    unlabeled = unique_prods.sample(frac=0.15, random_state=42)
+
+    # Remove from integrated offers those from unlabeled
+    integrated_data[0] = integrated_data[0]\
+                            .loc[
+                                integrated_data[0]\
+                                    .merge(unlabeled, on=['idSeller', 'idSellerProduct', 'idProduct'], how='left', indicator=True)\
+                                    ['_merge'] == 'left_only'
+                            ]
+
     # Get matching tuples
-    matching = get_matching(
-        integrated_data, 
-        normalize=preprocess_cfg['normalize'], 
-        lower=preprocess_cfg['lower'], 
-        remove_brackets=preprocess_cfg['remove_brackets']
-    )
-    if default_cfg['matching_data_to_csv']:
-        pandas.concat(matching).to_csv(path.join(DATA_DIR, default_cfg['matching_data_name'] + '.csv'))
+    # matching = get_matching(
+    #     integrated_data, 
+    #     normalize=preprocess_cfg['normalize'], 
+    #     normalize_attributes=default_cfg['seller_prod_data_attrs'],
+    #     lower=preprocess_cfg['lower'], 
+    #     remove_brackets=preprocess_cfg['remove_brackets'],
+    #     remove_duplicated_words=True
+    # )
+    # if default_cfg['matching_data_to_csv']:
+    #     pandas.concat(matching).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', default_cfg['matching_data_name'] + '.csv'))
 
-    # Create deepmatcher dataset
-    deepdata_match = get_deepmatcher_data(
-        matching,
-        group_cols=deepmatcher_cfg['group_cols'],
-        attributes=deepmatcher_cfg['attributes'],
-        combine_attrs=deepmatcher_cfg['combine_attrs'],
-        id_attr=deepmatcher_cfg['id_attr'],
-        left_prefix=deepmatcher_cfg['left_prefix'],
-        right_prefix=deepmatcher_cfg['right_prefix'],
-        label_attr=deepmatcher_cfg['label_attr'],
-        non_match_ratio=deepmatcher_cfg['non_match_ratio'],
-        create_nm_mode=deepmatcher_cfg['create_nm_mode'],
-        similarity_attr=deepmatcher_cfg['similarity_attr'],
-        similarity_thr=deepmatcher_cfg['similarity_thr'],
-        create_nm=False
-    )[0]
-
+    # # Create deepmatcher dataset
+    # deepdata = get_deepmatcher_data(
+    #     matching,
+    #     group_cols=deepmatcher_cfg['group_cols'],
+    #     attributes=deepmatcher_cfg['attributes'],
+    #     combine_attrs=deepmatcher_cfg['combine_attrs'],
+    #     id_attr=deepmatcher_cfg['id_attr'],
+    #     left_prefix=deepmatcher_cfg['left_prefix'],
+    #     right_prefix=deepmatcher_cfg['right_prefix'],
+    #     label_attr=deepmatcher_cfg['label_attr'],
+    #     non_match_ratio=deepmatcher_cfg['non_match_ratio'],
+    #     create_nm_mode=deepmatcher_cfg['create_nm_mode'],
+    #     similarity_attr=deepmatcher_cfg['similarity_attr'],
+    #     similarity_thr=deepmatcher_cfg['similarity_thr'],
+    #     drop_duplicates=True, 
+    #     drop_attributes=cfg['default']['seller_prod_data_attrs']
+    # )
     # if deepmatcher_cfg['deepmatcher_data_to_csv']:
-    #     deepdata.to_csv(path.join(DEEPMATCH_DIR, deepmatcher_cfg['deepmatcher_data_name'] + '.csv'))
+    #     deepdata.to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', deepmatcher_cfg['deepmatcher_data_name'] + '.csv'))
     # print(time.time() - init)
-    
-    # Split into train, validation, test and unlabeled
-    if split_cfg['split']:
-        train, val, test = train_val_test_split(deepdata_match.deepdata, split_cfg['train_val_test'])
-        unlabeled_data = train[:math.ceil(len(train) * split_cfg['unlabeled'])]
-        train = train[math.ceil(len(train) * split_cfg['unlabeled']):]
-        
-        # train.to_csv(path.join(DEEPMATCH_DIR, split_cfg['train_data_name'] + '.csv'))
-        # val.to_csv(path.join(DEEPMATCH_DIR, split_cfg['val_data_name'] + '.csv'))
-        # test.to_csv(path.join(DEEPMATCH_DIR, split_cfg['test_data_name'] + '.csv'))
-        # unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, split_cfg['unlabeled_data_name'] + '.csv'))
-    
-    idProds_to_remove = list(itertools.chain(*test.loc[:, ['left_idProduct']].values))
-    # idProds_to_remove.extend(list(itertools.chain(*test.loc[:, ['right_idProduct']].values)))
-    idProds_to_remove.extend(list(itertools.chain(*unlabeled_data.loc[:, ['left_idProduct']].values)))
-    # idProds_to_remove.extend(list(itertools.chain(*unlabeled_data.loc[:, ['right_idProduct']].values)))
-    idProds_to_remove = set(idProds_to_remove)
-    deepdata_match.data = deepdata_match.data[~deepdata_match.data['idProduct'].isin(idProds_to_remove)]
 
-    deepdata_match.matching = deepdata_match.getMatchingData(deepmatcher_cfg['group_cols'], deepmatcher_cfg['label_attr'])
-    deepdata_match.non_matching = deepdata_match.getNonMatchingData(deepmatcher_cfg['label_attr'])
-    deepdata_match.deepdata = deepdata_match.getDeepdata(deepmatcher_cfg['id_attr'])
-    deepdata_match.deepdata = shuffle(deepdata_match.deepdata, random_state=42)
-    train = deepdata_match.deepdata[:int(.8 * len(deepdata_match.deepdata))]
-    validation = deepdata_match.deepdata[int(.8 * len(deepdata_match.deepdata)):]
-    
-    train.to_csv(path.join(DEEPMATCH_DIR, split_cfg['train_data_name'] + '.csv'))
-    val.to_csv(path.join(DEEPMATCH_DIR, split_cfg['val_data_name'] + '.csv'))
-    test.to_csv(path.join(DEEPMATCH_DIR, split_cfg['test_data_name'] + '.csv'))
-    unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, split_cfg['unlabeled_data_name'] + '.csv'))
+    # # Split into train, validation, test and unlabeled
+    # if split_cfg['split']:
+    #     """ train, val, test = train_val_test_split(deepdata, split_cfg['train_val_test'])
+    #     unlabeled_data = train[:math.ceil(len(train) * split_cfg['unlabeled'])]
+    #     train = train[math.ceil(len(train) * split_cfg['unlabeled']) + 1:]
+        
+    #     train.to_csv(path.join(DEEPMATCH_DIR, split_cfg['train_data_name'] + '.csv'))
+    #     val.to_csv(path.join(DEEPMATCH_DIR, split_cfg['val_data_name'] + '.csv'))
+    #     test.to_csv(path.join(DEEPMATCH_DIR, split_cfg['test_data_name'] + '.csv'))
+    #     unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, split_cfg['unlabeled_data_name'] + '.csv')) """
+        
+    #     deepdata = deepdata.sample(frac=1)
+    #     unlabeled = deepdata.iloc[:math.ceil(len(deepdata) * split_cfg['unlabeled']), :]
+
+    #     train, val, test = dm.data.split(
+    #         deepdata.iloc[math.ceil(len(deepdata) * split_cfg['unlabeled']):, :], 
+    #         None, None, None, None, 
+    #         split_ratio=split_cfg['train_val_test'], 
+    #         stratified=True
+    #     )
+    #     # Drop duplicates
+    #     # merged=pandas.merge(train, test, on=['right_nameSeller', 'left_nameSeller'], how='outer', indicator=True).query('_merge=="left_only"').iloc[:, :len(train.columns)]
+    #     train.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['train_data_name'] + '.csv'))
+    #     val.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['val_data_name'] + '.csv'))
+    #     test.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['test_data_name'] + '.csv'))
+    #     unlabeled.sample(frac=1).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['unlabeled_data_name'] + '.csv'))
+
+

@@ -331,9 +331,9 @@ if __name__ == '__main__':
         )
         # Drop duplicates
         # merged=pandas.merge(train, test, on=['right_nameSeller', 'left_nameSeller'], how='outer', indicator=True).query('_merge=="left_only"').iloc[:, :len(train.columns)]
-        train.sample(frac=1).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['train_data_name'] + '.csv'))
-        val.sample(frac=1).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['val_data_name'] + '.csv'))
-        test.sample(frac=1).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['test_data_name'] + '.csv'))
+        train.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['train_data_name'] + '.csv'))
+        val.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['val_data_name'] + '.csv'))
+        test.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['test_data_name'] + '.csv'))
         unlabeled.sample(frac=1).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['unlabeled_data_name'] + '.csv'))
 
 

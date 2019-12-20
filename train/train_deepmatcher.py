@@ -93,6 +93,57 @@ if __name__ == "__main__":
     train = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['train_data_name'] + '.csv'))
     pos_neg_ratio = get_pos_neg_ratio(train)
 
+    # Run deepmatcher algorithm
+
+    train, validation, test = dm.data.process(
+        path=DEEPMATCH_DIR, 
+        cache=path.join(CACHE_DIR, deepmatcher_cfg['train']['cache_name'] + '.pth'),
+        train=cfg['split']['train_data_name'] + '.csv', 
+        validation=cfg['split']['val_data_name'] + '.csv', 
+        test=cfg['split']['test_data_name'] + '.csv',
+        ignore_columns=ignore_columns, 
+        lowercase=False,
+        embeddings='fasttext.sl.bin', 
+        id_attr=deepmatcher_cfg['create']['id_attr'], 
+        label_attr=deepmatcher_cfg['create']['label_attr'],
+        left_prefix=deepmatcher_cfg['create']['left_prefix'], 
+        right_prefix=deepmatcher_cfg['create']['right_prefix'], 
+        pca=False,
+        device=device
+    )
+    model = dm.MatchingModel(
+        attr_summarizer=dm.attr_summarizers.Attention(),
+        attr_comparator='abs-diff',
+        
+    )
+    model.initialize(train, device=device)
+    model.run_train(
+        train,
+        validation,
+        epochs=deepmatcher_cfg['train']['epochs'],
+        batch_size=deepmatcher_cfg['train']['batch_size'],
+        pos_neg_ratio=pos_neg_ratio,
+        best_save_path=path.join(RESULTS_DIR, 'models',
+                                 deepmatcher_cfg['train']['best_model_name'] + '.pth'),
+        device=device
+    )
+    model.run_eval(test, device=device)
+    model = dm.MatchingModel(
+        attr_summarizer=dm.attr_summarizers.RNN(),
+        attr_comparator='abs-diff',
+    )
+    model.load_state(
+        path.join(RESULTS_DIR, 'models', cfg['deepmatcher']['train']['best_model_name'] + '.pth'),
+        device=device)
+    candidate = dm.data.process_unlabeled(
+        path.join(DEEPMATCH_DIR, cfg['split']['unlabeled_data_name'] + '.csv'),
+        trained_model=model,
+        ignore_columns=ignore_columns + [deepmatcher_cfg['create']['label_attr']])
+    predictions = model.run_prediction(candidate, output_attributes=True, device=device)
+    """ predictions.to_csv(
+        path.join(RESULTS_DIR, deepmatcher_cfg['train']['predictions_data_name'] + '.csv')
+    ) """
+
     # Run a similarity matching algorithm based on manual weight of the attributes
 
     """ unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['unlabeled_data_name'] + '.csv'))
@@ -105,7 +156,7 @@ if __name__ == "__main__":
 
     # Run a similarity matching algorithm based on simple logistic regression
 
-    train = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['train_data_name'] + '.csv'))
+    """ train = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['train_data_name'] + '.csv'))
     val = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['val_data_name'] + '.csv'))
     unlabeled = pandas.read_csv(path.join(DEEPMATCH_DIR, cfg['split']['unlabeled_data_name'] + '.csv'))
 
@@ -134,8 +185,8 @@ if __name__ == "__main__":
     # unlabeled.to_csv(path.join(RESULTS_DIR, 'predictions_logistic_desc.csv'))
     predictions = get_match_predictions(unlabeled)
 
-    print(get_statistics(predictions))
+    print(get_statistics(predictions)) """
 
     # predictions = pandas.read_csv(path.join(RESULTS_DIR, deepmatcher_cfg['train']['predictions_data_name'] + '.csv'))
-    """ predictions = get_match_predictions(predictions)
-    print(get_statistics(predictions)) """
+    predictions = get_match_predictions(predictions)
+    print(get_statistics(predictions))

@@ -81,11 +81,11 @@ def get_most_frequent_words(dataset: pandas.DataFrame, col: str, top_n=10):
 
 if __name__ == '__main__':
     dataset = pandas.read_csv(
-        path.join(DATA_DIR, 'SellerProductsData_LedTv_20190426.csv'), 
+        path.join(DATA_DIR, 'splitted', 'SellerProductsData_Digital_camera.csv'), 
         sep='\t', 
         encoding='utf-8', 
         na_values='')
-    print(get_null_values_num_by_col(dataset, 'brandSeller'))
-    print(get_attr_avg_var_len(dataset, 'brandSeller'))
+    print(get_null_values_num_by_col(dataset, 'nameSeller'))
+    print(get_attr_avg_var_len(dataset, 'nameSeller'))
     dataset = preprocess.normalize(dataset)
-    print(get_most_frequent_words(dataset, 'descriptionSeller'))
+    print(get_most_frequent_words(dataset, 'nameSeller'))
