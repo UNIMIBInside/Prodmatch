@@ -187,9 +187,10 @@ def get_matching(integrated_data: list, normalize=True, normalize_attributes=Non
         # <left_p, right_p, label>, so I need at least two matching products to create a pair
         duplicated_data = integrated_data[i].loc[integrated_data[i].duplicated(subset='idProduct', keep=False), :]
         if normalize:
-            duplicated_data.loc[:, normalize_attributes] = preprocess.normalize(
+            norm_data = preprocess.normalize(
                 duplicated_data.loc[:, normalize_attributes], **kwargs
             )
+            duplicated_data = duplicated_data.assign(**{normalize_attributes[i]: norm_data.loc[:, normalize_attributes[i]] for i in range(len(normalize_attributes))})
         matching.append(duplicated_data)
     return matching
 
@@ -297,7 +298,7 @@ if __name__ == '__main__':
         normalize_attributes=default_cfg['seller_prod_data_attrs'],
         lower=preprocess_cfg['lower'], 
         remove_brackets=preprocess_cfg['remove_brackets'],
-        remove_duplicated_words=True
+        remove_duplicated_words=preprocess_cfg['remove_duplicated_words']
     )
     if default_cfg['matching_data_to_csv']:
         pandas.concat(matching).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', default_cfg['matching_data_name'] + '.csv'))
@@ -316,7 +317,7 @@ if __name__ == '__main__':
         create_nm_mode=deepmatcher_cfg['create_nm_mode'],
         similarity_attr=deepmatcher_cfg['similarity_attr'],
         similarity_thr=deepmatcher_cfg['similarity_thr'],
-        drop_duplicates=True, 
+        drop_duplicates=deepmatcher_cfg['drop_duplicates'], 
         drop_attributes=cfg['default']['seller_prod_data_attrs']
     )
     if deepmatcher_cfg['deepmatcher_data_to_csv']:

@@ -280,12 +280,12 @@ def normalize(
     pandas.DataFrame: DataFrame with all object columns cleaned
     """
     # Get the columns containing object values (strings)
-    df_obj_cols = df.dtypes[df.dtypes == 'object'].index.tolist()
-    if df_obj_cols == []:
-        return df
+    # df_obj_cols = df.dtypes[df.dtypes == 'object'].index.tolist()
+    # if df_obj_cols == []:
+    #     return df
     if fillna:
-        df = df.loc[:, df_obj_cols].fillna(na_value)
+        df = df.fillna(na_value)
     print('Normalizing data...')
-    df = df.loc[:, df_obj_cols].apply(numpy.vectorize(lambda x: __normalize(x, **kwargs)))
+    df = df.apply(numpy.vectorize(lambda x: __normalize(x, **kwargs)))
     print('Finished')
     return df
