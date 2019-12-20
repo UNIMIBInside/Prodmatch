@@ -55,6 +55,7 @@ def read_files_start_with(folder: str, prefix: str, contains=None, **kwargs):
     return [
         pandas.read_csv(
             path.join(folder, prefixed[i]),
+            index_col=False,
             dtype={'idProduct': object, 'idSeller': object,
                    'idSellerProduct': object},
             **kwargs
@@ -164,73 +165,6 @@ def join_datasets(
         for i in range(len(datasets))
     ]
 
-def get_matching(integrated_data: list, normalize=True, normalize_attributes=None, **kwargs):
-    """
-    kwargs: 
-        keyword arguments to pass to normalize function
-    """
-    # return [
-    #     preprocess.normalize(
-    #         # For every integrated dataset, keep only those products that are duplicates (matching)
-    #         integrated_data[i].loc[integrated_data[i].duplicated(
-    #             subset='idProduct', keep=False), :],
-    #         **kwargs
-    #     )
-    #     if normalize
-    #     else integrated_data[i].loc[integrated_data[i].duplicated(
-    #             subset='idProduct', keep=False), :]
-    #     for i in range(len(integrated_data))
-    # ]
-    matching = []
-    for i in range(len(integrated_data)):
-        # The following line is needed because deepmatcher expects tuple to be
-        # <left_p, right_p, label>, so I need at least two matching products to create a pair
-        duplicated_data = integrated_data[i].loc[integrated_data[i].duplicated(subset='idProduct', keep=False), :]
-        if normalize:
-            duplicated_data.loc[:, normalize_attributes] = preprocess.normalize(
-                duplicated_data.loc[:, normalize_attributes], **kwargs
-            )
-        matching.append(duplicated_data)
-    return matching
-
-
-def get_deepmatcher_data(matching_datasets: list, *args, drop_duplicates=False, drop_attributes=None, **kwargs):
-    """
-    Get the final deepmatcher data, ready to be processed by Deepmatcher framework
-
-    Parameters
-    ----------
-    matching_datasets (list): 
-        a list of matching products per category
-    args:
-        positional arguments to DeepmatcherData class
-    kwargs:
-        keyword arguments to DeepmatcherData class
-
-    Returns:
-    --------
-    pandas.Dataframe containing the data to be processed by Deepmatcher
-    """
-    if not drop_duplicates:
-        return pandas.concat([
-            DeepmatcherData(
-                matching,
-                *args,
-                **kwargs
-            ).deepdata
-            for matching in matching_datasets
-        ]).reset_index(drop=True).rename_axis('id', axis=0, copy=False)
-    else:
-        return pandas.concat([
-            DeepmatcherData(
-                matching.drop_duplicates(subset=drop_attributes),
-                *args,
-                **kwargs
-            ).deepdata
-            for matching in matching_datasets
-        ]).reset_index(drop=True).rename_axis('id', axis=0, copy=False)
-
-
 if __name__ == '__main__':
 
     # Import config
@@ -275,24 +209,14 @@ if __name__ == '__main__':
     )
     if unsplitted:
         integrated_data += integrated_unsplitted_data
-    if default_cfg['integrated_data_to_csv']:
-        pandas.concat(integrated_data).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', default_cfg['integrated_data_name'] + '.csv')) 
     
     # Create random unlabeled dataset from unique offers (10% of all offers that has a match)
     # TODO: create unlabeled for multiple categories
+    integrated_data[0] = integrated_data[0].loc[:, ~integrated_data[0].columns.str.contains('^Unnamed')]
     unique_prods = integrated_data[0].drop_duplicates(subset=['idProduct'])
     unlabeled = unique_prods.sample(frac=0.15, random_state=42)
-    unlabeled.reset_index(drop=True).to_csv(
+    unlabeled.reset_index(drop=True).rename_axis('id').to_csv(
         path.join(UNLABELED_DIR, split_cfg['unlabeled_data_name'] + '.csv')
     )
-
-
-    # Remove from integrated offers those from unlabeled
-    integrated_data[0] = integrated_data[0]\
-                            .loc[
-                                integrated_data[0]\
-                                    .merge(unlabeled, on=['idSeller', 'idSellerProduct', 'idProduct'], how='left', indicator=True)\
-                                    ['_merge'] == 'left_only'
-                            ]
 
 

@@ -6,7 +6,7 @@ import time
 import deepmatcher as dm
 from os import path
 from pandas import pandas
-from ceneje_prodmatch import DATA_DIR, UNSPLITTED_DATA_DIR, DEEPMATCH_DIR, CONFIG_DIR
+from ceneje_prodmatch import DATA_DIR, UNSPLITTED_DATA_DIR, DEEPMATCH_DIR, CONFIG_DIR, UNLABELED_DIR
 from ceneje_prodmatch.src.helper import preprocess
 from ceneje_prodmatch.src.helper.deepmatcherdata import DeepmatcherData, train_val_test_split
 
@@ -51,7 +51,6 @@ def read_files_start_with(folder: str, prefix: str, contains=None, **kwargs):
             if filename.startswith(prefix) and
             any(product for product in contains if product in filename)
         ])
-    print(prefixed)
     return [
         pandas.read_csv(
             path.join(folder, prefixed[i]),
@@ -183,6 +182,8 @@ def get_matching(integrated_data: list, normalize=True, normalize_attributes=Non
     # ]
     matching = []
     for i in range(len(integrated_data)):
+        # The following line is needed because deepmatcher expects tuple to be
+        # <left_p, right_p, label>, so I need at least two matching products to create a pair
         duplicated_data = integrated_data[i].loc[integrated_data[i].duplicated(subset='idProduct', keep=False), :]
         if normalize:
             duplicated_data.loc[:, normalize_attributes] = preprocess.normalize(
@@ -260,7 +261,7 @@ if __name__ == '__main__':
             L3=unsplitted_cfg['L3_ids']
         )
     files = read_files(
-        folder=path.join(DATA_DIR, 'splitted'),
+        folder=path.join(DATA_DIR, 'splitted' if cfg['default']['splitted_folder'] else ''),
         prefixes=default_cfg['prefixes'],
         contains=default_cfg['contains'],
         sep='\t',
@@ -276,6 +277,18 @@ if __name__ == '__main__':
     if default_cfg['integrated_data_to_csv']:
         pandas.concat(integrated_data).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', default_cfg['integrated_data_name'] + '.csv')) 
     
+    # Remove from integrated data those offers that appears in unlabeled file
+    # TODO: remove from all integrated files
+    unlabeled_file_name = [file_name for file_name in os.listdir(UNLABELED_DIR) if str.lower(default_cfg['contains'][0]) in file_name]
+    unlabeled = pandas.read_csv(path.join(UNLABELED_DIR, unlabeled_file_name[0]),  
+                    dtype={'idProduct': object, 'idSeller': object,'idSellerProduct': object})
+    integrated_data[0] = integrated_data[0]\
+                            .loc[
+                                integrated_data[0]\
+                                    .merge(unlabeled, on=['idSeller', 'idSellerProduct', 'idProduct'], how='left', indicator=True)\
+                                    ['_merge'] == 'left_only'
+                            ]
+
     # Get matching tuples
     matching = get_matching(
         integrated_data, 
@@ -321,7 +334,7 @@ if __name__ == '__main__':
         unlabeled_data.to_csv(path.join(DEEPMATCH_DIR, split_cfg['unlabeled_data_name'] + '.csv')) """
         
         deepdata = deepdata.sample(frac=1)
-        unlabeled = deepdata.iloc[:math.ceil(len(deepdata) * split_cfg['unlabeled']), :]
+        # unlabeled = deepdata.iloc[:math.ceil(len(deepdata) * split_cfg['unlabeled']), :]
 
         train, val, test = dm.data.split(
             deepdata.iloc[math.ceil(len(deepdata) * split_cfg['unlabeled']):, :], 
@@ -331,9 +344,9 @@ if __name__ == '__main__':
         )
         # Drop duplicates
         # merged=pandas.merge(train, test, on=['right_nameSeller', 'left_nameSeller'], how='outer', indicator=True).query('_merge=="left_only"').iloc[:, :len(train.columns)]
-        train.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['train_data_name'] + '.csv'))
-        val.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['val_data_name'] + '.csv'))
-        test.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['test_data_name'] + '.csv'))
-        unlabeled.sample(frac=1).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['unlabeled_data_name'] + '.csv'))
+        train.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['train_data_name'] + '.csv'))
+        val.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['val_data_name'] + '.csv'))
+        test.sample(frac=1).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['test_data_name'] + '.csv'))
+        # unlabeled.sample(frac=1).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['unlabeled_data_name'] + '.csv'))
 
 
