@@ -2,17 +2,19 @@
     "default": {
         "prefixes": ["SellerProductsData", "SellerProductsMapping", "Products"],
         "contains": ["LedTv"],
-        "seller_prod_data_attrs": ["brandSeller", "nameSeller", "descriptionSeller"],
+        "splitted_folder": false,
+        "seller_prod_data_attrs": ["nameSeller"],
         "ceneje_prod_data_attrs": [],
         "integrated_data_to_csv": false,
         "integrated_data_name": "integrated",
-        "matching_data_to_csv": true,
+        "matching_data_to_csv": false,
         "matching_data_name": "matching"
     },
     "preprocess": {
         "normalize": true,
         "lower": true,
-        "remove_brackets": false
+        "remove_brackets": true,
+        "remove_duplicated_words": true
     },
     "unsplitted": {
         "unsplitted_data": false,
@@ -22,14 +24,12 @@
     "deepmatcher": {
         "create": {
             "deepmatcher_data_to_csv": true,
-            "deepmatcher_data_name": "deepmatcher_new_ledtv",
+            "deepmatcher_data_name": "deepmatcher_ledtv_rand_no_brand_no_desc",
             "attributes": [
                 "idProduct",
                 "idSeller",
                 "idSellerProduct",
-                "brandSeller",
-                "nameSeller",
-                "descriptionSeller"
+                "nameSeller"
             ],
             "combine_attrs": [],
             "group_cols": ["idProduct"],
@@ -39,19 +39,20 @@
             "right_prefix": "right_",
             "normalize": false,
             "create_nm": true,
-            "create_nm_mode": "similarity",
+            "create_nm_mode": "random",
             "similarity_attr": "nameSeller",
             "metric": "Jaccard()",
             "tokenizer": "QgramTokenizer(return_set=True)",
             "na_value": "",
             "non_match_ratio": 3,
-            "similarity_thr": 0.6
+            "similarity_thr": 0.6,
+            "drop_duplicates": false
         },
         "train": {
             "left_right_ignore_cols": ["idProduct", "idSellerProduct", "idSeller"],
-            "cache_name": "cache_new_ledtv",
-            "best_model_name": "rnn_pos_neg_fasttext_new_ledtv_jaccard_name_model",
-            "predictions_data_name": "predictions_new_ledtv_model",
+            "cache_name": "cache_new_digital_camera",
+            "best_model_name": "rnn_fasttext_digital_camera_rand_no_brand_no_desc_model",
+            "predictions_data_name": "predictions_new_digital_camera_model",
             "epochs": 15,
             "batch_size": 64
         }
@@ -60,16 +61,16 @@
         "split": true,
         "train_val_test": [0.6, 0.2, 0.2],
         "unlabeled": 0.1,
-        "train_data_name": "train_new_ledtv",
-        "val_data_name": "validation_new_ledtv",
-        "test_data_name": "test_new_ledtv",
-        "unlabeled_data_name": "unlabeled_new_ledtv"
+        "train_data_name": "train_ledtv_rand_no_brand_no_desc",
+        "val_data_name": "validation_ledtv_rand_no_brand_no_desc",
+        "test_data_name": "test_ledtv_rand_no_brand_no_desc",
+        "unlabeled_data_name": "unlabeled_ledtv_rand_no_brand_no_desc"
     },
     "offers_matching": {
         "n_offers": 10,
-        "match_score_thr": 0.5,
-        "best_predictions_name": "rnn_pos_neg_fasttext_new_cat_rand_model",
-        "seller_offers_data_name": "SellerProductsData_Digital_camera",
-        "ceneje_prod_data_name": "Products_LedTv_20190426"
+        "match_score_thr": 0,
+        "best_predictions_name": "rnn_fasttext_digital_camera_jaccard_name_no_brand_no_desc_model",
+        "seller_offers_data_name": "SellerProductsData_Cameras_20191010",
+        "ceneje_prod_data_name": "Final_Products_Digital_camera"
     }
 }
