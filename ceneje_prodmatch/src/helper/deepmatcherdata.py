@@ -336,7 +336,7 @@ class DeepmatcherData(object):
             .reset_index(drop=True)\
             .rename_axis(id_attr, axis=0, copy=False)
 
-def train_val_test_split(data: pandas.DataFrame, splits: list, shuffle=True):
+def train_val_test_split(data: pandas.DataFrame, splits: list, shuffle=True, random_state=None):
     """
     Split data into train, validation and test
     """
@@ -351,7 +351,7 @@ def train_val_test_split(data: pandas.DataFrame, splits: list, shuffle=True):
     splits = numpy.cumsum(splits)
     len_data = len(data)
     train, val, test = numpy.split(
-        data.sample(frac=1, random_state=self.random_state),
+        data.sample(frac=1, random_state=random_state),
         [int(splits[0] * len_data),
          int(splits[1] * len_data)])
     return train, val, test
