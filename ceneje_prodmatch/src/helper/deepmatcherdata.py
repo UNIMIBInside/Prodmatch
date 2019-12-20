@@ -88,8 +88,10 @@ class DeepmatcherData(object):
                  tokenizer=None,
                  na_value='',
                  non_match_ratio=2,
-                 similarity_thr=0.6
+                 similarity_thr=0.6,
+                 random_state=None
     ):
+        self.random_state=random_state
         if group_cols == [] or group_cols is None:
             raise Exception(
                 'group_cols must be a string or list indicating by which cols the data will be grouped by')
@@ -198,7 +200,7 @@ class DeepmatcherData(object):
                 # take at least half of most similar products
                 how_many_left = how_many - math.ceil(how_many / 2)
                 simil = non_match.iloc[: math.ceil(how_many / 2), :]
-                others = non_match.iloc[math.ceil(how_many / 2):, :].sample(how_many_left)
+                others = non_match.iloc[math.ceil(how_many / 2):, :].sample(how_many_left, random_state=self.random_state)
                 return product([row], pandas.concat([simil, others]).values.tolist())
             # mask = non_match['similarity'] >= self.similarity_thr
             # simil = non_match[mask]
@@ -221,7 +223,7 @@ class DeepmatcherData(object):
                 row, 'idProduct'), self.attributes]
             return product(
                 [row],
-                non_match.sample(how_many).values.tolist()
+                non_match.sample(how_many, random_state=self.random_state).values.tolist()
             )
 
     def getNonMatchingData(self, label_attr: str):
@@ -349,7 +351,7 @@ def train_val_test_split(data: pandas.DataFrame, splits: list, shuffle=True):
     splits = numpy.cumsum(splits)
     len_data = len(data)
     train, val, test = numpy.split(
-        data.sample(frac=1, random_state=42),
+        data.sample(frac=1, random_state=self.random_state),
         [int(splits[0] * len_data),
          int(splits[1] * len_data)])
     return train, val, test
