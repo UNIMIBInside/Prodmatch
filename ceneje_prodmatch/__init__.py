@@ -19,3 +19,6 @@ if not os.path.exists(os.path.join(RESULTS_DIR, 'models')):
 if not os.path.exists(os.path.join(BASE_DIR, 'cache')):
     os.makedirs(os.path.join(BASE_DIR, 'cache'))
 CACHE_DIR = os.path.join(BASE_DIR, 'cache')
+if not os.path.exists(os.path.join(BASE_DIR, 'unlabeled_data')):
+    os.makedirs(os.path.join(BASE_DIR, 'unlabeled_data'))
+UNLABELED_DIR = os.path.join(BASE_DIR, 'unlabeled_data')
