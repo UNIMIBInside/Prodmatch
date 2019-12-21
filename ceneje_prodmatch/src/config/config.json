@@ -1,8 +1,8 @@
 {
     "default": {
         "prefixes": ["SellerProductsData", "SellerProductsMapping", "Products"],
-        "contains": ["LedTv"],
-        "splitted_folder": false,
+        "contains": ["Digital_camera"],
+        "splitted_folder": true,
         "seller_prod_data_attrs": ["nameSeller"],
         "ceneje_prod_data_attrs": [],
         "integrated_data_to_csv": false,
@@ -24,7 +24,7 @@
     "deepmatcher": {
         "create": {
             "deepmatcher_data_to_csv": true,
-            "deepmatcher_data_name": "deepmatcher_ledtv_rand_no_brand_no_desc",
+            "deepmatcher_data_name": "deepmatcher_digital_camera_rand_no_brand_no_desc_dupl",
             "attributes": [
                 "idProduct",
                 "idSeller",
@@ -51,7 +51,7 @@
         "train": {
             "left_right_ignore_cols": ["idProduct", "idSellerProduct", "idSeller"],
             "cache_name": "cache_new_digital_camera",
-            "best_model_name": "rnn_fasttext_digital_camera_rand_no_brand_no_desc_model",
+            "best_model_name": "rnn_fasttext_digital_camera_rand_no_brand_no_desc_no_dupl_model",
             "predictions_data_name": "predictions_new_digital_camera_model",
             "epochs": 15,
             "batch_size": 64
@@ -59,17 +59,18 @@
     },
     "split": {
         "split": true,
-        "train_val_test": [0.6, 0.2, 0.2],
+        "train_val": [0.8, 0.2],
+        "test": 0.2,
         "unlabeled": 0.1,
-        "train_data_name": "train_ledtv_rand_no_brand_no_desc",
-        "val_data_name": "validation_ledtv_rand_no_brand_no_desc",
-        "test_data_name": "test_ledtv_rand_no_brand_no_desc",
-        "unlabeled_data_name": "unlabeled_ledtv_rand_no_brand_no_desc"
+        "train_data_name": "train_digital_camera_rand_no_brand_no_desc_dupl",
+        "val_data_name": "validation_digital_camera_rand_no_brand_no_desc_dupl",
+        "test_data_name": "test_digital_camera_no_brand_no_desc",
+        "unlabeled_data_name": "unlabeled_digital_camera_no_brand_no_desc"
     },
     "offers_matching": {
         "n_offers": 10,
         "match_score_thr": 0,
-        "best_predictions_name": "rnn_fasttext_digital_camera_jaccard_name_no_brand_no_desc_model",
+        "best_predictions_name": "rnn_fasttext_digital_camera_jaccard_name_no_brand_no_desc_dupl_model",
         "seller_offers_data_name": "SellerProductsData_Cameras_20191010",
         "ceneje_prod_data_name": "Final_Products_Digital_camera"
     }

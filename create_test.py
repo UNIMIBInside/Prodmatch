@@ -276,9 +276,7 @@ if __name__ == '__main__':
     )
     if unsplitted:
         integrated_data += integrated_unsplitted_data
-    if default_cfg['integrated_data_to_csv']:
-        pandas.concat(integrated_data).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', default_cfg['integrated_data_name'] + '.csv')) 
-    
+
     # Remove from integrated data those offers that appears in unlabeled file
     # TODO: remove from all integrated files
     unlabeled_file_name = [file_name for file_name in os.listdir(UNLABELED_DIR) if str.lower(default_cfg['contains'][0]) in file_name]
@@ -300,8 +298,6 @@ if __name__ == '__main__':
         remove_brackets=preprocess_cfg['remove_brackets'],
         remove_duplicated_words=preprocess_cfg['remove_duplicated_words']
     )
-    if default_cfg['matching_data_to_csv']:
-        pandas.concat(matching).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', default_cfg['matching_data_name'] + '.csv'))
 
     # Create deepmatcher dataset
     deepdata = get_deepmatcher_data(
@@ -314,31 +310,12 @@ if __name__ == '__main__':
         right_prefix=deepmatcher_cfg['right_prefix'],
         label_attr=deepmatcher_cfg['label_attr'],
         non_match_ratio=deepmatcher_cfg['non_match_ratio'],
-        create_nm_mode=deepmatcher_cfg['create_nm_mode'],
+        create_nm_mode='similarity',
         similarity_attr=deepmatcher_cfg['similarity_attr'],
         similarity_thr=deepmatcher_cfg['similarity_thr'],
-        drop_duplicates=deepmatcher_cfg['drop_duplicates'], 
+        drop_duplicates=True, 
         drop_attributes=cfg['default']['seller_prod_data_attrs']
     )
-    print(time.time() - init)
-
-    # Remove from integrated data those offers that appears in deepmatcher test file
-    # TODO: remove from all integrated files
-    cols = ['idSeller', 'idSellerProduct', 'idProduct']
-    left_cols = [deepmatcher_cfg['left_prefix'] + col for col in cols]
-    right_cols = [deepmatcher_cfg['right_prefix'] + col for col in cols]
-
-    test_file_name = [file_name for file_name in os.listdir(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19')) if file_name.startswith('test') and str.lower(default_cfg['contains'][0]) in file_name]
-    test = pandas.read_csv(path.join(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19'), test_file_name[0]),  
-                    dtype={key: object for key in left_cols+right_cols})
-    deepdata = deepdata.loc[
-                    deepdata\
-                        .merge(test, on=left_cols+right_cols, how='left', indicator=True)\
-                        ['_merge'] == 'left_only'
-    ]
-
-    if deepmatcher_cfg['deepmatcher_data_to_csv']:
-        deepdata.to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', deepmatcher_cfg['deepmatcher_data_name'] + '.csv'))
 
     # Split into train, validation, test and unlabeled
     if split_cfg['split']:
@@ -356,18 +333,18 @@ if __name__ == '__main__':
         deepdata = deepdata.sample(frac=1, random_state=random_state)
         # unlabeled = deepdata.iloc[:math.ceil(len(deepdata) * split_cfg['unlabeled']), :]
 
-        train, val = dm.data.split(
+        _, test = dm.data.split(
             deepdata, 
             None, None, None, None, 
-            split_ratio=split_cfg['train_val'], 
+            split_ratio=1-split_cfg['test'], 
             stratified=True,
             random_state=random.getstate()
         )
         # Drop duplicates
         # merged=pandas.merge(train, test, on=['right_nameSeller', 'left_nameSeller'], how='outer', indicator=True).query('_merge=="left_only"').iloc[:, :len(train.columns)]
-        train.sample(frac=1, random_state=random_state).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['train_data_name'] + '.csv'))
-        val.sample(frac=1, random_state=random_state).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['val_data_name'] + '.csv'))
-        # test.sample(frac=1, random_state=random_state).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['test_data_name'] + '.csv'))
+        # train.sample(frac=1, random_state=random_state).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['train_data_name'] + '.csv'))
+        # val.sample(frac=1, random_state=random_state).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['val_data_name'] + '.csv'))
+        test.sample(frac=1, random_state=random_state).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['test_data_name'] + '.csv'))
         # unlabeled.sample(frac=1).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '18_12_19', split_cfg['unlabeled_data_name'] + '.csv'))
 
 
