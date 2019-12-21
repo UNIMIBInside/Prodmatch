@@ -316,6 +316,13 @@ if __name__ == '__main__':
         drop_duplicates=True, 
         drop_attributes=cfg['default']['seller_prod_data_attrs']
     )
+    
+    cols = ['idSeller', 'idSellerProduct', 'idProduct']
+    left_cols = [deepmatcher_cfg['left_prefix'] + col for col in cols]
+    right_cols = [deepmatcher_cfg['right_prefix'] + col for col in cols]
+    
+    deepdata = deepdata.drop_duplicates(subset=left_cols+right_cols)
+
 
     # Split into train, validation, test and unlabeled
     if split_cfg['split']:

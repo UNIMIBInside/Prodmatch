@@ -318,24 +318,27 @@ if __name__ == '__main__':
         similarity_attr=deepmatcher_cfg['similarity_attr'],
         similarity_thr=deepmatcher_cfg['similarity_thr'],
         drop_duplicates=deepmatcher_cfg['drop_duplicates'], 
-        drop_attributes=cfg['default']['seller_prod_data_attrs']
+        drop_attributes=True,
+        shuffle_words=deepmatcher_cfg['shuffle_words']
     )
     print(time.time() - init)
 
     # Remove from integrated data those offers that appears in deepmatcher test file
     # TODO: remove from all integrated files
-    cols = ['idSeller', 'idSellerProduct', 'idProduct']
-    left_cols = [deepmatcher_cfg['left_prefix'] + col for col in cols]
-    right_cols = [deepmatcher_cfg['right_prefix'] + col for col in cols]
+    if deepmatcher_cfg['drop_duplicates']:
+        cols = default_cfg['seller_prod_data_attrs']
+        left_cols = [deepmatcher_cfg['left_prefix'] + col for col in cols]
+        right_cols = [deepmatcher_cfg['right_prefix'] + col for col in cols]
 
-    test_file_name = [file_name for file_name in os.listdir(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19')) if file_name.startswith('test') and str.lower(default_cfg['contains'][0]) in file_name]
-    test = pandas.read_csv(path.join(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19'), test_file_name[0]),  
-                    dtype={key: object for key in left_cols+right_cols})
-    deepdata = deepdata.loc[
-                    deepdata\
-                        .merge(test, on=left_cols+right_cols, how='left', indicator=True)\
-                        ['_merge'] == 'left_only'
-    ]
+        test_file_name = [file_name for file_name in os.listdir(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19')) if file_name.startswith('test') and str.lower(default_cfg['contains'][0]) in file_name]
+        test = pandas.read_csv(path.join(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19'), test_file_name[0]),  
+                        dtype={key: object for key in left_cols+right_cols})
+        deepdata = deepdata.loc[
+                        deepdata\
+                            .merge(test, on=left_cols+right_cols, how='left', indicator=True)\
+                            ['_merge'] == 'left_only'
+        ]
+        deepdata = deepdata.drop_duplicates(subset=left_cols+right_cols)
 
     if deepmatcher_cfg['deepmatcher_data_to_csv']:
         deepdata.to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', deepmatcher_cfg['deepmatcher_data_name'] + '.csv'))
@@ -365,6 +368,9 @@ if __name__ == '__main__':
         )
         # Drop duplicates
         # merged=pandas.merge(train, test, on=['right_nameSeller', 'left_nameSeller'], how='outer', indicator=True).query('_merge=="left_only"').iloc[:, :len(train.columns)]
+        if 'similarity' not in train.columns.values.tolist():
+            train.insert(len(train.columns) - 1, 'similarity', 0)
+            val.insert(len(val.columns) - 1, 'similarity', 0)
         train.sample(frac=1, random_state=random_state).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['train_data_name'] + '.csv'))
         val.sample(frac=1, random_state=random_state).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['val_data_name'] + '.csv'))
         # test.sample(frac=1, random_state=random_state).set_index(['id']).to_csv(path.join(DEEPMATCH_DIR, 'experiments', '20_12_19', split_cfg['test_data_name'] + '.csv'))
