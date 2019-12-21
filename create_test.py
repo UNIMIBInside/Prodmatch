@@ -295,7 +295,7 @@ if __name__ == '__main__':
         normalize=preprocess_cfg['normalize'], 
         normalize_attributes=default_cfg['seller_prod_data_attrs'],
         lower=preprocess_cfg['lower'], 
-        remove_brackets=preprocess_cfg['remove_brackets'],
+        remove_brackets=False,
         remove_duplicated_words=preprocess_cfg['remove_duplicated_words']
     )
 

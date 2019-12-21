@@ -13,7 +13,7 @@
     "preprocess": {
         "normalize": true,
         "lower": true,
-        "remove_brackets": true,
+        "remove_brackets": false,
         "remove_duplicated_words": true
     },
     "unsplitted": {
